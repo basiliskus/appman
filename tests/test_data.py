@@ -7,6 +7,9 @@ import yamale
 
 from . import util
 
+SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
+SCHEMAS_PATH = os.path.join(SCRIPT_PATH, "../schemas")
+
 
 def test_validate_files():
     for fpath in util.get_data_paths(""):
@@ -15,7 +18,6 @@ def test_validate_files():
 
 
 def test_validate_schema():
-    sfolder = "../schemas"
     simple = ["vscode", "sublime", "missing"]
     snames = ["config", "packages", "formulas", "package-managers"]
     tf = tempfile.NamedTemporaryFile(delete=False)
@@ -28,7 +30,7 @@ def test_validate_schema():
                 sfname = f"{sname}-simple.yaml"
             else:
                 sfname = f"{sname}.yaml"
-            spath = os.path.join(sfolder, sfname)
+            spath = os.path.join(SCHEMAS_PATH, sfname)
             if util.replace_in_tmp_file(spath, tf.name):
                 spath = tf.name
             schema = yamale.make_schema(spath)

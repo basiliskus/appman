@@ -1,6 +1,11 @@
+import os
+
 import pytest
 
-from .. import appman
+from appman import AppMan
+
+SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
+DATA_PATH = os.path.join(SCRIPT_PATH, "../data")
 
 test = True
 os = ["windows", "linux", "macos"]
@@ -20,8 +25,7 @@ testdata = [
 
 @pytest.fixture
 def appman():
-    data_dir = "../data"
-    return appman.AppMan(data_dir)
+    return AppMan(DATA_PATH)
 
 
 @pytest.mark.parametrize(

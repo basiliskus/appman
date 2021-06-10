@@ -2,32 +2,31 @@ import os
 
 import yaml
 
-
-data_path = "../data"
-schemas_path = "../schemas"
-config_path = "../data/config.yaml"
+SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
+DATA_PATH = os.path.join(SCRIPT_PATH, "../data")
+CONFIG_PATH = os.path.join(SCRIPT_PATH, "../data/config.yaml")
 svars = ["tags"]
 
 
 def get_data_paths(dtype):
     if dtype == "config":
-        fpath = os.path.join(data_path, f"{dtype}.yaml")
+        fpath = os.path.join(DATA_PATH, f"{dtype}.yaml")
         yield fpath
 
-    dpath = os.path.join(data_path, dtype)
+    dpath = os.path.join(DATA_PATH, dtype)
     for path, directories, files in os.walk(dpath):
         for name in files:
             fpath = os.path.join(path, name)
             yield fpath
 
 
-def replace_in_tmp_file(data_path, tmp_path):
+def replace_in_tmp_file(DATA_PATH, tmp_path):
     # load config file
-    with open(config_path, encoding="utf-8") as file:
+    with open(CONFIG_PATH, encoding="utf-8") as file:
         fconfig = yaml.load(file, Loader=yaml.FullLoader)
 
     # load data file
-    with open(data_path, encoding="utf-8") as file:
+    with open(DATA_PATH, encoding="utf-8") as file:
         fdata = file.read()
 
     # replace variables if found in data file
