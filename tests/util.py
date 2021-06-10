@@ -3,8 +3,8 @@ import os
 import yaml
 
 SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
-DATA_PATH = os.path.join(SCRIPT_PATH, "../data")
-CONFIG_PATH = os.path.join(SCRIPT_PATH, "../data/config.yaml")
+DATA_PATH = os.path.join(SCRIPT_PATH, os.pardir, "data")
+CONFIG_PATH = os.path.join(SCRIPT_PATH, os.pardir, "data/config.yaml")
 svars = ["tags"]
 
 

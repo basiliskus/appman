@@ -5,7 +5,7 @@ import pytest
 from appman import AppMan
 
 SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
-DATA_PATH = os.path.join(SCRIPT_PATH, "../data")
+DATA_PATH = os.path.join(SCRIPT_PATH, os.pardir, "data")
 
 test = True
 os = ["windows", "linux", "macos"]
