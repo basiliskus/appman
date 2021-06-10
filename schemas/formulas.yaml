@@ -1,0 +1,5 @@
+init: str(required=False)
+install: str(required=False)
+install-global: str(required=False)
+uninstall: str(required=False)
+update-all: str(required=False)

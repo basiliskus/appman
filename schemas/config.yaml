@@ -1,0 +1,17 @@
+os: list()
+defaults:
+  pm:
+    cli: include('package-manager')
+    gui: include('package-manager')
+    backend: include('package-manager')
+    fonts: include('package-manager')
+    drivers: include('package-manager')
+    vscode: include('package-manager')
+    provisioned: include('package-manager')
+  tags: list()
+---
+package-manager:
+  any: list(required=False)
+  windows: list(required=False)
+  ubuntu: list(required=False)
+  macos: list(required=False)

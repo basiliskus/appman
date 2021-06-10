@@ -1,0 +1,29 @@
+any(list(include('package')), include('package'))
+---
+package:
+  name: str()
+  description: str(required=False)
+  labels: list(enum($tags), required=False)
+  pid: include('pid', required=False)
+  formulas: list(include('formula'), required=False)
+  comments: str(required=False)
+  home: str(required=False)
+  notes: str(required=False)
+  requires: str(required=False)
+
+pid:
+  appx: str(required=False)
+  apt: str(required=False)
+  cargo: str(required=False)
+  choco: str(required=False)
+  npm: str(required=False)
+  pip: str(required=False)
+  scoop: str(required=False)
+  snap: str(required=False)
+  winget: str(required=False)
+
+formula:
+  name: str()
+  args: any(required=False)
+  os: str()
+  notes: str(required=False)
