@@ -16,6 +16,13 @@ yamale = "^3.0.6"
 flake8 = "^3.9.2"
 black = {version = "^21.6b0", allow-prereleases = true}
 
+[tool.pytest.ini_options]
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+    "data",
+]
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
