@@ -4,9 +4,6 @@ import pytest
 
 from appman import AppMan
 
-SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
-DATA_PATH = os.path.join(SCRIPT_PATH, os.pardir, "data")
-
 test = True
 os = ["windows", "linux", "macos"]
 action = ["init", "install", "uninstall", "update-all"]
@@ -24,15 +21,15 @@ testdata = [
 
 
 @pytest.fixture
-def appman():
-    return AppMan(DATA_PATH)
+def appman(data_root):
+    return AppMan(data_root)
 
 
 @pytest.mark.parametrize(
     "action, os, pt, label, shell, allusers, noinit, sudo", testdata
 )
 def test_one(appman, action, os, pt, label, shell, allusers, noinit, sudo):
-    pn = "oh-my-zsh"
+    pn = "curl"
     package = appman.get_package(pt, pn)
     formula = appman.find_best_formula(os, package)
     if not formula:
