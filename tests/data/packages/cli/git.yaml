@@ -1,0 +1,9 @@
+name: git
+description: Distributed version control system
+labels:
+  - essentials
+  - dev
+pid:
+  scoop: git
+  winget: Git.Git
+  apt: git

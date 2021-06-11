@@ -1,0 +1,32 @@
+os:
+  - windows
+  - unix-like:
+    - linux:
+      - ubuntu
+    - macos
+defaults:
+  pm:
+    cli:
+      windows: [ scoop, choco, npm, pip, cargo ]
+      ubuntu: [ apt, npm, pip, cargo ]
+      macos: [ brew, npm, pip, cargo ]
+    gui:
+      windows: [ choco ]
+      ubuntu: [ apt ]
+      macos: [ brew ]
+    backend:
+      any: [ npm, pip, cargo ]
+    fonts:
+      windows: [ scoop ]
+      ubuntu: []
+      macos: [ brew ]
+    drivers:
+      any: []
+    vscode:
+      any: [ vscode-extensions ]
+    provisioned:
+      windows: [ appx ]
+  tags:
+    - dev
+    - essentials
+    - utils

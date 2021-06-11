@@ -1,0 +1,2 @@
+uninstall: >
+  Get-AppxPackage -Name $pid -AllUsers | Remove-AppxPackage -AllUsers;

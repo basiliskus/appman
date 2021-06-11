@@ -1,0 +1,4 @@
+init: choco upgrade chocolatey
+install: choco install --confirm $pid
+uninstall: choco uninstall --confirm $pid
+update-all: choco upgrade all

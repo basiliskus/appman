@@ -8,4 +8,4 @@ install:
 - poetry install
 
 script:
-- poetry run pytest
+- poetry run pytest --datapath $TRAVIS_BUILD_DIR/data

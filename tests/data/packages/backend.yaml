@@ -1,0 +1,4 @@
+- name: pyyaml
+  pid: { pip: pyyaml }
+- name: pytest
+  pid: { pip: pytest }

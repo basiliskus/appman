@@ -1,0 +1,4 @@
+- name: BingNews
+  pid: { appx: Microsoft.BingNews }
+- name: BingWeather
+  pid: { appx: Microsoft.BingWeather }

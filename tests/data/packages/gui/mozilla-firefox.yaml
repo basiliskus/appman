@@ -1,0 +1,6 @@
+name: Mozilla Firefox
+labels:
+  - essentials
+pid:
+  choco: firefox
+  winget: Mozilla.Firefox

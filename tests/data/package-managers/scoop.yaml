@@ -1,0 +1,8 @@
+init: >-
+  scoop update --quiet
+  && scoop bucket add extra
+  && scoop bucket add nerd-fonts
+install: scoop install $pid
+install-global: scoop install --global $pid
+uninstall: scoop uninstall $pid
+update-all: scoop update --quiet *
