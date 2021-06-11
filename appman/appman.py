@@ -1,7 +1,10 @@
 import os
 import re
-import yaml
 import subprocess
+
+import yaml
+
+from appman.config import CONFIG_PATH, PM_DIR, FORMULAS_DIR, PACKAGES_DIR
 
 
 class AppMan:
@@ -10,10 +13,41 @@ class AppMan:
         self.config = None
         self.packages = []
         self.formulas = []
-        self.load(path)
+        self.load_data(path)
 
-    def load(self, path):
-        self._load_data_recursively(path)
+    def load_data(self, path):
+        # config
+        cfdata, _ = self._load_data_file(CONFIG_PATH)
+        self.config = Config(cfdata)
+
+        # package managers
+        for pmdata, pmpath in list(self._load_data_dir(PM_DIR)):
+            pmname, _ = self._get_path_parameters(PM_DIR, pmpath)
+            pm = Formula(pmname)
+            pm.load(pmdata)
+            self.formulas.append(pm)
+
+        # formulas
+        for fdata, fpath in self._load_data_dir(FORMULAS_DIR):
+            fname, fos = self._get_path_parameters(FORMULAS_DIR, fpath)
+            formula = Formula(fname, fos, custom=True)
+            formula.load(fdata)
+            self.formulas.append(formula)
+
+        # packages: cli
+        for package in self._create_packages("cli"):
+            self.packages.append(package)
+
+        # packages: gui
+        for package in self._create_packages("gui"):
+            self.packages.append(package)
+
+        # packages: group by files
+        for pdata, ppath in self._load_data_dir(PACKAGES_DIR, recursive=False):
+            pname, ptype = self._get_path_parameters(PACKAGES_DIR, ppath)
+            package = Package(pname, ptype)
+            package.load(pdata)
+            self.packages.append(package)
 
     def get_packages(self, os, package_type, label=None):
         for package in self.packages:
@@ -64,51 +98,38 @@ class AppMan:
         for pm in self.config.get_compatible_pms(os, package.type):
             if pm in fnames:
                 return self.get_formula(pm)
-
         return None
 
-    def _load_data_recursively(self, path, groups=[], level=0):
-        with os.scandir(path) as it:
-            for entry in it:
-                if entry.is_file() and entry.name.endswith(".yaml"):
-                    name = os.path.splitext(entry.name)[0]
-                    with open(entry.path, encoding="utf-8") as f:
-                        data = yaml.load(f, Loader=yaml.FullLoader)
-                        self._load_type(name, data, groups)
-                elif entry.is_dir():
-                    self._load_data_recursively(
-                        os.path.join(path, entry.name),
-                        groups + [entry.name],
-                        level + 1,
-                    )
+    def _create_packages(self, ptype):
+        ptdir = os.path.join(PACKAGES_DIR, ptype)
+        for pdata, ppath in self._load_data_dir(ptdir):
+            pname, _ = self._get_path_parameters(PACKAGES_DIR, ppath)
+            package = Package(pname, ptype)
+            package.load(pdata)
+            yield package
 
-    def _load_type(self, name, data, groups):
-        if not groups and name == "config":
-            self.config = Config(data)
-        elif groups[0] == "packages":
-            if len(groups) > 1:
-                package = Package(name, groups[1])
-                package.load(data)
-                self.packages.append(package)
-            else:
-                for d in data:
-                    if isinstance(d, str):
-                        pname = d
-                        format = "simple"
-                    else:
-                        pname = d["name"]
-                        format = "default"
-                    package = Package(pname, name, format)
-                    package.load(d)
-                    self.packages.append(package)
-        elif groups[0] == "formulas":
-            formula = Formula(name, groups[1], custom=True)
-            formula.load(data)
-            self.formulas.append(formula)
-        elif groups[0] == "package-managers":
-            pm = Formula(name)
-            pm.load(data)
-            self.formulas.append(pm)
+    def _load_data_file(self, path):
+        name = os.path.splitext(os.path.basename(path))[0]
+        with open(path, encoding="utf-8") as file:
+            data = yaml.load(file, Loader=yaml.FullLoader)
+        return data, name
+
+    def _load_data_dir(self, path, recursive=True):
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                if file.endswith(".yaml"):
+                    fpath = os.path.join(root, file)
+                    yield self._load_data_file(fpath)
+            if not recursive:
+                break
+
+    def _get_path_parameters(self, root, path):
+        fname = os.path.basename(path)
+        name = os.path.splitext(fname)[0]
+        dpath = os.path.dirname(path).strip("/")
+        rpath = dpath.replace(root, "")
+        pnames = rpath.strip("/").split("/")
+        return name, pnames[-1]
 
 
 class Package:
