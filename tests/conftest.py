@@ -8,12 +8,23 @@ def pytest_addoption(parser):
     parser.addoption(
         "--packages-path", action="store", help="Path to packages definition folder"
     )
+    parser.addoption(
+        "--config",
+        action="store",
+        default="config.yaml",
+        help="Name for the config file",
+    )
 
 
 @pytest.fixture
 def packages_root(request):
     ppath = request.config.getoption("--packages-path")
     return os.path.join(config.ROOT_DIR, ppath)
+
+
+@pytest.fixture
+def config_file(request):
+    return request.config.getoption("--config")
 
 
 @pytest.fixture
@@ -27,8 +38,8 @@ def schemas_root():
 
 
 @pytest.fixture
-def config_path():
-    return os.path.join(config.DATA_DIR, "config.yaml")
+def config_path(config_file):
+    return os.path.join(config.DATA_DIR, config_file)
 
 
 @pytest.fixture

@@ -2,6 +2,7 @@
 tests/packages
 
 credentials.conf
+*.personal.yaml
 
 # python
 # Byte-compiled / optimized / DLL files
