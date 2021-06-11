@@ -1,11 +1,9 @@
-import os
-
 import pytest
 
-from appman import AppMan
+from appman.appman import AppMan
 
 test = True
-os = ["windows", "linux", "macos"]
+oss = ["windows", "linux", "macos"]
 action = ["init", "install", "uninstall", "update-all"]
 pt = ["cli", "gui", "backend", "fonts", "drivers", "vscode", "provisioned"]
 label = ["essentials", "development", "communication", "browser"]
@@ -14,24 +12,27 @@ noinit = [True, False]
 sudo = [True, False]
 allusers = [True, False]
 
-testdata = [
+test_single_package = [
+    ("install", "linux", "cli", "curl", "", False, False, False),
+]
+
+test_packages = [
     ("install", "linux", "cli", "essentials", "", False, False, False),
     ("install", "windows", "cli", "essentials", "", False, False, False),
 ]
 
 
 @pytest.fixture
-def appman(data_root):
-    return AppMan(data_root)
+def appm(packages_root):
+    return AppMan(packages_root)
 
 
 @pytest.mark.parametrize(
-    "action, os, pt, label, shell, allusers, noinit, sudo", testdata
+    "action, os, pt, pn, shell, allusers, noinit, sudo", test_single_package
 )
-def test_one(appman, action, os, pt, label, shell, allusers, noinit, sudo):
-    pn = "curl"
-    package = appman.get_package(pt, pn)
-    formula = appman.find_best_formula(os, package)
+def test_get_single_package(appm, action, os, pt, pn, shell, allusers, noinit, sudo):
+    package = appm.get_package(pt, pn)
+    formula = appm.find_best_formula(os, package)
     if not formula:
         print(f"Formula not found for: {package.name}")
         return
@@ -42,12 +43,14 @@ def test_one(appman, action, os, pt, label, shell, allusers, noinit, sudo):
 
 
 @pytest.mark.parametrize(
-    "action, os, pt, label, shell, allusers, noinit, sudo", testdata
+    "action, os, pt, label, shell, allusers, noinit, sudo", test_packages
 )
-def test_two(appman, action, os, pt, label, shell, allusers, noinit, sudo):
-    packages = appman.get_packages(os, pt, label)
+def test_get_packages_using_filters(
+    appm, action, os, pt, label, shell, allusers, noinit, sudo
+):
+    packages = appm.get_packages(os, pt, label)
     for package in packages:
-        formula = appman.find_best_formula(os, package)
+        formula = appm.find_best_formula(os, package)
         if not formula:
             print(f"Formula not found for: {package.name}")
             return

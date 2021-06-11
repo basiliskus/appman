@@ -1,23 +1,37 @@
 import os
 
 import yaml
-
-# SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
-# DATA_PATH = os.path.join(SCRIPT_PATH, os.pardir, "data")
-# CONFIG_PATH = os.path.join(SCRIPT_PATH, os.pardir, "data/config.yaml")
-# svars = ["tags"]
+import yamale
 
 
-def get_data_paths(data_root, data_type):
-    if data_type == "config":
-        fpath = os.path.join(data_root, f"{data_type}.yaml")
-        yield fpath
+def safe_load_yaml_files(path):
+    for fpath in get_file_paths(path):
+        with open(fpath, encoding="utf-8") as file:
+            yaml.safe_load(file)
 
-    dpath = os.path.join(data_root, data_type)
-    for path, directories, files in os.walk(dpath):
+
+def get_file_paths(data_root):
+    for path, directories, files in os.walk(data_root):
         for name in files:
             fpath = os.path.join(path, name)
             yield fpath
+
+
+def get_validation_files(schemas_root, data_root, name):
+    schema_path = os.path.join(schemas_root, f"{name}.yaml")
+    data_path = os.path.join(data_root, name)
+    return schema_path, data_path
+
+
+def validate_schema(schema_path, data_path):
+    schema = yamale.make_schema(schema_path)
+    data = yamale.make_data(data_path)
+    yamale.validate(schema, data)
+
+
+def validate_data_schema(schema_path, root_path):
+    for fpath in get_file_paths(root_path):
+        validate_schema(schema_path, fpath)
 
 
 def replace_in_tmp_file(config_path, data_path, tmp_path, svars):

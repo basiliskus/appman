@@ -1,30 +1,34 @@
 import os
 import pytest
 
-
-ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
+from appman import config
 
 
 def pytest_addoption(parser):
-    parser.addoption("--datapath", action="store", default="fixtures")
+    parser.addoption(
+        "--packages-path", action="store", help="Path to packages defintion folder"
+    )
 
 
 @pytest.fixture
-def data_root(request):
-    datapath = request.config.getoption("--datapath")
-    if datapath == "fixtures":
-        datapath = os.path.join(ROOT_PATH, datapath)
-    return datapath
+def packages_root(request):
+    ppath = request.config.getoption("--packages-path")
+    return os.path.join(config.ROOT_DIR, ppath)
 
 
 @pytest.fixture
-def schemas_path():
-    return os.path.join(ROOT_PATH, os.pardir, "schemas")
+def data_root():
+    return config.DATA_DIR
 
 
 @pytest.fixture
-def config_path(data_root):
-    return os.path.join(data_root, "config.yaml")
+def schemas_root():
+    return config.SCHEMAS_DIR
+
+
+@pytest.fixture
+def config_path():
+    return os.path.join(config.DATA_DIR, "config.yaml")
 
 
 @pytest.fixture

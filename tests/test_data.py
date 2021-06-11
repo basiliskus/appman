@@ -1,36 +1,46 @@
 import os
 import tempfile
 
-import yaml
-import pytest
-import yamale
+# import pytest
 
-from . import util
+import util
 
 
-def test_validate_files(data_root):
-    for fpath in util.get_data_paths(data_root, ""):
-        with open(fpath, encoding="utf-8") as file:
-            yaml.safe_load(file)
+def test_load_data_files(data_root):
+    util.safe_load_yaml_files(data_root)
 
 
-def test_validate_schema(data_root, config_path, schemas_path, svars):
+def test_load_package_files(packages_root):
+    util.safe_load_yaml_files(packages_root)
+
+
+def test_validate_config_schema(schemas_root, config_path):
+    schema_path = os.path.join(schemas_root, "config.yaml")
+    util.validate_schema(schema_path, config_path)
+
+
+def test_validate_data_schemas(schemas_root, data_root):
+    # validate formulas
+    [spath, dpath] = util.get_validation_files(schemas_root, data_root, "formulas")
+    util.validate_data_schema(spath, dpath)
+
+    # validate package managers
+    [_, dpath] = util.get_validation_files(schemas_root, data_root, "package-managers")
+    util.validate_data_schema(spath, dpath)
+
+
+def test_validate_packages_schema(schemas_root, packages_root, config_path, svars):
     simple = ["vscode", "sublime", "missing"]
-    snames = ["config", "packages", "formulas", "package-managers"]
     tf = tempfile.NamedTemporaryFile(delete=False)
-    for sname in snames:
-        for fpath in util.get_data_paths(data_root, sname):
-            fname = os.path.splitext(os.path.basename(fpath))[0]
-            if sname == "package-managers":
-                sfname = "formulas.yaml"
-            elif fname in simple:
-                sfname = f"{sname}-simple.yaml"
-            else:
-                sfname = f"{sname}.yaml"
-            spath = os.path.join(schemas_path, sfname)
-            if util.replace_in_tmp_file(config_path, spath, tf.name, svars):
-                spath = tf.name
-            schema = yamale.make_schema(spath)
-            data = yamale.make_data(fpath)
-            yamale.validate(schema, data)
+    schema_path = os.path.join(schemas_root, "packages.yaml")
+    for fpath in util.get_file_paths(packages_root):
+        fname = os.path.splitext(os.path.basename(fpath))[0]
+        spath = (
+            schema_path.replace(".yaml", "-simple.yaml")
+            if fname in simple
+            else schema_path
+        )
+        if util.replace_in_tmp_file(config_path, spath, tf.name, svars):
+            spath = tf.name
+        util.validate_schema(spath, fpath)
     os.remove(tf.name)
