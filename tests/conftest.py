@@ -6,7 +6,7 @@ from appman import config
 
 def pytest_addoption(parser):
     parser.addoption(
-        "--packages-path", action="store", help="Path to packages defintion folder"
+        "--packages-path", action="store", help="Path to packages definition folder"
     )
 
 

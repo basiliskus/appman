@@ -4,7 +4,7 @@ import subprocess
 
 import yaml
 
-from appman.config import CONFIG_PATH, PM_DIR, FORMULAS_DIR, PACKAGES_DIR
+from appman.config import CONFIG_PATH, PM_DIR, FORMULAS_DIR
 
 
 class AppMan:
@@ -35,16 +35,16 @@ class AppMan:
             self.formulas.append(formula)
 
         # packages: cli
-        for package in self._create_packages("cli"):
+        for package in self._create_packages(path, "cli"):
             self.packages.append(package)
 
         # packages: gui
-        for package in self._create_packages("gui"):
+        for package in self._create_packages(path, "gui"):
             self.packages.append(package)
 
         # packages: group by files
-        for pdata, ppath in self._load_data_dir(PACKAGES_DIR, recursive=False):
-            pname, ptype = self._get_path_parameters(PACKAGES_DIR, ppath)
+        for pdata, ppath in self._load_data_dir(path, recursive=False):
+            pname, ptype = self._get_path_parameters(path, ppath)
             package = Package(pname, ptype)
             package.load(pdata)
             self.packages.append(package)
@@ -60,6 +60,7 @@ class AppMan:
 
     def get_package(self, package_type, name):
         for package in self.packages:
+            print(f"package.type: {package.type} / package.name: {package.name}")
             if package.type == package_type and package.name == name:
                 return package
         return None
@@ -100,10 +101,10 @@ class AppMan:
                 return self.get_formula(pm)
         return None
 
-    def _create_packages(self, ptype):
-        ptdir = os.path.join(PACKAGES_DIR, ptype)
+    def _create_packages(self, path, ptype):
+        ptdir = os.path.join(path, ptype)
         for pdata, ppath in self._load_data_dir(ptdir):
-            pname, _ = self._get_path_parameters(PACKAGES_DIR, ppath)
+            pname, _ = self._get_path_parameters(path, ppath)
             package = Package(pname, ptype)
             package.load(pdata)
             yield package
