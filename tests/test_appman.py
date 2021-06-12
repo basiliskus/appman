@@ -1,6 +1,7 @@
 import pytest
 
-from appman.appman import AppMan
+from .context import appman
+
 
 test = True
 oss = ["windows", "linux", "macos"]
@@ -24,7 +25,7 @@ test_packages = [
 
 @pytest.fixture
 def appm(packages_root):
-    return AppMan(packages_root)
+    return appman.AppMan(packages_root)
 
 
 @pytest.mark.parametrize(

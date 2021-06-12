@@ -1,6 +1,6 @@
 import click
 
-from appman import AppMan
+from . import core
 
 
 @click.group()
@@ -14,7 +14,7 @@ from appman import AppMan
 @click.option("--test", "-t", is_flag=True, help="Test run")
 @click.pass_context
 def cli(ctx, yaml_dir, test):
-    am = AppMan(yaml_dir)
+    am = core.AppMan(yaml_dir)
     ctx.obj = {
         "appman": am,
         "test": test,

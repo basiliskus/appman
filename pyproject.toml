@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "Application Management"
 authors = ["Basilio Bogado <541149+basiliskus@users.noreply.github.com>"]
 license = "MIT"
+readme = "readme.md"
+homepage = "https://github.com/basiliskus/appman"
+repository = "https://github.com/basiliskus/appman.git"
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -22,6 +25,9 @@ testpaths = [
     "tests",
     "data",
 ]
+
+[tool.poetry.scripts]
+appman = 'appman.cli:cli'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

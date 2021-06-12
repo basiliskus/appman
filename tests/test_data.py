@@ -3,7 +3,7 @@ import tempfile
 
 # import pytest
 
-import util
+from . import util
 
 
 def test_load_data_files(data_root):
