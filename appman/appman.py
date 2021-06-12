@@ -4,7 +4,7 @@ import subprocess
 
 import yaml
 
-from appman.config import CONFIG_PATH, PM_DIR, FORMULAS_DIR
+from config import CONFIG_PATH, PM_DIR, FORMULAS_DIR
 
 
 class AppMan:
@@ -60,7 +60,6 @@ class AppMan:
 
     def get_package(self, package_type, name):
         for package in self.packages:
-            print(f"package.type: {package.type} / package.name: {package.name}")
             if package.type == package_type and package.name == name:
                 return package
         return None
