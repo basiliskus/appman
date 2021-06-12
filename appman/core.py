@@ -4,7 +4,7 @@ import subprocess
 
 import yaml
 
-from config import CONFIG_PATH, PM_DIR, FORMULAS_DIR
+from . import config
 
 
 class AppMan:
@@ -17,19 +17,19 @@ class AppMan:
 
     def load_data(self, path):
         # config
-        cfdata, _ = self._load_data_file(CONFIG_PATH)
+        cfdata, _ = self._load_data_file(config.CONFIG_PATH)
         self.config = Config(cfdata)
 
         # package managers
-        for pmdata, pmpath in list(self._load_data_dir(PM_DIR)):
-            pmname, _ = self._get_path_parameters(PM_DIR, pmpath)
+        for pmdata, pmpath in list(self._load_data_dir(config.PM_DIR)):
+            pmname, _ = self._get_path_parameters(config.PM_DIR, pmpath)
             pm = Formula(pmname)
             pm.load(pmdata)
             self.formulas.append(pm)
 
         # formulas
-        for fdata, fpath in self._load_data_dir(FORMULAS_DIR):
-            fname, fos = self._get_path_parameters(FORMULAS_DIR, fpath)
+        for fdata, fpath in self._load_data_dir(config.FORMULAS_DIR):
+            fname, fos = self._get_path_parameters(config.FORMULAS_DIR, fpath)
             formula = Formula(fname, fos, custom=True)
             formula.load(fdata)
             self.formulas.append(formula)
