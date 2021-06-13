@@ -5,16 +5,16 @@ from . import core
 
 @click.group()
 @click.option(
-    "--yaml-dir",
-    "-f",
+    "--packages-path",
+    "-p",
     type=click.Path(exists=True, file_okay=False, writable=True),
     default="../data",
     help="Specify data path",
 )
 @click.option("--test", "-t", is_flag=True, help="Test run")
 @click.pass_context
-def cli(ctx, yaml_dir, test):
-    am = core.AppMan(yaml_dir)
+def cli(ctx, packages_path, test):
+    am = core.AppMan(packages_path)
     ctx.obj = {
         "appman": am,
         "test": test,
@@ -34,9 +34,8 @@ def cli(ctx, yaml_dir, test):
     type=click.Choice(["windows", "linux", "macos"], case_sensitive=False),
     help="OS type",
 )
-@click.option("--packagename", "-pn", help="Package name")
 @click.option(
-    "--packagetype",
+    "--package-type",
     "-pt",
     type=click.Choice(
         ["cli", "gui", "backend", "fonts", "drivers", "vscode", "provisioned"],
@@ -44,6 +43,7 @@ def cli(ctx, yaml_dir, test):
     ),
     help="Package type",
 )
+@click.option("--package-name", "-pn", help="Package name")
 @click.option(
     "--label",
     type=click.Choice(
@@ -64,8 +64,8 @@ def run(
     ctx,
     action,
     os,
-    packagename,
-    packagetype,
+    package_name,
+    package_type,
     label,
     shell,
     sudo,
@@ -73,8 +73,8 @@ def run(
     no_init,
 ):
     appman = ctx.obj["appman"]
-    if packagename:
-        package = appman.get_package(packagetype, packagename)
+    if package_name:
+        package = appman.get_package(package_type, package_name)
         package_run(
             package,
             action,
@@ -87,7 +87,7 @@ def run(
             ctx.obj["test"],
         )
     else:
-        packages = appman.get_packages(os, packagetype, label)
+        packages = appman.get_packages(os, package_type, label)
         for package in packages:
             package_run(
                 package,
