@@ -50,13 +50,15 @@ class AppMan:
             self.packages.append(package)
 
     def get_packages(self, os, package_type, label=None):
-        for package in self.packages:
+        return [
+            package
+            for package in self.packages
             if (
                 package.type == package_type
                 and package.has_label(label)
                 and package.is_compatible(os, self.config)
-            ):
-                yield package
+            )
+        ]
 
     def get_package(self, package_type, name):
         for package in self.packages:
