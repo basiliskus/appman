@@ -4,14 +4,6 @@ from .context import appman
 
 
 test = True
-oss = ["windows", "linux", "macos"]
-action = ["init", "install", "uninstall", "update-all"]
-pt = ["cli", "gui", "backend", "fonts", "drivers", "vscode", "provisioned"]
-label = ["essentials", "development", "communication", "browser"]
-shell = ["cmd", "powershell"]
-noinit = [True, False]
-sudo = [True, False]
-allusers = [True, False]
 
 test_single_package = [
     ("install", "linux", "cli", "curl", "", False, False, False),
@@ -29,9 +21,9 @@ def appm(packages_root):
 
 
 @pytest.mark.parametrize(
-    "action, os, pt, pn, shell, allusers, noinit, sudo", test_single_package
+    "action, os, pt, pn, shell, sudo, allusers, noinit", test_single_package
 )
-def test_get_single_package(appm, action, os, pt, pn, shell, allusers, noinit, sudo):
+def test_get_single_package(appm, action, os, pt, pn, shell, sudo, allusers, noinit):
     package = appm.get_package(pt, pn)
     formula = appm.find_best_formula(os, package)
     if not formula:
@@ -44,10 +36,10 @@ def test_get_single_package(appm, action, os, pt, pn, shell, allusers, noinit, s
 
 
 @pytest.mark.parametrize(
-    "action, os, pt, label, shell, allusers, noinit, sudo", test_packages
+    "action, os, pt, label, shell, sudo, allusers, noinit", test_packages
 )
 def test_get_packages_using_filters(
-    appm, action, os, pt, label, shell, allusers, noinit, sudo
+    appm, action, os, pt, label, shell, sudo, allusers, noinit
 ):
     packages = appm.get_packages(os, pt, label)
     for package in packages:

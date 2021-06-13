@@ -5,7 +5,9 @@ Improvements:
   [ ] add integration tests
     [x] sanity checks @done(21-06-09 23:49)
     [x] validate yaml data format @done(21-06-09 23:49)
+    [ ] add test cases for unexpected behaviour
   [x] set up continous integration @done(21-06-11 06:53)
+  [ ] add validations for cli
   [ ] add logging
 New Features:
   [ ] CLI for yaml file to create, delete and edit app entries
