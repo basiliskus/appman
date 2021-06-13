@@ -51,7 +51,7 @@ def cli(ctx, packages_path, test):
     type=click.Choice(["cmd", "powershell"], case_sensitive=False),
     help="Shell to run commands",
 )
-@click.option("--sudo", is_flag=True, help="Run with sudo")
+# @click.option("--sudo", is_flag=True, help="Run with sudo")
 # @click.option("--global", "-g", "allusers", is_flag=True, help="Is global")
 @click.option("--no-init", is_flag=True, help="Avoid running initialization scripts")
 @click.pass_context
@@ -63,7 +63,7 @@ def run(
     package_type,
     label,
     shell,
-    sudo,
+    # sudo,
     # allusers,
     no_init,
 ):
@@ -79,7 +79,7 @@ def run(
             appman,
             os,
             shell,
-            sudo,
+            # sudo,
             # allusers,
             no_init,
             ctx.obj["test"],
@@ -98,7 +98,7 @@ def run(
                 appman,
                 os,
                 shell,
-                sudo,
+                # sudo,
                 # allusers,
                 no_init,
                 ctx.obj["test"],
@@ -111,7 +111,7 @@ def package_run(
     appman,
     os,
     shell,
-    sudo,
+    # sudo,
     # allusers,
     noinit,
     test,
@@ -123,7 +123,7 @@ def package_run(
 
     if not noinit:
         formula.init(test)
-    package.run(formula, action, shell, sudo, test)
+    package.run(formula, action, shell, test)
 
 
 if __name__ == "__main__":

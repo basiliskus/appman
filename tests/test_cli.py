@@ -62,11 +62,11 @@ def test_entrypoint():
 @pytest.mark.parametrize("package_type", cliargs["package-type"])
 @pytest.mark.parametrize("package_name", cliargs["package-name"])
 @pytest.mark.parametrize("shell", cliargs["shell"])
-@pytest.mark.parametrize("sudo", cliargs["sudo"])
-@pytest.mark.parametrize("allusers", cliargs["global"])
+# @pytest.mark.parametrize("sudo", cliargs["sudo"])
+# @pytest.mark.parametrize("allusers", cliargs["global"])
 @pytest.mark.parametrize("no_init", cliargs["no-init"])
 def test_install_single_package(
-    packages_root, os, package_type, package_name, shell, sudo, allusers, no_init
+    packages_root, os, package_type, package_name, shell, no_init
 ):
     args = ["--packages-path", packages_root]
     args += ["--test"]
@@ -78,8 +78,8 @@ def test_install_single_package(
         args += ["--shell", shell]
     if no_init:
         args += ["--no-init"]
-    if sudo:
-        args += ["--sudo"]
+    # if sudo:
+    #     args += ["--sudo"]
     # if allusers:
     #     args += ["--global"]
     runner = CliRunner()
@@ -92,11 +92,11 @@ def test_install_single_package(
 @pytest.mark.parametrize("package_type", cliargs["package-type"])
 @pytest.mark.parametrize("label", cliargs["label"])
 @pytest.mark.parametrize("shell", cliargs["shell"])
-@pytest.mark.parametrize("sudo", cliargs["sudo"])
-@pytest.mark.parametrize("allusers", cliargs["global"])
+# @pytest.mark.parametrize("sudo", cliargs["sudo"])
+# @pytest.mark.parametrize("allusers", cliargs["global"])
 @pytest.mark.parametrize("no_init", cliargs["no-init"])
 def test_install_multiple_packages(
-    packages_root, os, package_type, label, shell, sudo, allusers, no_init
+    packages_root, os, package_type, label, shell, no_init
 ):
     args = ["--packages-path", packages_root]
     args += ["--test"]
@@ -109,8 +109,8 @@ def test_install_multiple_packages(
         args += ["--shell", shell]
     if no_init:
         args += ["--no-init"]
-    if sudo:
-        args += ["--sudo"]
+    # if sudo:
+    #     args += ["--sudo"]
     # if allusers:
     #     args += ["--global"]
     runner = CliRunner()
