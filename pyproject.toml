@@ -18,9 +18,10 @@ pytest = "^6.2.4"
 yamale = "^3.0.6"
 flake8 = "^3.9.2"
 black = {version = "^21.6b0", allow-prereleases = true}
+rope = "^0.19.0"
 
 [tool.pytest.ini_options]
-addopts = "-ra -q"
+addopts = "-ra -q -s"
 testpaths = [
     "tests",
     "data",
