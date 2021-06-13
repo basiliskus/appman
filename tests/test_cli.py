@@ -63,7 +63,7 @@ def test_entrypoint():
 @pytest.mark.parametrize("package_name", cliargs["package-name"])
 @pytest.mark.parametrize("shell", cliargs["shell"])
 @pytest.mark.parametrize("sudo", cliargs["sudo"])
-# @pytest.mark.parametrize("allusers", cliargs["global"])
+@pytest.mark.parametrize("allusers", cliargs["global"])
 @pytest.mark.parametrize("no_init", cliargs["no-init"])
 def test_install_single_package(
     packages_root, os, package_type, package_name, shell, sudo, allusers, no_init
@@ -80,8 +80,8 @@ def test_install_single_package(
         args += ["--no-init"]
     if sudo:
         args += ["--sudo"]
-    if allusers:
-        args += ["--global"]
+    # if allusers:
+    #     args += ["--global"]
     runner = CliRunner()
     result = runner.invoke(appman.cli, args)
     result.exception
