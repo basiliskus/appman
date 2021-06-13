@@ -123,7 +123,7 @@ def package_run(
 
     if not noinit:
         formula.init(test)
-    package.run(formula, action, shell, test)
+    package.run(formula, action, shell=shell, test=test)
 
 
 if __name__ == "__main__":
