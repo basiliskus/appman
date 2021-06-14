@@ -17,17 +17,22 @@ cliargs = {
     "global": [True, False],
     "verbose": [True, False],
     "package-id": [
-        "oh-my-zsh",
-        "yq",
+        "git",
+        "chocolatey-cli",
         "microsoft-visual-studio-code",
         "focusrite-control",
-        "chocolatey-cli",
     ],
 }
 
 packages = [
-    {"id": "oh-my-zsh", "name": "oh-my-zsh", "os": "linux", "pt": "cli"},
-    {"id": "yq", "name": "yq", "os": "linux", "pt": "cli"},
+    {"id": "git", "name": "git", "os": "linux", "pt": "cli"},
+    {
+        "id": "chocolatey-cli",
+        "name": "Chocolatey CLI",
+        "os": "windows",
+        "pt": "cli",
+        "shell": "powershell",
+    },
     {
         "id": "microsoft-visual-studio-code",
         "name": "microsoft-visual-studio-code",
@@ -39,12 +44,5 @@ packages = [
         "name": "Focusrite Control",
         "os": "windows",
         "pt": "drivers",
-    },
-    {
-        "id": "chocolatey-cli",
-        "name": "Chocolatey CLI",
-        "os": "windows",
-        "pt": "cli",
-        "shell": "powershell",
     },
 ]
