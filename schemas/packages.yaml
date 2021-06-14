@@ -1,6 +1,7 @@
 any(list(include('package')), include('package'))
 ---
 package:
+  id: str()
   name: str()
   description: str(required=False)
   labels: list(enum($tags), required=False)
