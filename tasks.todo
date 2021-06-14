@@ -17,3 +17,4 @@ New Features:
     [ ] delete: given id, or name + os + type: delete file or entry
     [ ] list: display all packages, filter by flags
 Bugs:
+  [ ] use package id instead of package name to identify package
