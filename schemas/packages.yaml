@@ -2,7 +2,7 @@ any(list(include('package')), include('package'))
 ---
 package:
   id: str()
-  name: str()
+  name: str(required=False)
   description: str(required=False)
   labels: list(enum($tags), required=False)
   pid: include('pid', required=False)

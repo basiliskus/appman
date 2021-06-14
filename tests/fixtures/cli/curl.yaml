@@ -1,4 +1,4 @@
-name: curl
+id: curl
 description: Command line tool and library for transferring data with URLs
 labels:
   - essentials

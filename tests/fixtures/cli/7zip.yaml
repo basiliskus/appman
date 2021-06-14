@@ -1,4 +1,4 @@
-name: 7zip
+id: 7zip
 description: A multi-format file archiver with high compression ratios
 labels:
   - essentials

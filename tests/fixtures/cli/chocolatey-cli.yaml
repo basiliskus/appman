@@ -1,7 +1,7 @@
+id: chocolatey-cli
 name: Chocolatey CLI
 labels:
   - essentials
-  - pm
 formulas:
   - name: ps-script
     os: windows

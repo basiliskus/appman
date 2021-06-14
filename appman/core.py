@@ -131,8 +131,6 @@ class AppMan:
                         id = d
                     elif "id" in d:
                         id = d["id"]
-                    elif "name" in d:
-                        id = d["name"]
                     yield {
                         "id": id,
                         "data": d,

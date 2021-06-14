@@ -1,12 +1,15 @@
-- name: Meslo-NF
+- id: meslo-nf
+  name: Meslo-NF
   formulas:
     - name: font-local-share
       os: linux
       args:
         source: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip
-- name: FiraCode-NF
+- id: firacode-nf
+  name: FiraCode-NF
   formulas:
     - name: font-firacode
       os: linux
-- name: Cascadia-Code
+- id: cascadia-code
+  name: Cascadia-Code
   pid: { scoop: cascadia-code }
