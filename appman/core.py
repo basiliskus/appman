@@ -171,10 +171,11 @@ class Package:
         sudo=False,
         allusers=False,
         test=False,
+        verbose=False,
     ):
         args = self.get_args(formula.name)
         command = formula.get_command(commandtype, args, allusers)
-        return command.run(shell, sudo, test)
+        return command.run(shell, sudo, test, verbose)
 
     def has_label(self, label):
         return not label or (self.labels and label in self.labels)
@@ -263,13 +264,14 @@ class Command:
         self.name = name
         self.command = command
 
-    def run(self, shell=None, sudo=False, test=False):
+    def run(self, shell=None, sudo=False, test=False, verbose=False):
         command = self.command
         if shell == "powershell":
             command = ["powershell", "-Command", command]
         if sudo:
             command = f"sudo {command}"
-        self._print(command)
+        if test or verbose:
+            self._print(command)
         if not test:
             return subprocess.run(command, shell=True, capture_output=True)
 

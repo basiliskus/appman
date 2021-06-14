@@ -19,14 +19,10 @@ from . import util
     default="../data/packages",
     help="Specify data path",
 )
-@click.option("--test", "-t", is_flag=True, help="Test run")
 @click.pass_context
-def cli(ctx, packages_path, config, test):
+def cli(ctx, packages_path, config):
     am = core.AppMan(packages_path, config)
-    ctx.obj = {
-        "appman": am,
-        "test": test,
-    }
+    ctx.obj = {"appman": am}
 
 
 @cli.command()
@@ -61,6 +57,10 @@ def cli(ctx, packages_path, config, test):
 # @click.option("--sudo", is_flag=True, help="Run with sudo")
 # @click.option("--global", "-g", "allusers", is_flag=True, help="Is global")
 @click.option("--no-init", is_flag=True, help="Avoid running initialization scripts")
+@click.option(
+    "--test", "-t", is_flag=True, help="Only print commands instead of running"
+)
+@click.option("--verbose", "-v", is_flag=True, help="Verbose output")
 @click.pass_context
 def run(
     ctx,
@@ -73,6 +73,8 @@ def run(
     # sudo,
     # allusers,
     no_init,
+    test,
+    verbose,
 ):
     appman = ctx.obj["appman"]
     if package_name:
@@ -89,7 +91,8 @@ def run(
             # sudo,
             # allusers,
             no_init,
-            ctx.obj["test"],
+            test,
+            verbose,
         )
     else:
         packages = appman.get_packages(os, package_type, label)
@@ -108,7 +111,8 @@ def run(
                 # sudo,
                 # allusers,
                 no_init,
-                ctx.obj["test"],
+                test,
+                verbose,
             )
 
 
@@ -122,6 +126,7 @@ def package_run(
     # allusers,
     noinit,
     test,
+    verbose,
 ):
     formula = appman.find_best_formula(os, package)
     if not formula:
@@ -130,7 +135,7 @@ def package_run(
 
     if not noinit:
         formula.init(test)
-    result = package.run(formula, action, shell=shell, test=test)
+    result = package.run(formula, action, shell=shell, test=test, verbose=verbose)
     if not test:
         if result.returncode == 0:
             util.print_success(f"Package installed successfully: {package.name}")
