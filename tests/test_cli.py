@@ -73,3 +73,20 @@ def test_install_multiple_packages(
     runner = CliRunner()
     result = runner.invoke(appman.cli, args)
     assert result.exit_code == 0
+
+
+@pytest.mark.parametrize("action", args.cliargs["action"])
+@pytest.mark.parametrize("os", args.cliargs["os"][0])
+@pytest.mark.parametrize("package_type", args.cliargs["package-type"][0])
+def test_actions(packages_root, config_file, action, os, package_type):
+    args = ["--config", config_file]
+    args += ["--packages-path", packages_root]
+    args += ["run", action]
+    args += ["--os", os]
+    args += ["--package-type", package_type]
+    args += ["--test"]
+    args += ["--verbose"]
+
+    runner = CliRunner()
+    result = runner.invoke(appman.cli, args)
+    assert result.exit_code == 0
