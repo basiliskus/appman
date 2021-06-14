@@ -2,3 +2,5 @@
   pid: { appx: Microsoft.BingNews }
 - name: BingWeather
   pid: { appx: Microsoft.BingWeather }
+- name: ProvisionedLinuxApp
+  pid: { apt: ProvisionedLinuxApp }

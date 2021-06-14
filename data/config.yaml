@@ -8,11 +8,11 @@ defaults:
   pm:
     cli:
       windows: [ scoop, choco, npm, pip, cargo ]
-      ubuntu: [ apt, npm, pip, cargo ]
+      ubuntu: [ apt, npm, pip, cargo, snap ]
       macos: [ brew, npm, pip, cargo ]
     gui:
       windows: [ choco ]
-      ubuntu: [ apt ]
+      ubuntu: [ apt, snap ]
       macos: [ brew ]
     backend:
       any: [ npm, pip, cargo ]
@@ -26,6 +26,7 @@ defaults:
       any: [ vscode-extensions ]
     provisioned:
       windows: [ appx ]
+      ubuntu: [ apt ]
   tags:
     - dev
     - essentials

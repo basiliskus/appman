@@ -1,0 +1,7 @@
+name: Wireshark
+labels:
+  - utils
+pid:
+  choco: wireshark
+  winget: WiresharkFoundation.Wireshark
+  apt: wireshark

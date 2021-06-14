@@ -4,3 +4,4 @@ labels:
 pid:
   choco: firefox
   winget: Mozilla.Firefox
+  apt: firefox

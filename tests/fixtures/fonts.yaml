@@ -8,3 +8,5 @@
   formulas:
     - name: font-firacode
       os: linux
+- name: Cascadia-Code
+  pid: { scoop: cascadia-code }
