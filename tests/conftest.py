@@ -24,7 +24,8 @@ def packages_root(request):
 
 @pytest.fixture
 def config_file(request):
-    return request.config.getoption("--config")
+    cpath = request.config.getoption("--config")
+    return os.path.join(config.ROOT_DIR, cpath)
 
 
 @pytest.fixture

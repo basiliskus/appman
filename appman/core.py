@@ -8,16 +8,16 @@ from . import config
 
 
 class AppMan:
-    def __init__(self, path):
+    def __init__(self, path, config=config.CONFIG_PATH):
         self.path = path
-        self.config = None
+        self.config = config
         self.packages = []
         self.formulas = []
         self.load_data(path)
 
     def load_data(self, path):
         # config
-        cfdata, _ = self._load_data_file(config.CONFIG_PATH)
+        cfdata, _ = self._load_data_file(self.config)
         self.config = Config(cfdata)
 
         # package managers
@@ -174,7 +174,7 @@ class Package:
     ):
         args = self.get_args(formula.name)
         command = formula.get_command(commandtype, args, allusers)
-        command.run(shell, sudo, test)
+        return command.run(shell, sudo, test)
 
     def has_label(self, label):
         return not label or (self.labels and label in self.labels)
@@ -187,10 +187,7 @@ class Package:
             if config.is_os_compatible(o, os):
                 return True
 
-        for pm in self.args:
-            if pm in config.get_compatible_pms(os, self.type):
-                return True
-        return False
+        return any(pm in config.get_compatible_pms(os, self.type) for pm in self.args)
 
     def get_args(self, name=None):
         if self.format == "simple":
@@ -274,7 +271,7 @@ class Command:
             command = f"sudo {command}"
         self._print(command)
         if not test:
-            subprocess.run(command, shell=True)
+            return subprocess.run(command, shell=True, capture_output=True)
 
     def _print(self, command):
         if isinstance(command, list):

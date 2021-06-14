@@ -66,9 +66,10 @@ def test_entrypoint():
 # @pytest.mark.parametrize("allusers", cliargs["global"])
 @pytest.mark.parametrize("no_init", cliargs["no-init"])
 def test_install_single_package(
-    packages_root, os, package_type, package_name, shell, no_init
+    packages_root, config_file, os, package_type, package_name, shell, no_init
 ):
-    args = ["--packages-path", packages_root]
+    args = ["--config", config_file]
+    args += ["--packages-path", packages_root]
     args += ["--test"]
     args += ["run", "install"]
     args += ["--os", os]
@@ -96,9 +97,10 @@ def test_install_single_package(
 # @pytest.mark.parametrize("allusers", cliargs["global"])
 @pytest.mark.parametrize("no_init", cliargs["no-init"])
 def test_install_multiple_packages(
-    packages_root, os, package_type, label, shell, no_init
+    packages_root, config_file, os, package_type, label, shell, no_init
 ):
-    args = ["--packages-path", packages_root]
+    args = ["--config", config_file]
+    args += ["--packages-path", packages_root]
     args += ["--test"]
     args += ["run", "install"]
     args += ["--os", os]

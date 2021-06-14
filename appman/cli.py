@@ -6,16 +6,23 @@ from . import util
 
 @click.group()
 @click.option(
+    "--config",
+    "-c",
+    type=click.Path(exists=True, dir_okay=False),
+    default="../data/config.yaml",
+    help="Specify config file path",
+)
+@click.option(
     "--packages-path",
     "-p",
     type=click.Path(exists=True, file_okay=False, writable=True),
-    default="../data",
+    default="../data/packages",
     help="Specify data path",
 )
 @click.option("--test", "-t", is_flag=True, help="Test run")
 @click.pass_context
-def cli(ctx, packages_path, test):
-    am = core.AppMan(packages_path)
+def cli(ctx, packages_path, config, test):
+    am = core.AppMan(packages_path, config)
     ctx.obj = {
         "appman": am,
         "test": test,
@@ -123,7 +130,14 @@ def package_run(
 
     if not noinit:
         formula.init(test)
-    package.run(formula, action, shell=shell, test=test)
+    result = package.run(formula, action, shell=shell, test=test)
+    if not test:
+        if result.returncode == 0:
+            util.print_success(f"Package installed successfully: {package.name}")
+        else:
+            util.print_error(
+                f"Package was not installed: {package.name}\n{result.stderr}"
+            )
 
 
 if __name__ == "__main__":
