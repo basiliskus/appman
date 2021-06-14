@@ -43,10 +43,9 @@ class AppMan:
             self.packages.append(package)
 
         # packages: group by files
-        for pdata, ppath in self._load_data_dir(path, recursive=False):
-            pname, ptype = self._get_path_parameters(path, ppath)
-            package = Package(pname, ptype)
-            package.load(pdata)
+        for presult in self._load_data_grouped(path):
+            package = Package(presult["id"], presult["ptype"])
+            package.load(presult["data"])
             self.packages.append(package)
 
     def get_packages(self, os, package_type, label=None):
@@ -62,7 +61,6 @@ class AppMan:
 
     def get_package(self, package_type, id):
         for package in self.packages:
-            print(package.id)
             if package.type == package_type and package.id == id:
                 return package
         return None
@@ -112,19 +110,34 @@ class AppMan:
             yield package
 
     def _load_data_file(self, path):
-        name = os.path.splitext(os.path.basename(path))[0]
         with open(path, encoding="utf-8") as file:
             data = yaml.load(file, Loader=yaml.FullLoader)
-        return data, name
+        return data, path
 
-    def _load_data_dir(self, path, recursive=True):
+    def _load_data_dir(self, path):
         for root, dirs, files in os.walk(path):
             for file in files:
                 if file.endswith(".yaml"):
                     fpath = os.path.join(root, file)
                     yield self._load_data_file(fpath)
-            if not recursive:
-                break
+
+    def _load_data_grouped(self, path):
+        for entry in os.scandir(path):
+            if entry.is_file() and entry.path.endswith(".yaml"):
+                data, _ = self._load_data_file(entry.path)
+                ptype = os.path.splitext(entry.name)[0]
+                for d in data:
+                    if isinstance(d, str):
+                        id = d
+                    elif "id" in d:
+                        id = d["id"]
+                    elif "name" in d:
+                        id = d["name"]
+                    yield {
+                        "id": id,
+                        "data": d,
+                        "ptype": ptype,
+                    }
 
     def _get_path_parameters(self, root, path):
         fname = os.path.basename(path)
