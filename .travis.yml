@@ -8,4 +8,4 @@ install:
 - poetry install
 
 script:
-- poetry run pytest --packages-path $TRAVIS_BUILD_DIR/tests/fixtures
+- poetry run pytest --packages-path $TRAVIS_BUILD_DIR/tests/fixtures --config $TRAVIS_BUILD_DIR/data/config.yaml
