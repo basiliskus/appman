@@ -47,7 +47,7 @@ def cli(ctx, packages_path, config):
     ),
     help="Package type",
 )
-@click.option("--package-name", "-pn", help="Package name")
+@click.option("--package-id", "-id", help="Package ID")
 @click.option("--label", help="Package label")
 @click.option(
     "--shell",
@@ -66,7 +66,7 @@ def run(
     ctx,
     action,
     os,
-    package_name,
+    package_id,
     package_type,
     label,
     shell,
@@ -77,10 +77,10 @@ def run(
     verbose,
 ):
     appman = ctx.obj["appman"]
-    if package_name:
-        package = appman.get_package(package_type, package_name)
+    if package_id:
+        package = appman.get_package(package_type, package_id)
         if not package:
-            util.print_warning(f"Package not found: {package_name}")
+            util.print_warning(f"Package not found: {package_id}")
             return
         package_run(
             package,

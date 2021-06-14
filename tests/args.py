@@ -16,7 +16,7 @@ cliargs = {
     "sudo": [True, False],
     "global": [True, False],
     "verbose": [True, False],
-    "package-name": [
+    "package-id": [
         "oh-my-zsh",
         "yq",
         "microsoft-visual-studio-code",
@@ -44,7 +44,7 @@ packages = [
         "id": "chocolatey-cli",
         "name": "Chocolatey CLI",
         "os": "windows",
-        "pt": "drivers",
+        "pt": "cli",
         "shell": "powershell",
     },
 ]
