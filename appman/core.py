@@ -60,9 +60,10 @@ class AppMan:
             )
         ]
 
-    def get_package(self, package_type, name):
+    def get_package(self, package_type, id):
         for package in self.packages:
-            if package.type == package_type and package.name == name:
+            print(package.id)
+            if package.type == package_type and package.id == id:
                 return package
         return None
 
