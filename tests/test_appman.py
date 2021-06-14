@@ -49,8 +49,15 @@ def test_get_packages_by_filters(
 
 @pytest.mark.parametrize("os", args.cliargs["os"])
 @pytest.mark.parametrize("package_type", args.cliargs["package-type"])
+def test_get_packages_by_type_returns_something(appm, os, package_type):
+    packages = appm.get_packages(os, package_type)
+    assert packages
+
+
+@pytest.mark.parametrize("os", args.cliargs["os"])
+@pytest.mark.parametrize("package_type", ["cli", "gui"])
 @pytest.mark.parametrize("label", args.cliargs["label"])
-def test_get_packages_by_filters_returns_something(appm, os, package_type, label):
+def test_get_packages_by_label_returns_something(appm, os, package_type, label):
     packages = appm.get_packages(os, package_type, label)
     assert packages
 
