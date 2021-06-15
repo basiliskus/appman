@@ -5,14 +5,14 @@ package:
   name: str(required=False)
   description: str(required=False)
   labels: list(enum($tags), required=False)
-  pm-id: include('pm-id', required=False)
+  pmid: include('pmid', required=False)
   formulas: list(include('formula'), required=False)
   comments: str(required=False)
   home: str(required=False)
   notes: str(required=False)
   requires: str(required=False)
 
-pm-id:
+pmid:
   appx: str(required=False)
   apt: str(required=False)
   cargo: str(required=False)

@@ -3,5 +3,5 @@ description: Command line tool and library for transferring data with URLs
 labels:
   - essentials
   - utils
-pm-id:
+pmid:
   apt: curl

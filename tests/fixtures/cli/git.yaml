@@ -3,7 +3,7 @@ description: Distributed version control system
 labels:
   - essentials
   - dev
-pm-id:
+pmid:
   scoop: git
   winget: Git.Git
   apt: git

@@ -2,7 +2,7 @@ id: wireshark
 name: Wireshark
 labels:
   - utils
-pm-id:
+pmid:
   choco: wireshark
   winget: WiresharkFoundation.Wireshark
   apt: wireshark

@@ -3,7 +3,7 @@ name: Microsoft Visual Studio Code
 labels:
   - essentials
   - dev
-pm-id:
+pmid:
   choco: vscode
   winget: Microsoft.VisualStudioCode
   snap: code

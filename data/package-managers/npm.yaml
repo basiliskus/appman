@@ -1,4 +1,4 @@
 init: npm install --global npm
-install: npm install --global $pm_id
-uninstall: npm uninstall $pm_id
+install: npm install --global $pmid
+uninstall: npm uninstall $pmid
 update-all: npm update --global

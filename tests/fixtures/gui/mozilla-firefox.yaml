@@ -2,7 +2,7 @@ id: mozilla-firefox
 name: Mozilla Firefox
 labels:
   - essentials
-pm-id:
+pmid:
   choco: firefox
   winget: Mozilla.Firefox
   apt: firefox
