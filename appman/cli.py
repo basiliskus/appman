@@ -28,9 +28,7 @@ def cli(ctx, packages_path, config):
 @cli.command()
 @click.argument(
     "action",
-    type=click.Choice(
-        ["init", "install", "uninstall", "update-all"], case_sensitive=False
-    ),
+    type=click.Choice(["install", "uninstall", "update-all"], case_sensitive=False),
 )
 @click.option(
     "--os",
