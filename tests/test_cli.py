@@ -85,7 +85,6 @@ def test_actions(packages_root, config_file, action, os, package_type):
     args += ["--os", os]
     args += ["--package-type", package_type]
     args += ["--test"]
-    args += ["--verbose"]
 
     runner = CliRunner()
     result = runner.invoke(appman.cli, args)
