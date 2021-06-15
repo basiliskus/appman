@@ -47,6 +47,7 @@ def test_get_packages_by_filters(
         package.run(formula, action, shell, sudo, allusers, test=True)
 
 
+@pytest.mark.skip(reason="need to be more specific about the test parameters")
 @pytest.mark.parametrize("os", args.cliargs["os"])
 @pytest.mark.parametrize("package_type", args.cliargs["package-type"])
 def test_get_packages_by_type_returns_something(appm, os, package_type):
@@ -54,6 +55,7 @@ def test_get_packages_by_type_returns_something(appm, os, package_type):
     assert packages
 
 
+@pytest.mark.skip(reason="need to be more specific about the test parameters")
 @pytest.mark.parametrize("os", args.cliargs["os"])
 @pytest.mark.parametrize("package_type", ["cli", "gui"])
 @pytest.mark.parametrize("label", args.cliargs["label"])
