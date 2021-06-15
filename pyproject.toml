@@ -28,7 +28,7 @@ testpaths = [
 ]
 
 [tool.poetry.scripts]
-appman = 'appman.cli:cli'
+appman = 'appman.cli:main'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

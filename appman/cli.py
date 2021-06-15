@@ -74,32 +74,13 @@ def run(
     test,
     verbose,
 ):
-    appman = ctx.obj["appman"]
-    if package_id:
-        package = appman.get_package(package_type, package_id)
-        if not package:
-            util.print_warning(f"Package not found: {package_id}")
-            return
-        package_run(
-            package,
-            action,
-            appman,
-            os,
-            shell,
-            # sudo,
-            # allusers,
-            no_init,
-            test,
-            verbose,
-        )
-    else:
-        packages = appman.get_packages(os, package_type, label)
-        if not packages:
-            util.print_warning(
-                f"No packages found for parameters: os={os}, package_type={package_type}, label={label}"
-            )
-            return
-        for package in packages:
+    try:
+        appman = ctx.obj["appman"]
+        if package_id:
+            package = appman.get_package(package_type, package_id)
+            if not package:
+                util.print_warning(f"Package not found: {package_id}")
+                return
             package_run(
                 package,
                 action,
@@ -112,6 +93,29 @@ def run(
                 test,
                 verbose,
             )
+        else:
+            packages = appman.get_packages(os, package_type, label)
+            if not packages:
+                util.print_warning(
+                    f"No packages found for parameters: os={os}, package_type={package_type}, label={label}"
+                )
+                return
+            for package in packages:
+                package_run(
+                    package,
+                    action,
+                    appman,
+                    os,
+                    shell,
+                    # sudo,
+                    # allusers,
+                    no_init,
+                    test,
+                    verbose,
+                )
+    except Exception as e:
+        e.verbose = verbose
+        raise
 
 
 def package_run(
@@ -143,5 +147,10 @@ def package_run(
             )
 
 
-if __name__ == "__main__":
-    cli()
+def main():
+    try:
+        cli()
+    except Exception as e:
+        if "verbose" in dir(e) and e.verbose:
+            raise
+        util.print_error(e)
