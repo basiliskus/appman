@@ -76,8 +76,8 @@ def test_install_multiple_packages(
 
 
 @pytest.mark.parametrize("action", args.cliargs["action"])
-@pytest.mark.parametrize("os", [args.cliargs["os"][0]])
-@pytest.mark.parametrize("package_type", [args.cliargs["package-type"][0]])
+@pytest.mark.parametrize("os", ["linux"])
+@pytest.mark.parametrize("package_type", ["cli"])
 def test_actions(packages_root, config_file, action, os, package_type):
     args = ["--config", config_file]
     args += ["--packages-path", packages_root]
