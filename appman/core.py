@@ -184,7 +184,11 @@ class Package:
     ):
         args = self.get_args(formula.name)
         command = formula.get_command(commandtype, args, allusers)
-        return command.run(shell, sudo, test, verbose)
+        if command:
+            return command.run(shell, sudo, test, verbose)
+        raise ValueError(
+            f"Command '{commandtype}' not found in formula '{formula.name}'"
+        )
 
     def has_label(self, label):
         return not label or (self.labels and label in self.labels)
