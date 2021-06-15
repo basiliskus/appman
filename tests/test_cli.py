@@ -75,6 +75,7 @@ def test_install_multiple_packages(
     assert result.exit_code == 0
 
 
+@pytest.mark.skip(reason="need better test parameters")
 @pytest.mark.parametrize("action", args.cliargs["action"])
 @pytest.mark.parametrize("os", ["linux"])
 @pytest.mark.parametrize("package_type", ["cli"])
