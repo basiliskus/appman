@@ -1,2 +1,2 @@
-install: code --install-extension $pid
-uninstall: code --uninstall-extension $pid
+install: code --install-extension $pmid
+uninstall: code --uninstall-extension $pmid

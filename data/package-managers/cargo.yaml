@@ -1,1 +1,1 @@
-install: cargo install $pid
+install: cargo install $pmid

@@ -1,6 +1,6 @@
 - id: BingNews
-  pid: { appx: Microsoft.BingNews }
+  pm-id: { appx: Microsoft.BingNews }
 - id: BingWeather
-  pid: { appx: Microsoft.BingWeather }
+  pm-id: { appx: Microsoft.BingWeather }
 - id: ProvisionedLinuxApp
-  pid: { apt: ProvisionedLinuxApp }
+  pm-id: { apt: ProvisionedLinuxApp }

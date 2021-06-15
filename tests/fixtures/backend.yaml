@@ -1,6 +1,6 @@
 - id: pyyaml
   name: pyyaml
-  pid: { pip: pyyaml }
+  pm-id: { pip: pyyaml }
 - id: pytest
   name: pytest
-  pid: { pip: pytest }
+  pm-id: { pip: pytest }

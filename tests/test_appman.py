@@ -10,11 +10,11 @@ def appm(packages_root):
 
 
 @pytest.mark.parametrize(
-    "action, os, pt, pid, shell, sudo, allusers, noinit",
+    "action, os, pt, pmid, shell, sudo, allusers, noinit",
     [("install", "linux", "cli", "curl", "", False, False, False)],
 )
-def test_get_packages_by_id(appm, action, os, pt, pid, shell, sudo, allusers, noinit):
-    package = appm.get_package(pt, pid)
+def test_get_packages_by_id(appm, action, os, pt, pmid, shell, sudo, allusers, noinit):
+    package = appm.get_package(pt, pmid)
     formula = appm.find_best_formula(os, package)
     if not formula:
         print(f"Formula not found for: {package.name}")

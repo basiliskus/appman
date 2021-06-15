@@ -3,7 +3,7 @@ description: A multi-format file archiver with high compression ratios
 labels:
   - essentials
   - utils
-pid:
+pm-id:
   scoop: 7zip
   choco: 7zip
   winget: 7zip.7zip

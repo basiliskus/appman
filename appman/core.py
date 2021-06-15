@@ -127,10 +127,7 @@ class AppMan:
                 data, _ = self._load_data_file(entry.path)
                 ptype = os.path.splitext(entry.name)[0]
                 for d in data:
-                    if isinstance(d, str):
-                        id = d
-                    elif "id" in d:
-                        id = d["id"]
+                    id = d if isinstance(d, str) else d["id"]
                     yield {
                         "id": id,
                         "data": d,
@@ -147,7 +144,7 @@ class AppMan:
 
 
 class Package:
-    arg_default = "pid"
+    arg_default = "pm-id"
 
     def __init__(self, id, type, format="default"):
         self.id = id
