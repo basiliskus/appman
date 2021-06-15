@@ -1,3 +1,3 @@
-install: winget install --silent --exact --id $pmid
-uninstall: winget uninstall --silent --exact --id $pmid
+install: winget install --silent --exact --id $pm_id
+uninstall: winget uninstall --silent --exact --id $pm_id
 update-all: winget upgrade --all

@@ -1,4 +1,4 @@
 init: sudo pip install -U pip
-install: pip install $pmid
-uninstall: pip uninstall $pmid
+install: pip install $pm_id
+uninstall: pip uninstall $pm_id
 update-all: pip freeze | cut -d"="" -f1 | xargs -n1 pip install -U

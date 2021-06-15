@@ -1,6 +1,6 @@
 init: >-
   sudo apt-get update -qq
   && sudo apt-get upgrade -qq --yes
-install: sudo apt-get install -qq --yes $pmid
-uninstall: sudo apt-get remove -qq --yes $pmid
+install: sudo apt-get install -qq --yes $pm_id
+uninstall: sudo apt-get remove -qq --yes $pm_id
 update-all: sudo apt-get upgrade -qq --yes

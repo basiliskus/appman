@@ -1,1 +1,1 @@
-install: cargo install $pmid
+install: cargo install $pm_id

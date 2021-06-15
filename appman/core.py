@@ -144,7 +144,7 @@ class AppMan:
 
 
 class Package:
-    arg_default = "pm-id"
+    arg_default = "pm_id"
 
     def __init__(self, id, type, format="default"):
         self.id = id
