@@ -137,9 +137,9 @@ class AppMan:
     def _get_path_parameters(self, root, path):
         fname = os.path.basename(path)
         name = os.path.splitext(fname)[0]
-        dpath = os.path.dirname(path).strip("/")
+        dpath = os.path.dirname(path).strip(os.sep)
         rpath = dpath.replace(root, "")
-        pnames = rpath.strip("/").split("/")
+        pnames = rpath.strip(os.sep).split(os.sep)
         return name, pnames[-1]
 
 
