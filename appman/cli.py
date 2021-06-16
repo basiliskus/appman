@@ -124,9 +124,11 @@ def package_run(
                 verb = "processed"
             util.print_success(f"Package {verb} successfully: {package.name}")
         else:
-            util.print_error(
-                f"Package was not installed: {package.name}\n{result.stderr}"
-            )
+            util.print_error(f"Package was not installed: {package.name}")
+            if result.stderr:
+                util.print_error(util.parse_stmsg(result.stderr))
+            if result.stdout:
+                util.print_info(util.parse_stmsg(result.stdout))
 
 
 def main():
