@@ -179,7 +179,9 @@ class Package:
         args = self.get_args(formula.name)
         command = formula.get_command(commandtype, args, allusers)
         if command:
-            return command.run(sudo, test, verbose)
+            return command.run(
+                shell=formula.shell, sudo=sudo, test=test, verbose=verbose
+            )
         raise ValueError(
             f"Command '{commandtype}' not found in formula '{formula.name}'"
         )
