@@ -140,7 +140,7 @@ def package_run(
     result = package.run(formula, action, shell=shell, test=test, verbose=verbose)
     if not test:
         if result.returncode == 0:
-            if action in ["install", "uninstalled"]:
+            if action in ["install", "uninstall"]:
                 verb = f"{action}ed"
             elif "update" in action:
                 verb = "updated"
