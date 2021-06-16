@@ -22,3 +22,17 @@ def print_error(msg):
 def parse_stmsg(stmsg):
     msg = stmsg.decode("UTF-8") if isinstance(stmsg, bytes) else stmsg
     return f"{os.linesep}".join(msg.splitlines())
+
+
+def get_verb(action, tense):
+    if "update" in action:
+        action = "updat"
+    elif action not in ["install", "uninstall"]:
+        action = "process"
+
+    if tense == "present":
+        return f"{action}ing"
+    if tense == "past":
+        return f"{action}ed"
+
+    return action

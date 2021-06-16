@@ -48,15 +48,7 @@ def cli(ctx, packages_path, config):
 )
 @click.option("--verbose", "-v", is_flag=True, help="Verbose output")
 @click.pass_context
-def run(
-    ctx,
-    action,
-    package_id,
-    package_type,
-    label,
-    test,
-    verbose,
-):
+def run(ctx, action, package_id, package_type, label, test, verbose):
     try:
         os_supported = ["linux", "windows", "darwin"]
         os = platform.system().lower()
@@ -70,65 +62,48 @@ def run(
             if not package:
                 util.print_warning(f"Package not found: {package_id}")
                 return
-            package_run(
-                package,
-                action,
-                appman,
-                os,
-                test,
-                verbose,
-            )
+            package_run(package, action, appman, os, test, verbose, idprovided=True)
         else:
             packages = appman.get_packages(os, package_type, label)
             if not packages:
-                util.print_warning(
-                    f"No packages found for parameters: os={os}, package_type={package_type}, label={label}"
-                )
+                util.print_warning("No packages found")
                 return
             for package in packages:
-                package_run(
-                    package,
-                    action,
-                    appman,
-                    os,
-                    test,
-                    verbose,
-                )
+                package_run(package, action, appman, os, test, verbose)
     except Exception as e:
         e.verbose = verbose
         raise
 
 
-def package_run(
-    package,
-    action,
-    appman,
-    os,
-    test,
-    verbose,
-):
+def package_run(package, action, appman, os, test, verbose, idprovided=False):
     formula = appman.find_best_formula(os, package)
+
     if not formula:
-        util.print_warning(f"Formula not found for: {package.name}")
+        util.print_warning(f"Formula not found for {package.name}")
         return
+
+    if not idprovided and not test:
+        util.print_info(
+            f"{util.get_verb(action, 'present').capitalize()} {package.name}"
+        )
 
     formula.init(test)
     result = package.run(formula, action, test=test, verbose=verbose)
-    if not test:
-        if result.returncode == 0:
-            if action in ["install", "uninstall"]:
-                verb = f"{action}ed"
-            elif "update" in action:
-                verb = "updated"
-            else:
-                verb = "processed"
-            util.print_success(f"Package {verb} successfully: {package.name}")
-        else:
-            util.print_error(f"Package was not installed: {package.name}")
-            if result.stderr:
-                util.print_error(util.parse_stmsg(result.stderr))
-            if verbose and result.stdout:
-                util.print_info(util.parse_stmsg(result.stdout))
+
+    if test:
+        return
+
+    if result.returncode == 0:
+        if idprovided:
+            util.print_success(
+                f"{package.name} {util.get_verb(action, 'past')} successfully"
+            )
+    else:
+        util.print_error(f"{package.name} was not {util.get_verb(action, 'past')}")
+        if result.stderr:
+            util.print_error(util.parse_stmsg(result.stderr))
+        if verbose and result.stdout:
+            util.print_info(util.parse_stmsg(result.stdout))
 
 
 def main():
