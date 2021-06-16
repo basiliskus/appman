@@ -140,7 +140,13 @@ def package_run(
     result = package.run(formula, action, shell=shell, test=test, verbose=verbose)
     if not test:
         if result.returncode == 0:
-            util.print_success(f"Package installed successfully: {package.name}")
+            if action in ["install", "uninstalled"]:
+                verb = f"{action}ed"
+            elif "update" in action:
+                verb = "updated"
+            else:
+                verb = "processed"
+            util.print_success(f"Package {verb} successfully: {package.name}")
         else:
             util.print_error(
                 f"Package was not installed: {package.name}\n{result.stderr}"
