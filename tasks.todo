@@ -1,21 +1,22 @@
 Improvements:
+  [ ] add instructions to install and usage in readme file
+  [ ] add logging (make sure to log packages not able to install, uninstall or update)
+  [ ] add integration tests
+    [ ] add test cases for unexpected behaviour
+    [x] sanity checks @done(21-06-09 23:49)
+    [x] validate yaml data format @done(21-06-09 23:49)
   [x] use poetry python library for package management @done(21-06-09 10:57)
   [x] use click python library for cli @done(21-06-09 12:28)
   [x] create yaml data schemas @done(21-06-09 23:49)
-  [ ] add integration tests
-    [x] sanity checks @done(21-06-09 23:49)
-    [x] validate yaml data format @done(21-06-09 23:49)
-    [ ] add test cases for unexpected behaviour
   [x] set up continous integration @done(21-06-11 06:53)
   [x] add validations for cli @done(21-06-13 10:56)
-  [ ] add logging
   [x] detect os instead of passing as parameter @done(21-06-16 10:32)
 New Features:
   [ ] CLI for yaml file to create, delete and edit app entries
     [ ] create:
       - if cli or gui, creates a new file
       - else, add entry to appropiate file
-    [ ] delete: given id, or name + os + type: delete file or entry
+    [ ] delete: given id, or name + type: delete file or entry
     [ ] list: display all packages, filter by flags
 Bugs:
   [x] use package id instead of package name to identify package @done(21-06-14 14:24)
