@@ -1,0 +1,4 @@
+os: any
+commands:
+  install: code --install-extension $pmid
+  uninstall: code --uninstall-extension $pmid

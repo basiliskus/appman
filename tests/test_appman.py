@@ -10,31 +10,28 @@ def appm(packages_root):
 
 
 @pytest.mark.parametrize(
-    "action, os, pt, pmid, shell, sudo, allusers, noinit",
-    [("install", "linux", "cli", "curl", "", False, False, False)],
+    "action, os, pt, pmid",
+    [("install", "linux", "cli", "curl")],
 )
-def test_get_packages_by_id(appm, action, os, pt, pmid, shell, sudo, allusers, noinit):
+def test_get_packages_by_id(appm, action, os, pt, pmid):
     package = appm.get_package(pt, pmid)
     formula = appm.find_best_formula(os, package)
     if not formula:
         print(f"Formula not found for: {package.name}")
         return
 
-    if not noinit:
-        formula.init(test=True)
-    package.run(formula, action, shell, sudo, allusers, test=True)
+    formula.init(test=True)
+    package.run(formula, action, test=True)
 
 
 @pytest.mark.parametrize(
-    "action, os, pt, label, shell, sudo, allusers, noinit",
+    "action, os, pt, label",
     [
-        ("install", "linux", "cli", "essentials", "", False, False, False),
-        ("install", "windows", "cli", "essentials", "", False, False, False),
+        ("install", "linux", "cli", "essentials"),
+        ("install", "windows", "cli", "essentials"),
     ],
 )
-def test_get_packages_by_filters(
-    appm, action, os, pt, label, shell, sudo, allusers, noinit
-):
+def test_get_packages_by_filters(appm, action, os, pt, label):
     packages = appm.get_packages(os, pt, label)
     for package in packages:
         formula = appm.find_best_formula(os, package)
@@ -42,9 +39,8 @@ def test_get_packages_by_filters(
             print(f"Formula not found for: {package.name}")
             return
 
-        if not noinit:
-            formula.init(test=True)
-        package.run(formula, action, shell, sudo, allusers, test=True)
+        formula.init(test=True)
+        package.run(formula, action, test=True)
 
 
 @pytest.mark.skip(reason="need to be more specific about the test parameters")

@@ -1,0 +1,8 @@
+os: windows
+shell: powershell
+commands:
+  install: >
+    $NAME = Split-Path $source -leaf
+    Invoke-WebRequest -Uri $source -OutFile $HOME/tmp/$NAME
+    cmd $HOME/tmp/$NAME
+    Remove-Item $HOME/tmp/$NAME

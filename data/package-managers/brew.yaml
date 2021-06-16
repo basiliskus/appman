@@ -1,7 +1,9 @@
-init: >-
-  brew cleanup
-  && brew update
-  && brew tap homebrew/cask-fonts
-install: brew install $pmid
-uninstall: brew uninstall $pmid
-update-all: brew upgrade
+os: macos
+commands:
+  init: >-
+    brew cleanup
+    && brew update
+    && brew tap homebrew/cask-fonts
+  install: brew install $pmid
+  uninstall: brew uninstall $pmid
+  update-all: brew upgrade

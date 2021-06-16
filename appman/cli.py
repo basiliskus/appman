@@ -48,14 +48,6 @@ def cli(ctx, packages_path, config):
 @click.option("--package-id", "-id", help="Package ID")
 @click.option("--label", help="Package label")
 @click.option(
-    "--shell",
-    type=click.Choice(["cmd", "powershell"], case_sensitive=False),
-    help="Shell to run commands",
-)
-# @click.option("--sudo", is_flag=True, help="Run with sudo")
-# @click.option("--global", "-g", "allusers", is_flag=True, help="Is global")
-@click.option("--no-init", is_flag=True, help="Avoid running initialization scripts")
-@click.option(
     "--test", "-t", is_flag=True, help="Only print commands instead of running"
 )
 @click.option("--verbose", "-v", is_flag=True, help="Verbose output")
@@ -67,10 +59,6 @@ def run(
     package_id,
     package_type,
     label,
-    shell,
-    # sudo,
-    # allusers,
-    no_init,
     test,
     verbose,
 ):
@@ -86,10 +74,6 @@ def run(
                 action,
                 appman,
                 os,
-                shell,
-                # sudo,
-                # allusers,
-                no_init,
                 test,
                 verbose,
             )
@@ -106,10 +90,6 @@ def run(
                     action,
                     appman,
                     os,
-                    shell,
-                    # sudo,
-                    # allusers,
-                    no_init,
                     test,
                     verbose,
                 )
@@ -123,10 +103,6 @@ def package_run(
     action,
     appman,
     os,
-    shell,
-    # sudo,
-    # allusers,
-    noinit,
     test,
     verbose,
 ):
@@ -135,9 +111,8 @@ def package_run(
         util.print_warning(f"Formula not found for: {package.name}")
         return
 
-    if not noinit:
-        formula.init(test)
-    result = package.run(formula, action, shell=shell, test=test, verbose=verbose)
+    formula.init(test)
+    result = package.run(formula, action, test=test, verbose=verbose)
     if not test:
         if result.returncode == 0:
             if action in ["install", "uninstall"]:

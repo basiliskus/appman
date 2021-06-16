@@ -1,0 +1,3 @@
+os: linux
+commands:
+  install: sh -c "$(curl -fsSL $source)"

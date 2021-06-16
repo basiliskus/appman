@@ -1,6 +1,0 @@
-install: >-
-  EXT='.deb'
-  && NAME=$(basename $source ${EXT})
-  && wget -q -O ~/tmp/${NAME}${EXT} $source
-  && sudo dpkg -i ~/tmp/${NAME}${EXT}
-  && sudo apt-get install -f

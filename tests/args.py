@@ -11,11 +11,6 @@ cliargs = {
         "provisioned",
     ],
     "label": ["", "essentials", "dev", "utils"],
-    "shell": ["", "cmd", "powershell"],
-    "no-init": [True, False],
-    "sudo": [True, False],
-    "global": [True, False],
-    "verbose": [True, False],
     "package-id": [
         "git",
         "chocolatey-cli",
@@ -31,7 +26,6 @@ packages = [
         "name": "Chocolatey CLI",
         "os": "windows",
         "pt": "cli",
-        "shell": "powershell",
     },
     {
         "id": "microsoft-visual-studio-code",

@@ -1,0 +1,7 @@
+os: linux
+commands:
+  install: >-
+    NAME=$(basename $source)
+    && wget -q -O ~/tmp/${NAME} $source
+    && tar -C $destination -xzf ~/tmp/${NAME}
+    && rm ~/tmp/${NAME}

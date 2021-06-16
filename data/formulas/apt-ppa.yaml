@@ -1,0 +1,7 @@
+os: ubuntu
+commands:
+  install: >-
+    apt-key adv --keyserver $keyserver --recv-keys $recv-keys
+    && add-apt-repository $apt-repository
+    && sudo apt update
+    && sudo apt install -y $pmid

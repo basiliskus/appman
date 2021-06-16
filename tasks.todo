@@ -9,6 +9,7 @@ Improvements:
   [x] set up continous integration @done(21-06-11 06:53)
   [x] add validations for cli @done(21-06-13 10:56)
   [ ] add logging
+  [ ] detect os instead of passing as parameter
 New Features:
   [ ] CLI for yaml file to create, delete and edit app entries
     [ ] create:
@@ -18,4 +19,3 @@ New Features:
     [ ] list: display all packages, filter by flags
 Bugs:
   [x] use package id instead of package name to identify package @done(21-06-14 14:24)
-    [ ] need to fix package data files to provide ids for all packages

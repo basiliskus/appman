@@ -22,15 +22,15 @@ class AppMan:
 
         # package managers
         for pmdata, pmpath in list(self._load_data_dir(config.PM_DIR)):
-            pmname, _ = self._get_path_parameters(config.PM_DIR, pmpath)
+            pmname = self._get_name_from_path(pmpath)
             pm = Formula(pmname)
             pm.load(pmdata)
             self.formulas.append(pm)
 
         # formulas
         for fdata, fpath in self._load_data_dir(config.FORMULAS_DIR):
-            fname, fos = self._get_path_parameters(config.FORMULAS_DIR, fpath)
-            formula = Formula(fname, fos, custom=True)
+            fname = self._get_name_from_path(fpath)
+            formula = Formula(fname, custom=True)
             formula.load(fdata)
             self.formulas.append(formula)
 
@@ -104,7 +104,7 @@ class AppMan:
     def _create_packages(self, path, ptype):
         ptdir = os.path.join(path, ptype)
         for pdata, ppath in self._load_data_dir(ptdir):
-            pname, _ = self._get_path_parameters(path, ppath)
+            pname = self._get_name_from_path(ppath)
             package = Package(pname, ptype)
             package.load(pdata)
             yield package
@@ -134,13 +134,8 @@ class AppMan:
                         "ptype": ptype,
                     }
 
-    def _get_path_parameters(self, root, path):
-        fname = os.path.basename(path)
-        name = os.path.splitext(fname)[0]
-        dpath = os.path.dirname(path).strip(os.sep)
-        rpath = dpath.replace(root, "")
-        pnames = rpath.strip(os.sep).split(os.sep)
-        return name, pnames[-1]
+    def _get_name_from_path(self, path):
+        return os.path.splitext(os.path.basename(path))[0]
 
 
 class Package:
@@ -176,7 +171,6 @@ class Package:
         self,
         formula,
         commandtype,
-        shell=None,
         sudo=False,
         allusers=False,
         test=False,
@@ -185,7 +179,7 @@ class Package:
         args = self.get_args(formula.name)
         command = formula.get_command(commandtype, args, allusers)
         if command:
-            return command.run(shell, sudo, test, verbose)
+            return command.run(sudo, test, verbose)
         raise ValueError(
             f"Command '{commandtype}' not found in formula '{formula.name}'"
         )
@@ -221,17 +215,20 @@ class Package:
 
 
 class Formula:
-    def __init__(self, name, os=None, custom=False):
+    def __init__(self, name, custom=False):
         self.name = name
-        self.os = os
         self.custom = custom
+        self.os = None
+        self.shell = None
         self.commands = []
         self.initialized = False
 
     def load(self, data):
-        for c in data:
-            name = c
-            command = data[c]
+        self.os = data["os"]
+        if "shell" in data:
+            self.shell = data["shell"]
+        for name in data["commands"]:
+            command = data["commands"][name]
             self.add_command(name, command)
 
     def init(self, test=False):
