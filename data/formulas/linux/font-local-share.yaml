@@ -6,5 +6,6 @@ install: >-
   && wget -q -O ~/tmp/${FONTNAME}${EXT} $source
   && unzip ~/tmp/${FONTNAME}${EXT} -d ~/tmp/${FONTNAME}/
   && rm ~/tmp/${FONTNAME}${EXT}
+  && mkdir -p ~/.local/share/fonts/
   && cp ~/tmp/${FONTNAME}/*${FONT_EXT} ~/.local/share/fonts/
   && fc-cache -f -v
