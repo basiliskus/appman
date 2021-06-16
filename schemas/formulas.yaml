@@ -1,4 +1,4 @@
-os: str()
+os: enum('linux', 'windows', 'darwin', 'ubuntu', 'any')
 shell:  enum('cmd', 'powershell', required=False)
 commands:
   init: str(required=False)

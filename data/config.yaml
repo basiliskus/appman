@@ -3,23 +3,23 @@ os:
   - unix-like:
     - linux:
       - ubuntu
-    - macos
+    - darwin
 defaults:
   pm:
     cli:
       windows: [ scoop, choco, npm, pip, cargo ]
       ubuntu: [ apt, npm, pip, cargo, snap ]
-      macos: [ brew, npm, pip, cargo ]
+      darwin: [ brew, npm, pip, cargo ]
     gui:
       windows: [ choco ]
       ubuntu: [ apt, snap ]
-      macos: [ brew ]
+      darwin: [ brew ]
     backend:
       any: [ npm, pip, cargo ]
     fonts:
       windows: [ scoop ]
       ubuntu: []
-      macos: [ brew ]
+      darwin: [ brew ]
     drivers:
       any: []
     vscode:

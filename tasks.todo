@@ -9,7 +9,7 @@ Improvements:
   [x] set up continous integration @done(21-06-11 06:53)
   [x] add validations for cli @done(21-06-13 10:56)
   [ ] add logging
-  [ ] detect os instead of passing as parameter
+  [x] detect os instead of passing as parameter @done(21-06-16 10:32)
 New Features:
   [ ] CLI for yaml file to create, delete and edit app entries
     [ ] create:

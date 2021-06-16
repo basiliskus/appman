@@ -1,4 +1,4 @@
-os: macos
+os: darwin
 commands:
   init: >-
     brew cleanup

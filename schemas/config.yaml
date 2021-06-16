@@ -14,4 +14,4 @@ package-manager:
   any: list(required=False)
   windows: list(required=False)
   ubuntu: list(required=False)
-  macos: list(required=False)
+  darwin: list(required=False)

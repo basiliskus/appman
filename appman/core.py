@@ -294,7 +294,7 @@ class Command:
 
 
 class Config:
-    any_os = ["any", "all"]
+    any_os = "any"
 
     def __init__(self, data):
         self.os = data["os"]

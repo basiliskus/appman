@@ -26,5 +26,5 @@ pmid:
 formula:
   name: str()
   args: any(required=False)
-  os: str()
+  os: enum('linux', 'windows', 'darwin', 'ubuntu', 'any')
   notes: str(required=False)

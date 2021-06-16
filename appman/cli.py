@@ -1,3 +1,5 @@
+import platform
+
 import click
 
 from . import core
@@ -31,12 +33,6 @@ def cli(ctx, packages_path, config):
     type=click.Choice(["install", "uninstall", "update-all"], case_sensitive=False),
 )
 @click.option(
-    "--os",
-    "-os",
-    type=click.Choice(["windows", "linux", "macos"], case_sensitive=False),
-    help="OS type",
-)
-@click.option(
     "--package-type",
     "-pt",
     type=click.Choice(
@@ -55,7 +51,6 @@ def cli(ctx, packages_path, config):
 def run(
     ctx,
     action,
-    os,
     package_id,
     package_type,
     label,
@@ -63,6 +58,12 @@ def run(
     verbose,
 ):
     try:
+        os_supported = ["linux", "windows", "darwin"]
+        os = platform.system().lower()
+        if os not in os_supported:
+            util.print_error(f"{os} is not supported")
+            return
+
         appman = ctx.obj["appman"]
         if package_id:
             package = appman.get_package(package_type, package_id)
