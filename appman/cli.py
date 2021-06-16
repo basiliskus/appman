@@ -127,7 +127,7 @@ def package_run(
             util.print_error(f"Package was not installed: {package.name}")
             if result.stderr:
                 util.print_error(util.parse_stmsg(result.stderr))
-            if result.stdout:
+            if verbose and result.stdout:
                 util.print_info(util.parse_stmsg(result.stdout))
 
 
