@@ -1,7 +1,9 @@
 Improvements:
   [ ] add instructions to install and usage in readme file
   [ ] add logging (make sure to log packages not able to install, uninstall or update)
+  [ ] add package requirements handling and additional libraries
   [ ] add integration tests
+    [ ] make sure package formula exists in data/formulas
     [ ] add test cases for unexpected behaviour
     [x] sanity checks @done(21-06-09 23:49)
     [x] validate yaml data format @done(21-06-09 23:49)
