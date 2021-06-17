@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "appman"
 version = "0.1.0"
-description = "Application Management"
+description = "Cross-platform application management aggregator"
 authors = ["Basilio Bogado <541149+basiliskus@users.noreply.github.com>"]
 license = "MIT"
 readme = "readme.md"
