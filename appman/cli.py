@@ -11,14 +11,14 @@ from . import util
     "--config",
     "-c",
     type=click.Path(exists=True, dir_okay=False),
-    default="../data/config.yaml",
+    default="data/config.yaml",
     help="Specify config file path",
 )
 @click.option(
     "--packages-path",
     "-p",
     type=click.Path(exists=True, file_okay=False, writable=True),
-    default="../data/packages",
+    default="data/packages",
     help="Specify data path",
 )
 @click.pass_context
@@ -43,9 +43,7 @@ def cli(ctx, packages_path, config):
 )
 @click.option("--package-id", "-id", help="Package ID")
 @click.option("--label", help="Package label")
-@click.option(
-    "--test", "-t", is_flag=True, help="Only print commands instead of running"
-)
+@click.option("--test", "-t", is_flag=True, help="Print commands without running")
 @click.option("--verbose", "-v", is_flag=True, help="Verbose output")
 @click.pass_context
 def run(ctx, action, package_id, package_type, label, test, verbose):
