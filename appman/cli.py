@@ -82,7 +82,7 @@ def package_run(package, action, appman, os, test, verbose, idprovided=False):
         util.print_warning(f"Formula not found for {package.name}")
         return
 
-    if not idprovided and not test:
+    if not test:
         util.print_info(
             f"{util.get_verb(action, 'present').capitalize()} {package.name}"
         )
