@@ -24,4 +24,4 @@ Coming soon
 
 ## License
 
-© Basilio Bogado. Distributed under the [MIT License](license.md).
+© Basilio Bogado. Distributed under the [MIT License](LICENSE).
