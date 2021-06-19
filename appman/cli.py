@@ -21,6 +21,7 @@ from . import util
     default="data/packages",
     help="Specify data path",
 )
+@click.version_option(message="%(prog)s %(version)s")
 @click.pass_context
 def cli(ctx, packages_path, config):
     am = core.AppMan(packages_path, config)
