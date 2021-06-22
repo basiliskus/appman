@@ -1,8 +1,0 @@
-id: mozilla-firefox
-name: Mozilla Firefox
-labels:
-  - essentials
-pmid:
-  choco: firefox
-  winget: Mozilla.Firefox
-  apt: firefox

@@ -1,9 +1,0 @@
-id: git
-description: Distributed version control system
-labels:
-  - essentials
-  - dev
-pmid:
-  scoop: git
-  winget: Git.Git
-  apt: git

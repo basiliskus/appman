@@ -1,6 +1,0 @@
-- id: BingNews
-  pmid: { appx: Microsoft.BingNews }
-- id: BingWeather
-  pmid: { appx: Microsoft.BingWeather }
-- id: ProvisionedLinuxApp
-  pmid: { apt: ProvisionedLinuxApp }

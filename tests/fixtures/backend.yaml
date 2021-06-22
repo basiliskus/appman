@@ -1,6 +1,0 @@
-- id: pyyaml
-  name: pyyaml
-  pmid: { pip: pyyaml }
-- id: pytest
-  name: pytest
-  pmid: { pip: pytest }
