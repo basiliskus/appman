@@ -28,6 +28,22 @@ defaults:
       windows: [ appx ]
       ubuntu: [ apt ]
   tags:
-    - dev
+    - books
+    - browser
+    - cloud
+    - communication
+    - dev-tools
+    - db
+    - editor
     - essentials
+    - media
+    - music
+    - network
+    - notes
+    - package-manager
+    - prog-langs
+    - reference
+    - security
+    - sysadmin
     - utils
+    - web-server

@@ -1,6 +1,6 @@
 id: pass
 name: pass
 labels:
-  security
+  - security
 pmid:
   apt: pass
