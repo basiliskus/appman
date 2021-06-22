@@ -1,0 +1,3 @@
+os: linux
+commands:
+  install: curl $source | sudo bash
