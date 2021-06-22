@@ -1,0 +1,6 @@
+id: notion
+name: Notion
+labels:
+  - notes
+pmid:
+  winget: Notion.Notion

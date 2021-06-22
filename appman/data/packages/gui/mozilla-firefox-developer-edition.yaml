@@ -1,0 +1,6 @@
+id: mozilla-firefox-developer-edition
+name: Mozilla Firefox Developer Edition
+labels:
+  - browser
+pmid:
+  winget: Mozilla.FirefoxDeveloperEdition

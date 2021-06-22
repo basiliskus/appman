@@ -1,0 +1,7 @@
+id: nvm
+name: nvm
+description: A node.js version management utility
+labels:
+  - dev-tools
+pmid:
+  scoop: nvm

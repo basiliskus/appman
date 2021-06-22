@@ -1,0 +1,9 @@
+id: sqlite
+name: sqlite
+description: A small, fast, self-contained, high-reliability and full-featured SQL
+  database engine
+labels:
+  - dev-tools
+  - db
+pmid:
+  scoop: sqlite

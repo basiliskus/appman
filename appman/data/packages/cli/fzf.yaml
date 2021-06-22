@@ -1,0 +1,8 @@
+id: fzf
+name: fzf
+description: A general-purpose command-line fuzzy finder
+labels:
+  - utils
+pmid:
+  choco: fzf
+  apt: fzf

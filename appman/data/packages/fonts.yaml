@@ -1,0 +1,12 @@
+- id: meslo-nf
+  name: Meslo-NF
+  formulas:
+    - name: font-local-share
+      os: linux
+      args:
+        source: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Meslo.zip
+- id: firacode-nf
+  name: FiraCode-NF
+  formulas:
+    - name: font-firacode
+      os: linux

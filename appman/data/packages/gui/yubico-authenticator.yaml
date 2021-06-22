@@ -1,0 +1,7 @@
+id: yubico-authenticator
+name: Yubico Authenticator
+labels:
+  - security
+pmid:
+  choco: yubico-authenticator
+  winget: Yubico.Authenticator

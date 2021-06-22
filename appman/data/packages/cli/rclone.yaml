@@ -1,0 +1,11 @@
+id: rclone
+name: rclone
+description: rsync for cloud storage
+labels:
+  - dev-tools
+  - web-server
+formulas:
+  - name: sh-script-3
+    os: linux
+    args:
+      source: https://rclone.org/install.sh

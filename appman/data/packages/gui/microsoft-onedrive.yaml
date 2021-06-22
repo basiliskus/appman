@@ -1,0 +1,6 @@
+id: microsoft-onedrive
+name: Microsoft OneDrive
+labels:
+  - cloud
+pmid:
+  winget: Microsoft.OneDrive

@@ -1,0 +1,5 @@
+id: zsh
+name: zsh
+labels:
+pmid:
+  apt: zsh

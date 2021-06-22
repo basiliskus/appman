@@ -1,0 +1,7 @@
+id: sumo
+name: Sumo
+labels:
+  - sysadmin
+pmid:
+  choco: sumo
+  winget: KCSoftwares.SUMo

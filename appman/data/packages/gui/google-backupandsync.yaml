@@ -1,0 +1,7 @@
+id: google-backupandsync
+name: Google BackupAndSync
+labels:
+  - cloud
+pmid:
+  choco: google-backup-and-sync
+  winget: Google.BackupAndSync

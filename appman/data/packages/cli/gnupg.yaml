@@ -1,0 +1,10 @@
+id: gnupg
+name: gnupg
+description: A complete and free implementation of the OpenPGP standard
+labels:
+  - security
+pmid:
+  scoop: gnupg
+  choco: gnupg
+  winget: GnuPG.GnuPG
+  apt: gpg

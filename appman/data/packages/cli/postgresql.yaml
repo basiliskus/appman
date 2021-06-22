@@ -1,0 +1,10 @@
+id: postgresql
+name: postgresql
+labels:
+  - dev-tools
+  - db
+pmid:
+  scoop: postgresql
+  choco: postgresql
+  winget: PostgreSQL.PostgreSQL
+  apt: postgresql

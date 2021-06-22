@@ -1,0 +1,6 @@
+id: microsoft-edge
+name: Microsoft Edge
+labels:
+  - browser
+pmid:
+  winget: Microsoft.Edge

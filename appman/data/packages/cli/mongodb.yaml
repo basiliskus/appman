@@ -1,0 +1,11 @@
+id: mongodb
+name: mongodb
+description: A document database with the scalability and flexibility
+labels:
+  - dev-tools
+  - db
+pmid:
+  scoop: mongodb
+  choco: mongodb
+  winget: MongoDB.Server
+  apt: mongodb

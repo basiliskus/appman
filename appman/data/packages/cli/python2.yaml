@@ -1,0 +1,8 @@
+id: python2
+name: python2
+labels:
+  - dev-tools
+  - prog-langs
+pmid:
+  choco: python2
+  winget: Python.Python.2

@@ -1,0 +1,6 @@
+id: chocolatey-gui
+name: Chocolatey GUI
+labels:
+  - package-manager
+pmid:
+  choco: chocolateygui

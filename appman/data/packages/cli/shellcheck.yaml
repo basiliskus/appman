@@ -1,0 +1,7 @@
+id: shellcheck
+name: shellcheck
+description: Static analysis tool for shell scripts
+labels:
+  - dev-tools
+pmid:
+  scoop: shellcheck

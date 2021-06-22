@@ -1,0 +1,7 @@
+id: how2
+name: how2
+description: stackoverflow from the terminal
+labels:
+pmid:
+  npm: how-2
+home: https://github.com/santinic/how2

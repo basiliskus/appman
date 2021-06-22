@@ -1,0 +1,8 @@
+id: apache2
+name: apache2
+description: The Apache HTTP Server ('httpd')
+labels:
+  - web-server
+pmid:
+  scoop: apache
+  apt: apache2

@@ -1,0 +1,7 @@
+id: pdftk
+name: pdftk
+description: A command-line tool for working with PDFs
+labels:
+  - utils
+pmid:
+  scoop: pdftk

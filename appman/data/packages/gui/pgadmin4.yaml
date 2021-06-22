@@ -1,0 +1,8 @@
+id: pgadmin4
+name: pgadmin4
+labels:
+  - dev-tools
+  - db
+pmid:
+  choco: pgadmin4
+  winget: PostgreSQL.pgAdmin

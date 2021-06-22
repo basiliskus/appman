@@ -1,0 +1,7 @@
+id: nmap
+name: nmap
+description: Network exploration and security auditing utility. (includes Npcap)
+labels:
+  - security
+pmid:
+  scoop: nmap

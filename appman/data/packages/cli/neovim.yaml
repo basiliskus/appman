@@ -1,0 +1,7 @@
+id: neovim
+name: neovim
+description: Vim-fork focused on extensibility and usability
+labels:
+  - editor
+pmid:
+  scoop: neovim

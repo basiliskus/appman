@@ -1,0 +1,6 @@
+id: joplin
+name: joplin
+description: Note taking app
+labels:
+pmid:
+  scoop: joplin

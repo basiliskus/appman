@@ -1,0 +1,85 @@
+- id: beautifulsoup4
+  name: beautifulsoup4
+  pmid: { pip: beautifulsoup4 }
+- id: bitwarden-keyring
+  name: bitwarden-keyring
+  pmid: { pip: bitwarden-keyring }
+- id: black
+  name: black
+  labels: [ essentials ]
+- id: fontconfig
+  name: fontconfig
+  labels: [ essentials ]
+  pmid: { apt: fontconfig }
+- id: mopidy-local
+  name: mopidy-local
+  pmid: { pip: mopidy-local }
+  comments: install with sudo
+- id: mopidy-iris
+  name: mopidy-iris
+  pmid: { pip: mopidy-iris }
+  comments: install with sudo
+- id: mopidy-mpd
+  name: mopidy-mpd
+  pmid: { pip: mopidy-mpd }
+  comments: install with sudo
+- id: mopidy-scrobbler
+  name: mopidy-scrobbler
+  pmid: { pip: mopidy-scrobbler }
+  comments: install with sudo
+- id: mopidy-soundcloud
+  name: mopidy-soundcloud
+  pmid: { pip: mopidy-soundcloud }
+  comments: install with sudo
+- id: mopidy-spotify
+  name: mopidy-spotify
+  pmid: { pip: mopidy-spotify }
+  comments: install with sudo
+- id: selenium
+  name: selenium
+  pmid: { pip: selenium }
+- id: requests
+  name: requests
+  pmid: { pip: requests }
+- id: pyyaml
+  name: pyyaml
+  pmid: { pip: pyyaml }
+- id: pylint
+  name: pylint
+  pmid: { pip: pylint }
+- id: numpy
+  name: numpy
+  pmid: { pip: numpy }
+- id: eslint
+  name: eslint
+  pmid: { npm: eslint }
+- id: prettier
+  name: prettier
+  pmid: { npm: prettier }
+- id: pulseaudio
+  name: PulseAudio
+  home: https://www.freedesktop.org/wiki/Software/PulseAudio/
+- id: click
+  name: click
+  pmid: { pip: click }
+- id: poetry
+  name: poetry
+  pmid: { pip: poetry }
+- id: bullet
+  name: bullet
+  pmid: { pip: bullet }
+- id: pipx
+  name: pipx
+  pmid: { pip: pipx }
+- id: matplotlib
+  name: matplotlib
+  requires: gnuplot
+  pmid: { pip: matplotlib }
+- id: pytest
+  name: pytest
+  labels: [ essentials ]
+  pmid: { pip: pytest }
+- id: flake8
+  name: flake8
+  labels: [ essentials ]
+  pmid: { pip: flake8 }

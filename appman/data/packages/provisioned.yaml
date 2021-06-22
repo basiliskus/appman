@@ -1,0 +1,105 @@
+- id: candycrushsaga
+  name: CandyCrushSaga
+  pmid: { appx: king.com.CandyCrushSaga }
+- id: candycrushfriends
+  name: CandyCrushFriends
+  pmid: { appx: king.com.CandyCrushFriends }
+- id: 3dbuilder
+  name: 3DBuilder
+  pmid: { appx: Microsoft.3DBuilder }
+- id: bingnews
+  name: BingNews
+  pmid: { appx: Microsoft.BingNews }
+- id: bingweather
+  name: BingWeather
+  pmid: { appx: Microsoft.BingWeather }
+- id: fitbit
+  name: Fitbit
+  pmid: { appx: Fitbit.FitbitCoach }
+- id: getstarted
+  name: Getstarted
+  pmid: { appx: Microsoft.Getstarted }
+- id: microsoft3dviewer
+  name: Microsoft3DViewer
+  pmid: { appx: Microsoft.Microsoft3DViewer }
+- id: microsoftofficehub
+  name: MicrosoftOfficeHub
+  pmid: { appx: Microsoft.MicrosoftOfficeHub }
+- id: microsoftsolitairecollection
+  name: MicrosoftSolitaireCollection
+  pmid: { appx: Microsoft.MicrosoftSolitaireCollection }
+- id: microsoftstickynotes
+  name: MicrosoftStickyNotes
+  pmid: { appx: Microsoft.MicrosoftStickyNotes }
+- id: mixedreality.portal
+  name: MixedReality.Portal
+  pmid: { appx: Microsoft.MixedReality.Portal }
+- id: mspaint
+  name: MSPaint
+  pmid: { appx: Microsoft.MSPaint }
+- id: office.onenote
+  name: Office.OneNote
+  pmid: { appx: Microsoft.Office.OneNote }
+- id: oneconnect
+  name: OneConnect
+  pmid: { appx: Microsoft.OneConnect }
+- id: pandora
+  name: Pandora
+  pmid: { appx: PandoraMediaInc.29680B314EFC2 }
+- id: people
+  name: People
+  pmid: { appx: Microsoft.People }
+- id: print3d
+  name: Print3D
+  pmid: { appx: Microsoft.Print3D }
+- id: screensketch
+  name: ScreenSketch
+  pmid: { appx: Microsoft.ScreenSketch }
+- id: skypeapp
+  name: SkypeApp
+  pmid: { appx: Microsoft.SkypeApp }
+- id: twitter
+  name: Twitter
+  pmid: { appx: 9E2F88E3.Twitter }
+- id: wallet
+  name: Wallet
+  pmid: { appx: Microsoft.Wallet }
+- id: windows.holographicfirstrun
+  name: Windows.HolographicFirstRun
+  pmid: { appx: Microsoft.Windows.HolographicFirstRun }
+- id: windowscommunicationsapps
+  name: windowscommunicationsapps
+  pmid: { appx: microsoft.windowscommunicationsapps }
+- id: windowsfeedbackhub
+  name: WindowsFeedbackHub
+  pmid: { appx: Microsoft.WindowsFeedbackHub }
+- id: windowsmaps
+  name: WindowsMaps
+  pmid: { appx: Microsoft.WindowsMaps }
+- id: xbox.tcui
+  name: Xbox.TCUI
+  pmid: { appx: Microsoft.Xbox.TCUI }
+- id: xboxapp
+  name: XboxApp
+  pmid: { appx: Microsoft.XboxApp }
+- id: xboxgameoverlay
+  name: XboxGameOverlay
+  pmid: { appx: Microsoft.XboxGameOverlay }
+- id: xboxgamingoverlay
+  name: XboxGamingOverlay
+  pmid: { appx: Microsoft.XboxGamingOverlay }
+- id: xboxidentityprovider
+  name: XboxIdentityProvider
+  pmid: { appx: Microsoft.XboxIdentityProvider }
+- id: xboxspeechtotextoverlay
+  name: XboxSpeechToTextOverlay
+  pmid: { appx: Microsoft.XboxSpeechToTextOverlay }
+- id: yourphone
+  name: YourPhone
+  pmid: { appx: Microsoft.YourPhone }
+- id: zunemusic
+  name: ZuneMusic
+  pmid: { appx: Microsoft.ZuneMusic }
+- id: zunevideo
+  name: ZuneVideo
+  pmid: { appx: Microsoft.ZuneVideo }

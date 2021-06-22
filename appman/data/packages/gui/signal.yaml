@@ -1,0 +1,6 @@
+id: signal
+name: Signal
+labels:
+  - communication
+pmid:
+  winget: Signal.Signal

@@ -1,0 +1,6 @@
+id: emacs
+name: emacs
+labels:
+  - editor
+pmid:
+  apt: emacs

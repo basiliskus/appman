@@ -1,0 +1,7 @@
+id: glow
+name: glow
+description: Markdown reader for the terminal with a TUI and encrypted cloud stash
+labels:
+  - utils
+pmid:
+  scoop: glow

@@ -1,0 +1,7 @@
+id: vlc
+name: VLC
+labels:
+  - media
+pmid:
+  choco: vlc
+  winget: VideoLAN.VLC

@@ -1,0 +1,7 @@
+id: howdoi
+name: howdoi
+description: instant coding answers via the command line
+labels:
+pmid:
+  pip: howdoi
+home: https://github.com/gleitz/howdoi
