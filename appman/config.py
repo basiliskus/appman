@@ -9,6 +9,7 @@ CONFIG_RES_YAML = "config.yaml"
 FORMULAS_PKG = "appman.data.formulas"
 PACKAGES_PKG = "appman.data.packages"
 PM_PKG = "appman.data.package-managers"
+USER_PKG = "appman.data.user"
 
 APPMAN_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = Path(APPMAN_DIR).parent

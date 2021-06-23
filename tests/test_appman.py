@@ -32,7 +32,7 @@ def test_get_packages_by_id(appm, action, os, pt, pmid):
     ],
 )
 def test_get_packages_by_filters(appm, action, os, pt, label):
-    packages = appm.get_packages(os, pt, label)
+    packages = appm.get_packages(pt, os, label=label)
     for package in packages:
         formula = appm.find_best_formula(os, package)
         if not formula:
@@ -47,7 +47,7 @@ def test_get_packages_by_filters(appm, action, os, pt, label):
 @pytest.mark.parametrize("os", args.cliargs["os"])
 @pytest.mark.parametrize("package_type", args.cliargs["package-type"])
 def test_get_packages_by_type_returns_something(appm, os, package_type):
-    packages = appm.get_packages(os, package_type)
+    packages = appm.get_packages(package_type, os)
     assert packages
 
 
@@ -56,7 +56,7 @@ def test_get_packages_by_type_returns_something(appm, os, package_type):
 @pytest.mark.parametrize("package_type", ["cli", "gui"])
 @pytest.mark.parametrize("label", args.cliargs["label"])
 def test_get_packages_by_label_returns_something(appm, os, package_type, label):
-    packages = appm.get_packages(os, package_type, label)
+    packages = appm.get_packages(package_type, os, label=label)
     assert packages
 
 

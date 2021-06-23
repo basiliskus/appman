@@ -1,5 +1,3 @@
-import os
-
 import pytest
 
 from appman import config
@@ -9,17 +7,21 @@ from appman import config
 def config_path():
     return config.CONFIG_PATH
 
+
 @pytest.fixture
 def data_root():
     return config.DATA_DIR
+
 
 @pytest.fixture
 def schemas_root():
     return config.SCHEMAS_DIR
 
+
 @pytest.fixture
 def packages_root():
     return config.PACKAGES_DIR
+
 
 @pytest.fixture
 def svars():

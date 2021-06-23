@@ -10,14 +10,15 @@ from . import config
 class AppMan:
     def __init__(self):
         self.config = None
-        self.packages = []
         self.formulas = []
+        self.packages = []
+        self.user_packages = []
         self.load_data()
 
     def load_data(self):
 
         # config
-        cfdata = self._load_data_resource(config.DATA_PKG, "config.yaml")
+        cfdata = self._load_data_resource(config.DATA_PKG, config.CONFIG_RES_YAML)
         self.config = Config(cfdata)
 
         # package managers
@@ -46,28 +47,50 @@ class AppMan:
             package.load(presult["data"])
             self.packages.append(package)
 
-    def get_packages(self, os, package_type, label=None):
-        return [
-            package
-            for package in self.packages
+        # user packages
+        for presult in self._get_grouped_data_resource_files(config.USER_PKG):
+            package = UserPackage(presult["id"], presult["ptype"])
+            package.load(presult["data"])
+            self.user_packages.append(package)
+
+    def add_user_package(self, package, label):
+        user_package = UserPackage(package.id, package.type, label)
+        self._add_data_resource(config.USER_PKG, package.type, user_package.data)
+
+    def delete_user_package(self, user_package):
+        self._delete_data_resource(
+            config.USER_PKG, user_package.type, user_package.data
+        )
+
+    def get_user_packages(self, package_type, id=None, label=None):
+        for package in self.user_packages:
+            if (
+                (package.type == package_type)
+                and package.has_label(label)
+                and (id is None or package.id == id)
+            ):
+                yield package
+
+    def get_user_package(self, package_type, id):
+        return next(self.get_user_packages(package_type, id=id), None)
+
+    def get_packages(self, package_type, os="any", id=None, label=None):
+        for package in self.packages:
             if (
                 package.type == package_type
                 and package.has_label(label)
                 and package.is_compatible(os, self.config)
-            )
-        ]
+                and (id is None or package.id == id)
+            ):
+                yield package
 
     def get_package(self, package_type, id):
-        for package in self.packages:
-            if package.type == package_type and package.id == id:
-                return package
-        return None
+        return next(self.get_packages(package_type, id=id), None)
 
     def get_formula(self, name):
         for formula in self.formulas:
             if formula.name == name:
                 return formula
-        return None
 
     def find_formulas(self, custom=None, command_name=None):
         for formula in self.formulas:
@@ -97,7 +120,6 @@ class AppMan:
         for pm in self.config.get_compatible_pms(os, package.type):
             if pm in fnames:
                 return self.get_formula(pm)
-        return None
 
     def _create_packages(self, ptype):
         pname = f"{config.PACKAGES_PKG}.{ptype}"
@@ -111,15 +133,45 @@ class AppMan:
             data = yaml.load(file, Loader=yaml.FullLoader)
         return data
 
+    def _add_data_resource(self, package, resource, data):
+        content = self._read_data_resource(package, resource)
+        if not content:
+            content = []
+        elif not isinstance(content, list):
+            raise TypeError
+
+        content.append(data)
+        content = sorted(content, key=lambda o: o["id"])
+        self._write_data_resource(package, resource, content)
+
+    def _delete_data_resource(self, package, resource, data):
+        content = self._read_data_resource(package, resource)
+        content.remove(data)
+        self._write_data_resource(package, resource, content)
+
+    def _read_data_resource(self, package, resource):
+        fpath = self._get_resource_file(package, resource)
+        if not fpath.exists():
+            return None
+        with open(fpath, encoding="utf-8") as file:
+            return yaml.load(file, Loader=yaml.FullLoader)
+
+    def _write_data_resource(self, package, resource, data):
+        fpath = self._get_resource_file(package, resource)
+        with open(fpath, "w", encoding="utf-8") as file:
+            yaml.dump(data, file)
+
     def _get_data_resource_files(self, package):
         path = resources.files(package)
-        yield from path.glob("*.yaml")
+        yield from path.glob(f"*{config.DEFS_EXT}")
 
     def _get_grouped_data_resource_files(self, package):
         path = resources.files(package)
-        for file in path.glob("*.yaml"):
+        for file in path.glob(f"*{config.DEFS_EXT}"):
             ptype = file.stem
             data = self._load_data_resource(package, file.name)
+            if not data:
+                return
             for d in data:
                 id = d if isinstance(d, str) else d["id"]
                 yield {
@@ -128,17 +180,44 @@ class AppMan:
                     "ptype": ptype,
                 }
 
+    def _get_resource_file(self, package, resource):
+        path = resources.files(package)
+        return path.joinpath(f"{resource}{config.DEFS_EXT}")
 
-class Package:
+
+class CommonPackage:
+    def __init__(self, id, ptype):
+        self.id = id
+        self.type = ptype
+        self.labels = []
+
+    def has_label(self, label):
+        return not label or (self.labels and label in self.labels)
+
+
+class UserPackage(CommonPackage):
+    def __init__(self, id, ptype, label=None):
+        super().__init__(id, ptype)
+        if label:
+            self.labels.append(label)
+
+    def load(self, obj):
+        if "labels" in obj:
+            self.labels = obj["labels"]
+
+    @property
+    def data(self):
+        return {"id": self.id, "labels": self.labels}
+
+
+class Package(CommonPackage):
     arg_default = "pmid"
 
-    def __init__(self, id, type, format="default"):
-        self.id = id
+    def __init__(self, id, ptype, format="default"):
+        super().__init__(id, ptype)
         self.name = id
-        self.type = type
         self.format = format
         self.description = ""
-        self.labels = []
         self.args = {}
         self.os = []
 
@@ -176,9 +255,6 @@ class Package:
         raise ValueError(
             f"Command '{commandtype}' not found in formula '{formula.name}'"
         )
-
-    def has_label(self, label):
-        return not label or (self.labels and label in self.labels)
 
     def is_compatible(self, os, config):
         if self.format == "simple":
