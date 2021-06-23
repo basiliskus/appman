@@ -3,6 +3,8 @@ import os
 import yaml
 import yamale
 
+EXT = ".yaml"
+
 
 def safe_load_yaml_files(path):
     for fpath in get_file_paths(path):
@@ -11,14 +13,13 @@ def safe_load_yaml_files(path):
 
 
 def get_file_paths(data_root):
-    for path, directories, files in os.walk(data_root):
+    for path, directories, files in os.walk(os.path.join(data_root, f"*{EXT}")):
         for name in files:
-            fpath = os.path.join(path, name)
-            yield fpath
+            yield os.path.join(path, name)
 
 
 def get_validation_files(schemas_root, data_root, name):
-    schema_path = os.path.join(schemas_root, f"{name}.yaml")
+    schema_path = os.path.join(schemas_root, f"{name}{EXT}")
     data_path = os.path.join(data_root, name)
     return schema_path, data_path
 

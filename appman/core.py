@@ -1,6 +1,6 @@
-import os
 import re
 import subprocess
+from importlib import resources
 
 import yaml
 
@@ -8,42 +8,40 @@ from . import config
 
 
 class AppMan:
-    def __init__(self, path, config=config.CONFIG_PATH):
-        self.path = path
-        self.config = config
+    def __init__(self):
+        self.config = None
         self.packages = []
         self.formulas = []
-        self.load_data(path)
+        self.load_data()
 
-    def load_data(self, path):
+    def load_data(self):
+
         # config
-        cfdata, _ = self._load_data_file(self.config)
+        cfdata = self._load_data_resource(config.DATA_PKG, "config.yaml")
         self.config = Config(cfdata)
 
         # package managers
-        for pmdata, pmpath in list(self._load_data_dir(config.PM_DIR)):
-            pmname = self._get_name_from_path(pmpath)
-            pm = Formula(pmname)
-            pm.load(pmdata)
+        for pmfile in self._get_data_resource_files(config.PM_PKG):
+            pm = Formula(pmfile.stem)
+            pm.load(self._load_data_resource(config.PM_PKG, pmfile.name))
             self.formulas.append(pm)
 
         # formulas
-        for fdata, fpath in self._load_data_dir(config.FORMULAS_DIR):
-            fname = self._get_name_from_path(fpath)
-            formula = Formula(fname, custom=True)
-            formula.load(fdata)
+        for ffile in self._get_data_resource_files(config.FORMULAS_PKG):
+            formula = Formula(ffile.stem, custom=True)
+            formula.load(self._load_data_resource(config.FORMULAS_PKG, ffile.name))
             self.formulas.append(formula)
 
         # packages: cli
-        for package in self._create_packages(path, "cli"):
+        for package in self._create_packages("cli"):
             self.packages.append(package)
 
         # packages: gui
-        for package in self._create_packages(path, "gui"):
+        for package in self._create_packages("gui"):
             self.packages.append(package)
 
         # packages: group by files
-        for presult in self._load_data_grouped(path):
+        for presult in self._get_grouped_data_resource_files(config.PACKAGES_PKG):
             package = Package(presult["id"], presult["ptype"])
             package.load(presult["data"])
             self.packages.append(package)
@@ -101,41 +99,34 @@ class AppMan:
                 return self.get_formula(pm)
         return None
 
-    def _create_packages(self, path, ptype):
-        ptdir = os.path.join(path, ptype)
-        for pdata, ppath in self._load_data_dir(ptdir):
-            pname = self._get_name_from_path(ppath)
-            package = Package(pname, ptype)
-            package.load(pdata)
+    def _create_packages(self, ptype):
+        pname = f"{config.PACKAGES_PKG}.{ptype}"
+        for pfile in self._get_data_resource_files(pname):
+            package = Package(pfile.stem, ptype)
+            package.load(self._load_data_resource(pname, pfile.name))
             yield package
 
-    def _load_data_file(self, path):
-        with open(path, encoding="utf-8") as file:
+    def _load_data_resource(self, package, resource):
+        with resources.open_text(package, resource) as file:
             data = yaml.load(file, Loader=yaml.FullLoader)
-        return data, path
+        return data
 
-    def _load_data_dir(self, path):
-        for root, dirs, files in os.walk(path):
-            for file in files:
-                if file.endswith(".yaml"):
-                    fpath = os.path.join(root, file)
-                    yield self._load_data_file(fpath)
+    def _get_data_resource_files(self, package):
+        path = resources.files(package)
+        yield from path.glob("*.yaml")
 
-    def _load_data_grouped(self, path):
-        for entry in os.scandir(path):
-            if entry.is_file() and entry.path.endswith(".yaml"):
-                data, _ = self._load_data_file(entry.path)
-                ptype = os.path.splitext(entry.name)[0]
-                for d in data:
-                    id = d if isinstance(d, str) else d["id"]
-                    yield {
-                        "id": id,
-                        "data": d,
-                        "ptype": ptype,
-                    }
-
-    def _get_name_from_path(self, path):
-        return os.path.splitext(os.path.basename(path))[0]
+    def _get_grouped_data_resource_files(self, package):
+        path = resources.files(package)
+        for file in path.glob("*.yaml"):
+            ptype = file.stem
+            data = self._load_data_resource(package, file.name)
+            for d in data:
+                id = d if isinstance(d, str) else d["id"]
+                yield {
+                    "id": id,
+                    "data": d,
+                    "ptype": ptype,
+                }
 
 
 class Package:

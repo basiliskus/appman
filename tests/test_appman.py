@@ -5,8 +5,8 @@ from . import args
 
 
 @pytest.fixture
-def appm(packages_root):
-    return appman.AppMan(packages_root)
+def appm():
+    return appman.AppMan()
 
 
 @pytest.mark.parametrize(

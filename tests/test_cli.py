@@ -13,10 +13,8 @@ def test_entrypoint():
 
 @pytest.mark.parametrize("package_type", args.cliargs["package-type"])
 @pytest.mark.parametrize("package_id", args.cliargs["package-id"])
-def test_install_single_package(packages_root, config_file, package_type, package_id):
-    args = ["--config", config_file]
-    args += ["--packages-path", packages_root]
-    args += ["run", "install"]
+def test_install_single_package(package_type, package_id):
+    args = ["install"]
     args += ["--package-type", package_type]
     args += ["--package-id", package_id]
     args += ["--test"]
@@ -29,15 +27,13 @@ def test_install_single_package(packages_root, config_file, package_type, packag
 
 @pytest.mark.parametrize("package_type", args.cliargs["package-type"])
 @pytest.mark.parametrize("label", args.cliargs["label"])
-def test_install_multiple_packages(packages_root, config_file, package_type, label):
-    args = ["--config", config_file]
-    args += ["--packages-path", packages_root]
-    args += ["run", "install"]
+def test_install_multiple_packages(package_type, label):
+    args = ["install"]
     args += ["--package-type", package_type]
-    args += ["--test"]
-    args += ["--verbose"]
     if label:
         args += ["--label", label]
+    args += ["--test"]
+    args += ["--verbose"]
     runner = CliRunner()
     result = runner.invoke(appman.cli, args)
     assert result.exit_code == 0
@@ -46,10 +42,8 @@ def test_install_multiple_packages(packages_root, config_file, package_type, lab
 @pytest.mark.skip(reason="need better test parameters")
 @pytest.mark.parametrize("action", args.cliargs["action"])
 @pytest.mark.parametrize("package_type", ["cli"])
-def test_actions(packages_root, config_file, action, package_type):
-    args = ["--config", config_file]
-    args += ["--packages-path", packages_root]
-    args += ["run", action]
+def test_actions(action, package_type):
+    args = [action]
     args += ["--package-type", package_type]
     args += ["--test"]
 
