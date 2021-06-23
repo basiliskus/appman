@@ -35,7 +35,6 @@ defaults:
     - dev-tools
     - db
     - editor
-    - essentials
     - media
     - music
     - network
