@@ -22,13 +22,12 @@ class RunCommand(click.Command):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.params = [
-            click.Option(
-                ("--package-type", "-pt"),
+            click.Argument(
+                ("package-type",),
                 type=click.Choice(
                     PT_CHOICES,
                     case_sensitive=False,
                 ),
-                help="Package type",
             ),
             click.Option(("--package-id", "-id"), help="Package ID"),
             click.Option(("--label",), help="Package label"),
@@ -42,13 +41,6 @@ class RunCommand(click.Command):
 
 
 @click.group()
-# @click.option(
-#     "--data-path",
-#     "-d",
-#     type=click.Path(exists=True, file_okay=False, writable=True),
-#     default="data",
-#     help="Specify data path",
-# )
 @click.version_option(message="%(prog)s %(version)s")
 @click.pass_context
 def cli(ctx):

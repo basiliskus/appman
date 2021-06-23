@@ -15,7 +15,7 @@ def test_entrypoint():
 @pytest.mark.parametrize("package_id", args.cliargs["package-id"])
 def test_install_single_package(package_type, package_id):
     args = ["install"]
-    args += ["--package-type", package_type]
+    args += [package_type]
     args += ["--package-id", package_id]
     args += ["--test"]
     args += ["--verbose"]
@@ -29,7 +29,7 @@ def test_install_single_package(package_type, package_id):
 @pytest.mark.parametrize("label", args.cliargs["label"])
 def test_install_multiple_packages(package_type, label):
     args = ["install"]
-    args += ["--package-type", package_type]
+    args += [package_type]
     if label:
         args += ["--label", label]
     args += ["--test"]
@@ -44,7 +44,7 @@ def test_install_multiple_packages(package_type, label):
 @pytest.mark.parametrize("package_type", ["cli"])
 def test_actions(action, package_type):
     args = [action]
-    args += ["--package-type", package_type]
+    args += [package_type]
     args += ["--test"]
 
     runner = CliRunner()
