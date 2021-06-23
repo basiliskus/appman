@@ -7,33 +7,38 @@ from . import util
 from . import config
 
 
-# class RunCommand(click.Command):
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.params.append = [
-#             click.Option(
-#                 "--package-type",
-#                 "-pt",
-#                 type=click.Choice(
-#                     [
-#                         "cli",
-#                         "gui",
-#                         "backend",
-#                         "fonts",
-#                         "drivers",
-#                         "vscode",
-#                         "provisioned",
-#                     ],
-#                     case_sensitive=False,
-#                 ),
-#                 help="Package type",
-#             ),
-#             click.Option("--package-id", "-id", help="Package ID"),
-#             click.Option("--label", help="Package label"),
-#             click.Option(
-#                 "--test", "-t", is_flag=True, help="Print commands without running"
-#             ),
-#         ] + self.params
+PT_CHOICES = [
+    "cli",
+    "gui",
+    "backend",
+    "fonts",
+    "drivers",
+    "vscode",
+    "provisioned",
+]
+
+
+class RunCommand(click.Command):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.params = [
+            click.Option(
+                ("--package-type", "-pt"),
+                type=click.Choice(
+                    PT_CHOICES,
+                    case_sensitive=False,
+                ),
+                help="Package type",
+            ),
+            click.Option(("--package-id", "-id"), help="Package ID"),
+            click.Option(("--label",), help="Package label"),
+            click.Option(
+                ("--test", "-t"), is_flag=True, help="Print commands without running"
+            ),
+            click.Option(
+                ("--verbose", "-v"), is_flag=True, help="Print commands without running"
+            ),
+        ] + self.params
 
 
 @click.group()
@@ -51,25 +56,21 @@ def cli(ctx):
     ctx.obj = {"appman": am}
 
 
-# @cli.command(cls=RunCommand)
-@cli.command()
-@click.option(
-    "--package-type",
-    "-pt",
-    type=click.Choice(
-        ["cli", "gui", "backend", "fonts", "drivers", "vscode", "provisioned"],
-        case_sensitive=False,
-    ),
-    help="Package type",
-)
-@click.option("--package-id", "-id", help="Package ID")
-@click.option("--label", help="Package label")
-@click.option("--verbose", "-v", is_flag=True, help="Verbose output")
-@click.option("--test", "-t", is_flag=True, help="Print commands without running")
+@cli.command(cls=RunCommand)
 @click.pass_context
 def install(ctx, package_id, package_type, label, verbose, test):
     try:
         run_command(ctx, "install", package_id, package_type, label, test, verbose)
+    except Exception as e:
+        e.verbose = verbose
+        raise
+
+
+@cli.command(cls=RunCommand)
+@click.pass_context
+def uninstall(ctx, package_id, package_type, label, verbose, test):
+    try:
+        run_command(ctx, "uninstall", package_id, package_type, label, test, verbose)
     except Exception as e:
         e.verbose = verbose
         raise

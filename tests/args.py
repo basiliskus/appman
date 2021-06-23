@@ -1,5 +1,5 @@
 cliargs = {
-    "action": ["install", "uninstall", "update-all"],
+    "action": ["install", "uninstall"],
     "os": ["windows", "linux"],
     "package-type": [
         "cli",
