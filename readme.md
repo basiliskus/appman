@@ -6,6 +6,11 @@ appman is cross-platform application management aggregator
 
 [![Build Status](https://travis-ci.com/basiliskus/appman.svg?branch=main)](https://travis-ci.com/basiliskus/appman)
 
+
+## Requirements
+
+- Python 3.9
+
 ## Installation
 
 You can install appman from [PyPI](https://pypi.org/project/appman/):

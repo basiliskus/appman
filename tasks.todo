@@ -1,8 +1,11 @@
 Improvements:
+  [ ] move packages files to appman data folder
+    [ ] use new files to store user data
   [ ] add instructions to install and usage in readme file
   [ ] add logging (make sure to log packages not able to install, uninstall or update)
   [ ] add package requirements handling and additional libraries
   [ ] fail gracefully when a package type file/folder doesn't exist
+  [ ] add update-all command
   [ ] add integration tests
     [ ] make sure package formula exists in data/formulas
     [ ] add test cases for unexpected behaviour
