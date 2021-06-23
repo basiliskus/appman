@@ -26,13 +26,13 @@ def test_install_single_package(package_type, package_id):
 
 
 @pytest.mark.parametrize("package_type", args.cliargs["package-type"])
-@pytest.mark.parametrize("label", args.cliargs["label"])
-def test_install_multiple_packages(package_type, label):
+@pytest.mark.parametrize("labels", args.cliargs["labels"])
+def test_install_multiple_packages(package_type, labels):
     args = ["--verbose"]
     args += ["install"]
     args += [package_type]
-    if label:
-        args += ["--label", label]
+    if labels:
+        args += ["--labels", labels]
     args += ["--test"]
     runner = CliRunner()
     result = runner.invoke(appman.cli, args)

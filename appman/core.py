@@ -53,8 +53,8 @@ class AppMan:
             package.load(presult["data"])
             self.user_packages.append(package)
 
-    def add_user_package(self, package, label):
-        user_package = UserPackage(package.id, package.type, label)
+    def add_user_package(self, package, labels):
+        user_package = UserPackage(package.id, package.type, labels)
         self._add_data_resource(config.USER_PKG, package.type, user_package.data)
 
     def delete_user_package(self, user_package):
@@ -62,30 +62,36 @@ class AppMan:
             config.USER_PKG, user_package.type, user_package.data
         )
 
-    def get_user_packages(self, package_type, id=None, label=None):
+    def get_user_packages(self, package_type, id=None, labels=None):
+        packages = []
         for package in self.user_packages:
             if (
-                (package.type == package_type)
-                and package.has_label(label)
+                package.type == package_type
+                and package.has_labels(labels)
                 and (id is None or package.id == id)
             ):
-                yield package
+                packages.append(package)
+        return packages
 
     def get_user_package(self, package_type, id):
-        return next(self.get_user_packages(package_type, id=id), None)
+        packages = self.get_user_packages(package_type, id=id)
+        return packages[0] if packages else None
 
-    def get_packages(self, package_type, os="any", id=None, label=None):
+    def get_packages(self, package_type, os="any", id=None, labels=None):
+        packages = []
         for package in self.packages:
             if (
                 package.type == package_type
-                and package.has_label(label)
+                and package.has_labels(labels)
                 and package.is_compatible(os, self.config)
                 and (id is None or package.id == id)
             ):
-                yield package
+                packages.append(package)
+        return packages
 
     def get_package(self, package_type, id):
-        return next(self.get_packages(package_type, id=id), None)
+        packages = self.get_packages(package_type, id=id)
+        return packages[0] if packages else None
 
     def get_formula(self, name):
         for formula in self.formulas:
@@ -191,15 +197,15 @@ class CommonPackage:
         self.type = ptype
         self.labels = []
 
-    def has_label(self, label):
-        return not label or (self.labels and label in self.labels)
+    def has_labels(self, labels):
+        return not labels or (self.labels and set(labels).issubset(self.labels))
 
 
 class UserPackage(CommonPackage):
-    def __init__(self, id, ptype, label=None):
+    def __init__(self, id, ptype, labels=None):
         super().__init__(id, ptype)
-        if label:
-            self.labels.append(label)
+        if labels:
+            self.labels.extend(labels)
 
     def load(self, obj):
         if "labels" in obj:

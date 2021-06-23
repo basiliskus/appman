@@ -10,7 +10,7 @@ cliargs = {
         "vscode",
         "provisioned",
     ],
-    "label": ["", "dev-tools", "utils"],
+    "labels": ["", "dev-tools", "utils"],
     "package-id": [
         "git",
         "chocolatey-cli",

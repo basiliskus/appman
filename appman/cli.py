@@ -30,11 +30,20 @@ class RunCommand(click.Command):
                 ),
             ),
             click.Option(("--package-id", "-id"), help="Package ID"),
-            click.Option(("--label",), help="Package label"),
+            click.Option(
+                ("--labels",),
+                callback=parse_labels,
+                help="Comma-separated list of labels",
+            ),
             click.Option(
                 ("--test", "-t"), is_flag=True, help="Print commands without running"
             ),
         ] + self.params
+
+
+def parse_labels(ctx, param, value):
+    if value:
+        return value.split(",")
 
 
 @click.group()
@@ -57,10 +66,10 @@ def cli(ctx, verbose):
 
 @cli.command(cls=RunCommand)
 @click.pass_context
-def install(ctx, package_id, package_type, label, test):
+def install(ctx, package_id, package_type, labels, test):
     verbose = ctx.obj["verbose"]
     try:
-        run_command(ctx, "install", package_id, package_type, label, test, verbose)
+        run_command(ctx, "install", package_id, package_type, labels, test, verbose)
     except Exception as e:
         e.verbose = verbose
         raise
@@ -68,10 +77,10 @@ def install(ctx, package_id, package_type, label, test):
 
 @cli.command(cls=RunCommand)
 @click.pass_context
-def uninstall(ctx, package_id, package_type, label, test):
+def uninstall(ctx, package_id, package_type, labels, test):
     verbose = ctx.obj["verbose"]
     try:
-        run_command(ctx, "uninstall", package_id, package_type, label, test, verbose)
+        run_command(ctx, "uninstall", package_id, package_type, labels, test, verbose)
     except Exception as e:
         e.verbose = verbose
         raise
@@ -80,7 +89,7 @@ def uninstall(ctx, package_id, package_type, label, test):
 @cli.command()
 @click.argument("package-type", type=click.Choice(PT_CHOICES, case_sensitive=False))
 @click.option("--id", help="Package id")
-@click.option("--labels", help="Package labels")
+@click.option("--labels", callback=parse_labels, help="Comma-separated list of labels")
 @click.pass_context
 def search(ctx, package_type, id, labels):
     os = ctx.obj["os"]
@@ -92,7 +101,7 @@ def search(ctx, package_type, id, labels):
             util.print_info(f"Package '{id}' found")
         return
 
-    pkgs = find_packages(appman, package_type, os, label=labels)
+    pkgs = find_packages(appman, package_type, os, labels=labels)
     if not pkgs:
         return
 
@@ -102,7 +111,7 @@ def search(ctx, package_type, id, labels):
 
 @cli.command()
 @click.argument("package-type", type=click.Choice(PT_CHOICES, case_sensitive=False))
-@click.option("--labels", help="Package labels")
+@click.option("--labels", callback=parse_labels, help="Comma-separated list of labels")
 @click.pass_context
 def list(ctx, package_type, labels):
     verbose = ctx.obj["verbose"]
@@ -119,7 +128,7 @@ def list(ctx, package_type, labels):
 @cli.command()
 @click.argument("package-type", type=click.Choice(PT_CHOICES, case_sensitive=False))
 @click.option("--id", help="Package id")
-@click.option("--labels", help="Package labels")
+@click.option("--labels", callback=parse_labels, help="Comma-separated list of labels")
 @click.pass_context
 def add(ctx, package_type, id, labels):
     verbose = ctx.obj["verbose"]
@@ -163,14 +172,14 @@ def find_package(appman, package_type, id):
     util.print_info(f"Package '{id}' not found")
 
 
-def find_packages(appman, package_type, os, label):
-    packages = appman.get_packages(package_type, os, label)
+def find_packages(appman, package_type, os, labels):
+    packages = appman.get_packages(package_type, os, labels=labels)
     if packages:
         return packages
     util.print_info("No packages found")
 
 
-def run_command(ctx, action, package_id, package_type, label, test, verbose):
+def run_command(ctx, action, package_id, package_type, labels, test, verbose):
     os = ctx.obj["os"]
     appman = ctx.obj["appman"]
     if package_id:
@@ -178,7 +187,7 @@ def run_command(ctx, action, package_id, package_type, label, test, verbose):
         if package:
             package_run(package, action, appman, os, test, verbose, idprovided=True)
     else:
-        packages = find_packages(appman, package_type, os, label)
+        packages = find_packages(appman, package_type, os, labels)
         if not packages:
             return
         for package in packages:
