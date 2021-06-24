@@ -46,12 +46,12 @@ class AppMan:
 
     def add_user_package(self, package, labels):
         user_package = UserPackage(package.id, package.type, labels)
-        self._add_data_resource(config.USER_PKG, package.type, user_package.data)
+        resource = self._get_resource_name(package.type)
+        self._add_data_resource(config.USER_PKG, resource, user_package.data)
 
     def delete_user_package(self, user_package):
-        self._delete_data_resource(
-            config.USER_PKG, user_package.type, user_package.data
-        )
+        resource = self._get_resource_name(user_package.type)
+        self._delete_data_resource(config.USER_PKG, resource, user_package.data)
 
     def get_user_packages(self, package_type, id=None, labels=None):
         packages = []
@@ -171,7 +171,7 @@ class AppMan:
     def _get_grouped_data_resource_files(self, package):
         path = resources.files(package)
         for file in path.glob(f"*{config.DEFS_EXT}"):
-            ptype = file.stem
+            ptype = self._get_package_type(file.stem)
             data = self._load_data_resource(package, file.name)
             if not data:
                 return
@@ -186,6 +186,12 @@ class AppMan:
     def _get_resource_file(self, package, resource):
         path = resources.files(package)
         return path.joinpath(f"{resource}{config.DEFS_EXT}")
+
+    def _get_resource_name(self, ptype):
+        return next(pt["pkg"] for pt in config.PACKAGES_TYPES if pt["id"] == ptype)
+
+    def _get_package_type(self, resource):
+        return next(pt["id"] for pt in config.PACKAGES_TYPES if pt["pkg"] == resource)
 
 
 class CommonPackage:

@@ -30,7 +30,7 @@ class RunCommand(click.Command):
             ),
             click.Option(("--package-id", "-id"), help="Package ID"),
             click.Option(
-                ("--labels",),
+                ("--labels", "-l"),
                 callback=parse_labels,
                 help="Comma-separated list of labels",
             ),
@@ -87,20 +87,22 @@ def uninstall(ctx, package_id, package_type, labels, test):
 
 @cli.command()
 @click.argument("package-type", type=click.Choice(PT_CHOICES, case_sensitive=False))
-@click.option("--id", help="Package id")
-@click.option("--labels", callback=parse_labels, help="Comma-separated list of labels")
+@click.option("--package-id", "-id", help="Package id")
+@click.option(
+    "--labels", "-l", callback=parse_labels, help="Comma-separated list of labels"
+)
 @click.pass_context
-def search(ctx, package_type, id, labels):
+def search(ctx, package_type, package_id, labels):
     os = ctx.obj["os"]
     appman = ctx.obj["appman"]
     verbose = ctx.obj["verbose"]
     try:
-        if id:
-            pkg = appman.get_package(package_type, id)
+        if package_id:
+            pkg = appman.get_package(package_type, package_id)
             if pkg:
-                util.print_info(f"Package definition for '{id}' found")
+                util.print_info(f"Package definition for '{package_id}' found")
             else:
-                util.print_info(f"Package definition for '{id}' not found")
+                util.print_info(f"Package definition for '{package_id}' not found")
             return
 
         pkgs = appman.get_packages(package_type, os, labels=labels)
@@ -117,7 +119,9 @@ def search(ctx, package_type, id, labels):
 
 @cli.command()
 @click.argument("package-type", type=click.Choice(PT_CHOICES, case_sensitive=False))
-@click.option("--labels", callback=parse_labels, help="Comma-separated list of labels")
+@click.option(
+    "--labels", "-l", callback=parse_labels, help="Comma-separated list of labels"
+)
 @click.pass_context
 def list(ctx, package_type, labels):
     verbose = ctx.obj["verbose"]
@@ -141,7 +145,9 @@ def list(ctx, package_type, labels):
 @cli.command()
 @click.argument("package-type", type=click.Choice(PT_CHOICES, case_sensitive=False))
 @click.argument("package-id")
-@click.option("--labels", callback=parse_labels, help="Comma-separated list of labels")
+@click.option(
+    "--labels", "-l", callback=parse_labels, help="Comma-separated list of labels"
+)
 @click.pass_context
 def add(ctx, package_type, package_id, labels):
     verbose = ctx.obj["verbose"]
@@ -156,6 +162,12 @@ def add(ctx, package_type, package_id, labels):
         if appman.has_user_package(package_type, package_id):
             util.print_warning(f"Package '{package_id}' already found")
             return
+
+        # add default labels for package
+        if labels:
+            labels.extend(pkg.labels)
+        else:
+            labels = pkg.labels
 
         appman.add_user_package(pkg, labels)
     except Exception as e:
