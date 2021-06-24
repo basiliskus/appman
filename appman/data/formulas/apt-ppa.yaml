@@ -1,3 +1,4 @@
+type: custom
 os: ubuntu
 commands:
   install: >-

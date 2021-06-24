@@ -1,6 +1,0 @@
-os: any
-commands:
-  init: sudo npm install --global npm
-  install: sudo npm install --global $pmid
-  uninstall: sudo npm uninstall $pmid
-  update-all: sudo npm update --global

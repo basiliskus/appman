@@ -1,3 +1,4 @@
+type: custom
 os: linux
 commands:
   install: >-
@@ -5,3 +6,5 @@ commands:
     && wget -q -O ~/tmp/${NAME} $source
     && sudo tar -C $destination -xzf ~/tmp/${NAME}
     && rm ~/tmp/${NAME}
+requires:
+  - wget

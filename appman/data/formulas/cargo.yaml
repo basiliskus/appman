@@ -1,0 +1,6 @@
+type: package-manager
+os: any
+commands:
+  install: cargo install $pmid
+requires:
+  - cargo

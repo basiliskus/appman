@@ -1,0 +1,16 @@
+id: yq
+name: yq
+description: A portable command-line YAML processor
+labels:
+  - cli
+  - utils
+pmid:
+  scoop: yq
+formulas:
+  - name: apt-ppa
+    os: ubuntu
+    args:
+      keyserver: keyserver.ubuntu.com
+      recv-keys: CC86BB64
+      apt-repository: ppa:rmescandon/yq
+      pmid: yq

@@ -1,3 +1,4 @@
+type: custom
 os: linux
 commands:
   install: >-
@@ -11,3 +12,7 @@ commands:
     && mkdir -p ~/.local/share/fonts/
     && cp ~/tmp/${FONTNAME}/*${FONT_EXT} ~/.local/share/fonts/
     && fc-cache -f -v
+requires:
+  - wget
+  - unzip
+  - fontconfig

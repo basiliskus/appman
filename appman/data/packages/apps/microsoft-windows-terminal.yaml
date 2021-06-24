@@ -1,0 +1,7 @@
+id: microsoft-windows-terminal
+name: Microsoft Windows Terminal
+labels:
+  - gui
+pmid:
+  choco: microsoft-windows-terminal
+  winget: Microsoft.WindowsTerminal

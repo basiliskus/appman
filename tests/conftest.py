@@ -24,5 +24,10 @@ def packages_root():
 
 
 @pytest.fixture
+def apps_root():
+    return config.APPS_DIR
+
+
+@pytest.fixture
 def svars():
     return ["tags"]

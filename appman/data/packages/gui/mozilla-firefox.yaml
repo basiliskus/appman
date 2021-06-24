@@ -1,7 +1,0 @@
-id: mozilla-firefox
-name: Mozilla Firefox
-labels:
-  - browser
-pmid:
-  choco: firefox
-  winget: Mozilla.Firefox

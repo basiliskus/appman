@@ -1,0 +1,8 @@
+id: microsoft-visual-studio-code-insiders
+name: Microsoft Visual Studio Code Insiders
+labels:
+  - gui
+  - dev-tools
+  - editor
+pmid:
+  winget: Microsoft.VisualStudioCode.Insiders

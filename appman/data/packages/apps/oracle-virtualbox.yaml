@@ -1,0 +1,7 @@
+id: oracle-virtualbox
+name: Oracle VirtualBox
+labels:
+  - gui
+  - dev-tools
+pmid:
+  winget: Oracle.VirtualBox

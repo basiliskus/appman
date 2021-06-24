@@ -1,0 +1,13 @@
+id: python
+name: python
+description: A programming language that lets you work quickly and integrate systems
+  more effectively
+labels:
+  - cli
+  - dev-tools
+  - prog-langs
+pmid:
+  scoop: python
+  choco: python
+  winget: Python.Python
+  apt: python3.9

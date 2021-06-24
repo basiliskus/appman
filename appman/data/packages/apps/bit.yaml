@@ -1,0 +1,9 @@
+id: bit
+name: bit
+description: Modernized git CLI
+labels:
+  - cli
+  - dev-tools
+home: https://github.com/chriswalz/bit
+pmid:
+  scoop: bit

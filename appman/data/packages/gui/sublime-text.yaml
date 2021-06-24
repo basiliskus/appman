@@ -1,6 +1,0 @@
-id: sublime-text
-name: Sublime Text
-labels:
-  - editor
-pmid:
-  winget: SublimeHQ.SublimeText

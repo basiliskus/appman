@@ -1,0 +1,10 @@
+id: redis
+name: redis
+description: In-memory data structure store, used as a database, cache and message
+  broker
+labels:
+  - cli
+  - dev-tools
+  - db
+pmid:
+  scoop: redis

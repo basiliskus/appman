@@ -6,21 +6,17 @@ os:
     - darwin
 defaults:
   pm:
-    cli:
+    app:
       windows: [ scoop, choco, npm, pip, cargo ]
       ubuntu: [ apt, npm, pip, cargo, snap ]
       darwin: [ brew, npm, pip, cargo ]
-    gui:
-      windows: [ choco ]
-      ubuntu: [ apt, snap ]
-      darwin: [ brew ]
     backend:
       any: [ npm, pip, cargo ]
-    fonts:
+    font:
       windows: [ scoop ]
       ubuntu: []
       darwin: [ brew ]
-    drivers:
+    driver:
       any: []
     vscode:
       any: [ vscode-extensions ]
@@ -28,6 +24,8 @@ defaults:
       windows: [ appx ]
       ubuntu: [ apt ]
   tags:
+    - cli
+    - gui
     - books
     - browser
     - cloud

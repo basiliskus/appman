@@ -1,0 +1,7 @@
+id: ncmpcpp
+name: ncmpcpp
+labels:
+  - cli
+  - music
+pmid:
+  apt: ncmpcpp

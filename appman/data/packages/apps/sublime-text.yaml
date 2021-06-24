@@ -1,0 +1,7 @@
+id: sublime-text
+name: Sublime Text
+labels:
+  - gui
+  - editor
+pmid:
+  winget: SublimeHQ.SublimeText

@@ -1,0 +1,8 @@
+id: sandboxie
+name: Sandboxie
+labels:
+  - gui
+  - security
+pmid:
+  choco: sandboxie
+  winget: SandboxiePlus.SandboxiePlus

@@ -1,0 +1,10 @@
+id: ack
+name: ack
+description: A tool like grep, optimized for programmers
+labels:
+  - cli
+  - utils
+pmid:
+  scoop: ack
+  choco: ack
+  apt: ack

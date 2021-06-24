@@ -1,0 +1,17 @@
+id: rust
+name: rust
+description: A language empowering everyone to build reliable and efficient software.
+  (GNU toolchain)
+labels:
+  - cli
+  - dev-tools
+  - prog-langs
+pmid:
+  scoop: rust
+  choco: rust
+  winget: Rustlang.rust-gnu
+formulas:
+  - name: sh-script-2
+    os: linux
+    args:
+      source: https://sh.rustup.rs

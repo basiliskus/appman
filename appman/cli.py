@@ -8,11 +8,10 @@ from . import config
 
 
 PT_CHOICES = [
-    "cli",
-    "gui",
+    "app",
     "backend",
-    "fonts",
-    "drivers",
+    "font",
+    "driver",
     "vscode",
     "provisioned",
 ]

@@ -1,3 +1,4 @@
+type: custom
 os: windows
 shell: powershell
 commands:

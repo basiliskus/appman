@@ -1,0 +1,6 @@
+id: wttr.in
+name: wttr.in
+description: The right way to check the weather
+labels:
+  - cli
+home: https://github.com/chubin/wttr.in

@@ -1,0 +1,7 @@
+id: spotify
+name: Spotify
+labels:
+  - gui
+  - music
+pmid:
+  winget: Spotify.Spotify

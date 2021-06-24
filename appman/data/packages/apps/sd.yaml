@@ -1,0 +1,8 @@
+id: sd
+name: sd
+description: Intuitive find & replace CLI (sed alternative)
+labels:
+  - cli
+  - utils
+pmid:
+  scoop: sd

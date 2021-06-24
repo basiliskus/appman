@@ -1,0 +1,7 @@
+id: cookiecutter
+name: cookiecutter
+labels:
+  - cli
+  - dev-tools
+pmid:
+  pip: cookiecutter

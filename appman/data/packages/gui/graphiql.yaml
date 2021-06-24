@@ -1,6 +1,0 @@
-id: graphiql
-name: GraphiQL
-labels:
-  - dev-tools
-pmid:
-  winget: AdamMiskiewicz.GraphiQL

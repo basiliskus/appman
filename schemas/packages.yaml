@@ -4,7 +4,7 @@ package:
   id: str()
   name: str(required=False)
   description: str(required=False)
-  labels: list(enum($tags), required=False)
+  labels: list(enum($tags))
   pmid: include('pmid', required=False)
   formulas: list(include('formula'), required=False)
   comments: str(required=False)

@@ -1,7 +1,0 @@
-id: dropbox
-name: Dropbox
-labels:
-  - cloud
-pmid:
-  choco: dropbox
-  winget: Dropbox.Dropbox

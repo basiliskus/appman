@@ -1,6 +1,0 @@
-id: unzip
-name: unzip
-labels:
-  - utils
-pmid:
-  apt: unzip

@@ -1,8 +1,0 @@
-id: dictd
-name: dictd
-description: Client/server software, human language dictionary databases, and tools supporting the DICT protocol (RFC 2229)
-labels:
-  - utils
-pmid:
-  apt: dictd
-home: https://sourceforge.net/projects/dict/

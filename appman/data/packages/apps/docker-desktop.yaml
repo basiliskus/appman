@@ -1,0 +1,8 @@
+id: docker-desktop
+name: Docker Desktop
+labels:
+  - gui
+  - dev-tools
+pmid:
+  choco: docker-desktop
+  winget: Docker.DockerDesktop

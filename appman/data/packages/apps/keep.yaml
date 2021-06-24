@@ -1,0 +1,8 @@
+id: keep
+name: keep
+description: A Meta CLI toolkit - Personal shell command keeper and snippets manager
+labels:
+  - cli
+pmid:
+  pip: keep
+home: https://github.com/OrkoHunter/keep

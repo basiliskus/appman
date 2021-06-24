@@ -1,0 +1,18 @@
+id: golang
+name: golang
+description: An open source programming language that makes it easy to build simple,
+  reliable, and efficient software
+labels:
+  - cli
+  - dev-tools
+  - prog-langs
+pmid:
+  scoop: go
+  choco: golang
+  winget: GoLang.Go
+formulas:
+  - name: tar-cp-package
+    os: linux
+    args:
+      source: https://golang.org/dl/go1.16.5.linux-amd64.tar.gz
+      destination: /usr/local

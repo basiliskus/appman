@@ -1,7 +1,0 @@
-id: putty
-name: Putty
-labels:
-  - utils
-pmid:
-  choco: putty
-  winget: PuTTY.PuTTY

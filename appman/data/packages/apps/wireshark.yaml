@@ -1,0 +1,9 @@
+id: wireshark
+name: Wireshark
+labels:
+  - gui
+  - network
+  - utils
+pmid:
+  choco: wireshark
+  winget: WiresharkFoundation.Wireshark

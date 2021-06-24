@@ -1,0 +1,8 @@
+id: tldr
+name: tldr
+description: Collaborative cheatsheets for console commands
+labels:
+  - cli
+pmid:
+  npm: tldr
+home: https://github.com/tldr-pages/tldr

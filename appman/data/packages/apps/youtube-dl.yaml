@@ -1,0 +1,10 @@
+id: youtube-dl
+name: youtube-dl
+description: Download videos from YouTube.com (and a few more sites) using command
+  line
+labels:
+  - cli
+  - utils
+pmid:
+  scoop: youtube-dl
+  choco: youtube-dl

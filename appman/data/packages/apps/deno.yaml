@@ -1,0 +1,9 @@
+id: deno
+name: deno
+description: A secure runtime for JavaScript and TypeScript
+labels:
+  - cli
+  - dev-tools
+pmid:
+  scoop: deno
+  choco: deno

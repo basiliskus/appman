@@ -1,0 +1,6 @@
+id: jrnl
+name: jrnl
+labels:
+  - cli
+pmid:
+  pip: jrnl

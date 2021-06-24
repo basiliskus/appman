@@ -1,0 +1,7 @@
+id: mopidy
+name: mopidy
+labels:
+  - cli
+  - music
+pmid:
+  apt: mopidy

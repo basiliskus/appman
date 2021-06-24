@@ -1,6 +1,0 @@
-id: keyring
-name: keyring
-labels:
-  - security
-pmid:
-  pip: keyring

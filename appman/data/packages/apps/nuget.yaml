@@ -1,0 +1,8 @@
+id: nuget
+name: nuget
+description: The package manager for .NET
+labels:
+  - cli
+  - dev-tools
+pmid:
+  scoop: nuget

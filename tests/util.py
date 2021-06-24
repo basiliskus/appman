@@ -12,8 +12,11 @@ def safe_load_yaml_files(path):
             yaml.safe_load(file)
 
 
-def get_file_paths(data_root):
-    for path, directories, files in os.walk(os.path.join(data_root, f"*{EXT}")):
+def get_file_paths(data_root, filter=None):
+    for path, directories, files in os.walk(data_root):
+        files = [
+            fi for fi in files if fi.endswith(EXT) and (filter is None or filter(fi))
+        ]
         for name in files:
             yield os.path.join(path, name)
 

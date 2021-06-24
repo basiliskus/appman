@@ -1,0 +1,8 @@
+id: winmerge
+name: WinMerge
+labels:
+  - gui
+  - dev-tools
+pmid:
+  choco: winmerge
+  winget: WinMerge.WinMerge

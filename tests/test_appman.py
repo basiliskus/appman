@@ -11,7 +11,7 @@ def appm():
 
 @pytest.mark.parametrize(
     "action, os, pt, pmid",
-    [("install", "linux", "cli", "curl")],
+    [("install", "linux", "app", "curl")],
 )
 def test_get_packages_by_id(appm, action, os, pt, pmid):
     package = appm.get_package(pt, pmid)
@@ -27,8 +27,8 @@ def test_get_packages_by_id(appm, action, os, pt, pmid):
 @pytest.mark.parametrize(
     "action, os, pt, labels",
     [
-        ("install", "linux", "cli", "essentials"),
-        ("install", "windows", "cli", "essentials"),
+        ("install", "linux", "app", "essentials"),
+        ("install", "windows", "app", "essentials"),
     ],
 )
 def test_get_packages_by_filters(appm, action, os, pt, labels):
@@ -53,7 +53,7 @@ def test_get_packages_by_type_returns_something(appm, os, package_type):
 
 @pytest.mark.skip(reason="need to be more specific about the test parameters")
 @pytest.mark.parametrize("os", args.cliargs["os"])
-@pytest.mark.parametrize("package_type", ["cli", "gui"])
+@pytest.mark.parametrize("package_type", ["app"])
 @pytest.mark.parametrize("labels", args.cliargs["labels"])
 def test_get_packages_by_label_returns_something(appm, os, package_type, labels):
     packages = appm.get_packages(package_type, os, labels=labels)

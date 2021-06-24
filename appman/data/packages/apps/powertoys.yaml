@@ -1,0 +1,8 @@
+id: powertoys
+name: Powertoys
+labels:
+  - gui
+  - utils
+pmid:
+  choco: powertoys
+  winget: Microsoft.PowerToys

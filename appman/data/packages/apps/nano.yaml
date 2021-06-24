@@ -1,0 +1,8 @@
+id: nano
+name: nano
+description: null
+labels:
+  - cli
+  - editor
+pmid:
+  apt: nano

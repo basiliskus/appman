@@ -1,0 +1,14 @@
+type: package-manager
+os: windows
+commands:
+  init: >-
+    scoop update --quiet
+    && scoop bucket add extra
+    && scoop bucket add nerd-fonts
+  install: scoop install $pmid
+  install-global: scoop install --global $pmid
+  uninstall: scoop uninstall $pmid
+  update-all: scoop update --quiet *
+requires:
+  - scoop
+

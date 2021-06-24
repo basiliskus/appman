@@ -1,0 +1,7 @@
+id: google-chrome
+name: Google Chrome
+labels:
+  - gui
+  - browser
+pmid:
+  winget: Google.Chrome

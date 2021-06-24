@@ -1,0 +1,6 @@
+id: spotify-tui
+name: spotify-tui
+description: Spotify for the terminal written in Rust
+labels:
+  - cli
+home: https://github.com/Rigellute/spotify-tui

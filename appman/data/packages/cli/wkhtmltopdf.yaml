@@ -1,7 +1,0 @@
-id: wkhtmltopdf
-name: wkhtmltopdf
-description: Render HTML into PDF
-labels:
-  - utils
-pmid:
-  scoop: wkhtmltopdf

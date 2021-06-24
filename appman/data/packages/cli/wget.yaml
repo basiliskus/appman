@@ -1,6 +1,0 @@
-id: wget
-name: wget
-labels:
-  - utils
-pmid:
-  apt: wget

@@ -1,6 +1,0 @@
-id: slack
-name: Slack
-labels:
-  - communication
-pmid:
-  winget: SlackTechnologies.Slack

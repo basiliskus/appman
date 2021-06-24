@@ -1,7 +1,0 @@
-id: visidata
-name: visidata
-description: A terminal spreadsheet multitool for discovering and arranging data
-labels:
-pmid:
-  pip: visidata
-home: https://github.com/saulpw/visidata

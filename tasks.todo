@@ -2,13 +2,14 @@ New Features:
   CLI:
     [ ] create command to add labels to existing user package
     [ ] create update-all command
+    [ ] create wizard to choose multiple user packages from global list
   Framework:
     [ ] add package requirements handling and additional libraries
 Improvements:
   Framework:
-    [ ] simplify data folder structure: merge folders cli + gui; and formulas + package-managers
-  Documentation:
-    [ ] add instructions to install and usage in readme file
+    [ ] create user package schema
+    [ ] make data structure consistent for all package types
+    [x] simplify data folder structure: merge folders cli + gui; and formulas + package-managers @done(21-06-24 11:12)
   Validation & Error Handling:
     [ ] add logging (make sure to log packages not able to install, uninstall or update)
     [ ] fail gracefully when a package type file/folder doesn't exist
@@ -16,6 +17,8 @@ Improvements:
   Tests:
     [ ] add test cases for unexpected behaviour
     [ ] add integration tests
+  Documentation:
+    [ ] add instructions to install and usage in readme file
 Bugs:
 
 Archive:

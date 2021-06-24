@@ -1,6 +1,0 @@
-id: cookiecutter
-name: cookiecutter
-labels:
-  - dev-tools
-pmid:
-  pip: cookiecutter

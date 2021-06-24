@@ -1,0 +1,11 @@
+type: package-manager
+os: any
+commands:
+  init: sudo pip install -U pip
+  install: pip install $pmid
+  uninstall: pip uninstall $pmid
+  update-all: pip freeze | cut -d"="" -f1 | xargs -n1 pip install -U
+requires:
+  - sudo
+  - pip
+

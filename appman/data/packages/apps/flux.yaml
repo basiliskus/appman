@@ -1,0 +1,7 @@
+id: flux
+name: flux
+labels:
+  - gui
+  - utils
+pmid:
+  winget: flux.flux

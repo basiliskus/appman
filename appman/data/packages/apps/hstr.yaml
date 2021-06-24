@@ -1,0 +1,7 @@
+id: hstr
+name: hstr
+description: bash and zsh shell history suggest box - easily view, navigate,
+  search and manage your command history.
+labels:
+  - cli
+home: https://github.com/dvorka/hstr/

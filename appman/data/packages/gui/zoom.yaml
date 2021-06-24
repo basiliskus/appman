@@ -1,6 +1,0 @@
-id: zoom
-name: Zoom
-labels:
-  - communication
-pmid:
-  winget: Zoom.Zoom

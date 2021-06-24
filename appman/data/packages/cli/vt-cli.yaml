@@ -1,7 +1,0 @@
-id: vt-cli
-name: vt-cli
-description: Tool for interacting with VirusTotal
-labels:
-  - security
-pmid:
-  scoop: vt-cli

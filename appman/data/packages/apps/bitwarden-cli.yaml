@@ -1,0 +1,9 @@
+id: bitwarden-cli
+name: Bitwarden CLI
+description: The command line vault (Windows, macOS, & Linux).
+labels:
+  - cli
+  - security
+pmid:
+  npm: '@bitwarden/cli'
+home: https://github.com/bitwarden/cli

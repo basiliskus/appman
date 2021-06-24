@@ -1,6 +1,0 @@
-id: google-chrome
-name: Google Chrome
-labels:
-  - browser
-pmid:
-  winget: Google.Chrome

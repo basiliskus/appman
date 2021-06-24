@@ -1,3 +1,4 @@
+type: enum('package-manager', 'custom')
 os: enum('linux', 'windows', 'darwin', 'ubuntu', 'any')
 shell:  enum('cmd', 'powershell', required=False)
 commands:
@@ -6,3 +7,4 @@ commands:
   install-global: str(required=False)
   uninstall: str(required=False)
   update-all: str(required=False)
+requires: list(str(), required=False)

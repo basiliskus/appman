@@ -1,6 +1,0 @@
-id: discord
-name: Discord
-labels:
-  - communication
-pmid:
-  winget: Discord.Discord

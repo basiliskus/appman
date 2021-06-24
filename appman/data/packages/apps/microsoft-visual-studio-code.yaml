@@ -1,0 +1,15 @@
+id: microsoft-visual-studio-code
+name: Microsoft Visual Studio Code
+labels:
+  - gui
+  - dev-tools
+  - editor
+pmid:
+  choco: vscode
+  winget: Microsoft.VisualStudioCode
+  snap: code
+formulas:
+  - name: deb-apt-package
+    os: ubuntu
+    args:
+      source: https://az764295.vo.msecnd.net/stable/054a9295330880ed74ceaedda236253b4f39a335/code_1.56.2-1620838498_amd64.deb

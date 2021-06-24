@@ -1,0 +1,7 @@
+id: discord
+name: Discord
+labels:
+  - gui
+  - communication
+pmid:
+  winget: Discord.Discord

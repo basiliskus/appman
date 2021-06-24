@@ -1,0 +1,6 @@
+type: package-manager
+os: windows
+shell: powershell
+commands:
+  install: Add-AppxPackage -Path $source
+  uninstall: Get-AppxPackage -Name $pmid -AllUsers | Remove-AppxPackage -AllUsers

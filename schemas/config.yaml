@@ -1,11 +1,10 @@
 os: list()
 defaults:
   pm:
-    cli: include('package-manager')
-    gui: include('package-manager')
+    app: include('package-manager')
     backend: include('package-manager')
-    fonts: include('package-manager')
-    drivers: include('package-manager')
+    font: include('package-manager')
+    driver: include('package-manager')
     vscode: include('package-manager')
     provisioned: include('package-manager')
   tags: list()

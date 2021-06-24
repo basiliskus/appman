@@ -1,0 +1,7 @@
+type: package-manager
+os: any
+commands:
+  install: code --install-extension $pmid
+  uninstall: code --uninstall-extension $pmid
+requires:
+  - microsoft-visual-studio-code

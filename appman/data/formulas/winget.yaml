@@ -1,0 +1,8 @@
+type: package-manager
+os: windows
+commands:
+  install: winget install --silent --exact --id $pmid
+  uninstall: winget uninstall --silent --exact --id $pmid
+  update-all: winget upgrade --all
+requires:
+  - winget

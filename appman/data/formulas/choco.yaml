@@ -1,0 +1,9 @@
+type: package-manager
+os: windows
+commands:
+  init: choco upgrade chocolatey
+  install: choco install --confirm $pmid
+  uninstall: choco uninstall --confirm $pmid
+  update-all: choco upgrade all
+requires:
+  - choco

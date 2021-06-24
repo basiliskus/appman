@@ -1,0 +1,10 @@
+id: posh-git
+name: posh-git
+description: A PowerShell module which provides Git/PowerShell integration
+home: https://github.com/dahlbyk/posh-git
+notes: for scoop, need to run afterwards Add-PoshGitToProfile
+labels:
+  - cli
+pmid:
+  scoop: posh-git
+  choco: poshgit

@@ -1,0 +1,7 @@
+id: unzip
+name: unzip
+labels:
+  - cli
+  - utils
+pmid:
+  apt: unzip

@@ -1,3 +1,0 @@
-os: any
-commands:
-  install: cargo install $pmid

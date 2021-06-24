@@ -1,0 +1,10 @@
+id: git
+name: git
+description: Distributed version control system
+labels:
+  - cli
+  - dev-tools
+pmid:
+  scoop: git
+  winget: Git.Git
+  apt: git

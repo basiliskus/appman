@@ -1,0 +1,6 @@
+id: microsoft-windows-terminal-preview
+name: Microsoft Windows Terminal Preview
+labels:
+  - gui
+pmid:
+  winget: Microsoft.WindowsTerminalPreview

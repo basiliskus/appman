@@ -1,0 +1,6 @@
+id: tmux
+name: tmux
+labels:
+  - cli
+pmid:
+  apt: tmux

@@ -21,31 +21,30 @@ class AppMan:
         cfdata = self._load_data_resource(config.DATA_PKG, config.CONFIG_RES_YAML)
         self.config = Config(cfdata)
 
-        # package managers
-        for pmfile in self._get_data_resource_files(config.PM_PKG):
-            pm = Formula(pmfile.stem)
-            pm.load(self._load_data_resource(config.PM_PKG, pmfile.name))
-            self.formulas.append(pm)
-
         # formulas
         for ffile in self._get_data_resource_files(config.FORMULAS_PKG):
-            formula = Formula(ffile.stem, custom=True)
+            data = self._load_data_resource(config.FORMULAS_PKG, ffile.name)
+            custom = data["type"] == "custom"
+            formula = Formula(ffile.stem, custom=custom)
             formula.load(self._load_data_resource(config.FORMULAS_PKG, ffile.name))
             self.formulas.append(formula)
 
-        # packages: cli
-        for package in self._create_packages("cli"):
+        # apps
+        for pfile in self._get_data_resource_files(config.APPS_PKG):
+            data = self._load_data_resource(config.APPS_PKG, pfile.name)
+            package = Package(pfile.stem, "app")
+            package.load(data)
             self.packages.append(package)
 
-        # packages: gui
-        for package in self._create_packages("gui"):
-            self.packages.append(package)
-
-        # packages: group by files
-        for presult in self._get_grouped_data_resource_files(config.PACKAGES_PKG):
-            package = Package(presult["id"], presult["ptype"])
-            package.load(presult["data"])
-            self.packages.append(package)
+        # other packages
+        ptypes = ["backend", "drivers", "extensions", "fonts", "provisioned"]
+        for ptype in ptypes:
+            for presult in self._get_grouped_data_resource_files(
+                f"{config.PACKAGES_PKG}.{ptype}"
+            ):
+                package = Package(presult["id"], presult["ptype"])
+                package.load(presult["data"])
+                self.packages.append(package)
 
         # user packages
         for presult in self._get_grouped_data_resource_files(config.USER_PKG):

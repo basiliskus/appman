@@ -55,7 +55,7 @@ def test_actions(action, package_type):
 # @pytest.mark.parametrize("package_type", args.cliargs["package-type"])
 # @pytest.mark.parametrize("labels", args.userlabels)
 def test_list_packages():
-    package_type = "cli"
+    package_type = "app"
     labels = "essentials"
     args = ["list"]
     args += [package_type]
@@ -66,7 +66,7 @@ def test_list_packages():
 
 
 def test_add_package():
-    package_type = "cli"
+    package_type = "app"
     package_id = "git"
     labels = "essentials,home"
     args = ["add"]
@@ -79,7 +79,7 @@ def test_add_package():
 
 
 def test_delete_package():
-    package_type = "cli"
+    package_type = "app"
     package_id = "git"
     args = ["delete"]
     args += [package_type]

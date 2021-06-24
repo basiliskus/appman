@@ -1,0 +1,6 @@
+id: cmder
+name: Cmder
+labels:
+  - gui
+pmid:
+  choco: Cmder

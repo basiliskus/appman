@@ -1,0 +1,10 @@
+id: chocolatey-cli
+name: Chocolatey CLI
+labels:
+  - cli
+  - package-manager
+formulas:
+  - name: ps-script
+    os: windows
+    args:
+      source: https://chocolatey.org/install.ps1

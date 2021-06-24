@@ -1,0 +1,9 @@
+id: speed-test
+name: speed-test
+description: Test your internet connection speed and ping using speedtest.net from
+  the CLI
+labels:
+  - cli
+pmid:
+  npm: speed-test
+home: https://github.com/sindresorhus/speed-test

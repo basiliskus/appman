@@ -1,0 +1,10 @@
+id: pt
+name: pt
+description: A code search tool similar to ack and the_silver_searcher(ag) with multiple
+  platform and multiple encoding support
+home: https://github.com/monochromegane/the_platinum_searcher
+labels:
+  - cli
+  - utils
+pmid:
+  scoop: pt

@@ -2,11 +2,10 @@ cliargs = {
     "action": ["install", "uninstall"],
     "os": ["windows", "linux"],
     "package-type": [
-        "cli",
-        "gui",
+        "app",
         "backend",
-        "fonts",
-        "drivers",
+        "font",
+        "driver",
         "vscode",
         "provisioned",
     ],
@@ -20,18 +19,18 @@ cliargs = {
 }
 
 packages = [
-    {"id": "git", "name": "git", "os": "linux", "pt": "cli"},
+    {"id": "git", "name": "git", "os": "linux", "pt": "app"},
     {
         "id": "chocolatey-cli",
         "name": "Chocolatey CLI",
         "os": "windows",
-        "pt": "cli",
+        "pt": "app",
     },
     {
         "id": "microsoft-visual-studio-code",
         "name": "microsoft-visual-studio-code",
         "os": "linux",
-        "pt": "gui",
+        "pt": "app",
     },
     {
         "id": "focusrite-control",
@@ -42,3 +41,5 @@ packages = [
 ]
 
 userlabels = ["essentials", "home"]
+
+simplefiles = ["vscode.yaml", "sublime.yaml", "missing.yaml"]

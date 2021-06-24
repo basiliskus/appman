@@ -1,6 +1,0 @@
-id: filezilla-client
-name: FileZilla Client
-labels:
-  - utils
-pmid:
-  winget: TimKosse.FileZillaClient

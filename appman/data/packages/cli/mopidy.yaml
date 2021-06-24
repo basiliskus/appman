@@ -1,6 +1,0 @@
-id: mopidy
-name: mopidy
-labels:
-  - music
-pmid:
-  apt: mopidy

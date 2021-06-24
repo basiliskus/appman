@@ -1,0 +1,9 @@
+id: oh-my-zsh
+name: oh-my-zsh
+labels:
+  - cli
+formulas:
+  - name: sh-script
+    os: linux
+    args:
+      source: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh

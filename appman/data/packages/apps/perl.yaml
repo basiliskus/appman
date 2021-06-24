@@ -1,0 +1,10 @@
+id: perl
+name: perl
+description: A programming language suitable for writing simple scripts as well as
+  complex applications
+labels:
+  - cli
+  - dev-tools
+  - prog-langs
+pmid:
+  scoop: perl

@@ -1,0 +1,7 @@
+id: yubikey-manager
+name: Yubikey Manager
+labels:
+  - gui
+  - security
+pmid:
+  choco: yubikey-manager

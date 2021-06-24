@@ -1,8 +1,0 @@
-id: translate-shell
-name: translate-shell
-description: Command-line translator using Google Translate, Bing Translator, Yandex.Translate, etc.
-labels:
-  - utils
-pmid:
-  apt: translate-shell
-home: https://github.com/soimort/translate-shell

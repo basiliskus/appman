@@ -1,0 +1,7 @@
+id: keyring
+name: keyring
+labels:
+  - cli
+  - security
+pmid:
+  pip: keyring

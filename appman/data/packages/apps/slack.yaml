@@ -1,0 +1,7 @@
+id: slack
+name: Slack
+labels:
+  - gui
+  - communication
+pmid:
+  winget: SlackTechnologies.Slack

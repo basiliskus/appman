@@ -1,9 +1,0 @@
-id: github-cli
-name: GitHub CLI
-description: Official GitHub CLI
-labels:
-  - dev-tools
-pmid:
-  scoop: gh
-  choco: gh
-  winget: GitHub.cli

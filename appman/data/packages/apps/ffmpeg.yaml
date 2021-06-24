@@ -1,0 +1,10 @@
+id: ffmpeg
+name: ffmpeg
+description: A complete, cross-platform solution to record, convert and stream audio
+  and video
+labels:
+  - cli
+  - utils
+pmid:
+  scoop: ffmpeg
+  choco: ffmpeg

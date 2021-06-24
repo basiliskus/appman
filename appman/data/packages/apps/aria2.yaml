@@ -1,0 +1,9 @@
+id: aria2
+name: aria2
+description: Lightweight multi-protocol & multi-source command-line download utility
+labels:
+  - cli
+  - utils
+pmid:
+  scoop: aria2
+  apt: aria2

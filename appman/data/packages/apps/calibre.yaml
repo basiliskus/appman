@@ -1,0 +1,7 @@
+id: calibre
+name: Calibre
+labels:
+  - gui
+  - books
+pmid:
+  winget: calibre.calibre

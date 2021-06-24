@@ -1,6 +1,0 @@
-id: calibre
-name: Calibre
-labels:
-  - books
-pmid:
-  winget: calibre.calibre

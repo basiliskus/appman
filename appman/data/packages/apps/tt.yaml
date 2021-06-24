@@ -1,0 +1,6 @@
+id: tt
+name: tt
+description: A terminal based typing test.
+labels:
+  - cli
+home: https://github.com/lemnos/tt

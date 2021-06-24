@@ -1,0 +1,6 @@
+id: audacity
+name: Audacity
+labels:
+  - gui
+pmid:
+  winget: Audacity.Audacity

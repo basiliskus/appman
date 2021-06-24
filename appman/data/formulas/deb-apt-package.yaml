@@ -1,3 +1,4 @@
+type: custom
 os: ubuntu
 commands:
   install: >-
@@ -5,3 +6,5 @@ commands:
     && NAME=$(basename $source ${EXT})
     && wget -q -O -x ~/tmp/${NAME}${EXT} $source
     && sudo apt-get install -y ~/tmp/${NAME}${EXT}
+requires:
+  - wget
