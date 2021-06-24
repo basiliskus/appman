@@ -16,10 +16,14 @@ def test_validate_config_schema(schemas_root, config_path):
     util.validate_schema(schema_path, config_path)
 
 
-def test_validate_data_schemas(schemas_root, data_root):
-    # validate formulas
+def test_validate_formulas_schemas(schemas_root, data_root):
     [spath, dpath] = util.get_validation_files(schemas_root, data_root, "formulas")
     util.validate_data_schema(spath, dpath)
+
+
+def test_validate_user_schemas(schemas_root, user_root):
+    schema_path = os.path.join(schemas_root, "user-packages.yaml")
+    util.validate_data_schema(schema_path, user_root)
 
 
 def test_validate_packages_schema(schemas_root, packages_root, config_path, svars):

@@ -27,6 +27,6 @@ TESTS_DIR = os.path.join(ROOT_DIR, "tests")
 DATA_DIR = os.path.join(APPMAN_DIR, "data")
 
 PACKAGES_DIR = os.path.join(DATA_DIR, "packages")
-APPS_DIR = os.path.join(PACKAGES_DIR, "apps")
+USER_DIR = os.path.join(DATA_DIR, "user")
 FORMULAS_DIR = os.path.join(DATA_DIR, "formulas")
 CONFIG_PATH = os.path.join(DATA_DIR, CONFIG_RES_YAML)

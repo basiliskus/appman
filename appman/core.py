@@ -68,6 +68,12 @@ class AppMan:
         packages = self.get_user_packages(package_type, id=id)
         return packages[0] if packages else None
 
+    def has_user_package(self, package_type, id):
+        return bool(self.get_user_package(package_type, id))
+
+    def has_any_user_package(self, package_type, labels):
+        return bool(self.get_user_packages(package_type, labels=labels))
+
     def get_packages(self, package_type, os="any", id=None, labels=None):
         packages = []
         for package in self.packages:

@@ -123,7 +123,7 @@ def list(ctx, package_type, labels):
     verbose = ctx.obj["verbose"]
     try:
         appman = ctx.obj["appman"]
-        pkgs = appman.get_user_packages(package_type, labels)
+        pkgs = appman.get_user_packages(package_type, labels=labels)
         if not pkgs:
             msg = f"No {package_type} packages found"
             if labels:
@@ -140,21 +140,21 @@ def list(ctx, package_type, labels):
 
 @cli.command()
 @click.argument("package-type", type=click.Choice(PT_CHOICES, case_sensitive=False))
-@click.option("--id", help="Package id")
+@click.argument("package-id")
 @click.option("--labels", callback=parse_labels, help="Comma-separated list of labels")
 @click.pass_context
-def add(ctx, package_type, id, labels):
+def add(ctx, package_type, package_id, labels):
     verbose = ctx.obj["verbose"]
     try:
         appman = ctx.obj["appman"]
 
-        pkg = appman.get_package(package_type, id)
+        pkg = appman.get_package(package_type, package_id)
         if not pkg:
-            util.print_info(f"Package definition for '{id}' not found")
+            util.print_info(f"Package definition for '{package_id}' not found")
             return
 
-        if appman.get_user_package(package_type, id):
-            util.print_warning(f"Package '{id}' already found")
+        if appman.has_user_package(package_type, package_id):
+            util.print_warning(f"Package '{package_id}' already found")
             return
 
         appman.add_user_package(pkg, labels)
@@ -165,18 +165,18 @@ def add(ctx, package_type, id, labels):
 
 @cli.command()
 @click.argument("package-type", type=click.Choice(PT_CHOICES, case_sensitive=False))
-@click.option("--id", help="Package id")
+@click.argument("package-id")
 @click.pass_context
-def delete(ctx, package_type, id):
+def delete(ctx, package_type, package_id):
     verbose = ctx.obj["verbose"]
     try:
         appman = ctx.obj["appman"]
-        usr_pkg = appman.get_user_package(package_type, id)
+        usr_pkg = appman.get_user_package(package_type, package_id)
         if not usr_pkg:
-            util.print_warning(f"Package '{id}' was not found")
+            util.print_warning(f"Package '{package_id}' was not found")
             return
         appman.delete_user_package(usr_pkg)
-        util.print_success(f"Package '{id}' removed")
+        util.print_success(f"Package '{package_id}' removed")
     except Exception as e:
         e.verbose = verbose
         raise
@@ -186,15 +186,15 @@ def run_command(ctx, action, package_id, package_type, labels, test, verbose):
     os = ctx.obj["os"]
     appman = ctx.obj["appman"]
     if package_id:
-        package = appman.get_user_package(package_type, package_id)
-        if not package:
+        if not appman.has_user_package(package_type, package_id):
             util.print_info(
                 f"Package '{package_id}' not found. Make sure to add it first"
             )
             return
+        package = appman.get_package(package_type, package_id)
         package_run(package, action, appman, os, test, verbose, idprovided=True)
     else:
-        packages = appman.get_user_packages(package_type, labels)
+        packages = appman.get_user_packages(package_type, labels=labels)
         if not packages:
             msg = f"No {package_type} packages found"
             if labels:
@@ -202,8 +202,11 @@ def run_command(ctx, action, package_id, package_type, labels, test, verbose):
             msg += ". Make sure to add them first"
             util.print_info(msg)
             return
-        for package in packages:
-            package_run(package, action, appman, os, test, verbose)
+
+        for pkg in packages:
+            package = appman.get_package(pkg.type, pkg.id)
+            if package:
+                package_run(package, action, appman, os, test, verbose)
 
 
 def package_run(package, action, appman, os, test, verbose, idprovided=False):

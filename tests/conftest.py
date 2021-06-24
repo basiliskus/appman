@@ -24,8 +24,8 @@ def packages_root():
 
 
 @pytest.fixture
-def apps_root():
-    return config.APPS_DIR
+def user_root():
+    return config.USER_DIR
 
 
 @pytest.fixture

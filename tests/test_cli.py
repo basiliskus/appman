@@ -71,7 +71,7 @@ def test_add_package():
     labels = "essentials,home"
     args = ["add"]
     args += [package_type]
-    args += ["--id", package_id]
+    args += [package_id]
     args += ["--labels", labels]
     runner = CliRunner()
     result = runner.invoke(appman.cli, args)
@@ -83,7 +83,7 @@ def test_delete_package():
     package_id = "git"
     args = ["delete"]
     args += [package_type]
-    args += ["--id", package_id]
+    args += [package_id]
     runner = CliRunner()
     result = runner.invoke(appman.cli, args)
     assert result.exit_code == 0

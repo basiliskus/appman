@@ -1,17 +1,14 @@
-any(list(include('package')), include('package'))
+id: str()
+name: str(required=False)
+description: str(required=False)
+labels: list(enum($tags))
+pmid: include('pmid', required=False)
+formulas: list(include('formula'), required=False)
+comments: str(required=False)
+home: str(required=False)
+notes: str(required=False)
+requires: str(required=False)
 ---
-package:
-  id: str()
-  name: str(required=False)
-  description: str(required=False)
-  labels: list(enum($tags))
-  pmid: include('pmid', required=False)
-  formulas: list(include('formula'), required=False)
-  comments: str(required=False)
-  home: str(required=False)
-  notes: str(required=False)
-  requires: str(required=False)
-
 pmid:
   appx: str(required=False)
   apt: str(required=False)
