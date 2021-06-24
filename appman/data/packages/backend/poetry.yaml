@@ -1,0 +1,5 @@
+id: poetry
+name: poetry
+labels: []
+pmid:
+  pip: poetry

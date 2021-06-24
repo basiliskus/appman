@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "appman"
-version = "0.1.2a3"
+version = "0.2.0a1"
 description = "Cross-platform application management aggregator"
 authors = ["Basilio Bogado <541149+basiliskus@users.noreply.github.com>"]
 license = "MIT"

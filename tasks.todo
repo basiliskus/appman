@@ -8,7 +8,7 @@ New Features:
 Improvements:
   Framework:
     [ ] create user package schema
-    [ ] make data structure consistent for all package types
+    [x] make data structure consistent for all package types @done(21-06-24 14:05)
     [x] simplify data folder structure: merge folders cli + gui; and formulas + package-managers @done(21-06-24 11:12)
   Validation & Error Handling:
     [ ] add logging (make sure to log packages not able to install, uninstall or update)

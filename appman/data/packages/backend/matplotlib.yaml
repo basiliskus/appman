@@ -1,0 +1,6 @@
+id: matplotlib
+name: matplotlib
+requires: gnuplot
+labels: []
+pmid:
+  pip: matplotlib

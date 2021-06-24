@@ -1,0 +1,6 @@
+id: mopidy-iris
+name: mopidy-iris
+labels: []
+pmid:
+  pip: mopidy-iris
+comments: install with sudo

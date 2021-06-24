@@ -1,0 +1,6 @@
+id: firacode-nf
+name: FiraCode-NF
+labels: []
+formulas:
+  - name: font-firacode
+    os: linux

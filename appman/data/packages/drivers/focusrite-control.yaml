@@ -1,0 +1,8 @@
+id: focusrite-control
+name: Focusrite Control
+labels: []
+formulas:
+  - name: exe-setup
+    os: windows
+    args:
+      source: https://fael-downloads-prod.focusrite.com/customer/prod/s3fs-public/downloads/Focusrite%20Control%20-%203.6.0.1822.exe

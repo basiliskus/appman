@@ -1,0 +1,5 @@
+id: bitwarden-keyring
+name: bitwarden-keyring
+labels: []
+pmid:
+  pip: bitwarden-keyring

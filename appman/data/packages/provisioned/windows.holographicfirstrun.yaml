@@ -1,0 +1,5 @@
+id: windows.holographicfirstrun
+name: Windows.HolographicFirstRun
+labels: []
+pmid:
+  appx: Microsoft.Windows.HolographicFirstRun

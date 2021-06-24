@@ -1,0 +1,6 @@
+id: mopidy-local
+name: mopidy-local
+labels: []
+pmid:
+  pip: mopidy-local
+comments: install with sudo

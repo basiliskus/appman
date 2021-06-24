@@ -1,0 +1,6 @@
+id: mopidy-soundcloud
+name: mopidy-soundcloud
+labels: []
+pmid:
+  pip: mopidy-soundcloud
+comments: install with sudo

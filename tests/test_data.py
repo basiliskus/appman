@@ -22,10 +22,10 @@ def test_validate_data_schemas(schemas_root, data_root):
     util.validate_data_schema(spath, dpath)
 
 
-def test_validate_packages_schema(schemas_root, apps_root, config_path, svars):
+def test_validate_packages_schema(schemas_root, packages_root, config_path, svars):
     schema_path = os.path.join(schemas_root, "packages.yaml")
     tf = tempfile.NamedTemporaryFile(delete=False)
-    for fpath in util.get_file_paths(apps_root):
+    for fpath in util.get_file_paths(packages_root):
         if util.replace_in_tmp_file(config_path, schema_path, tf.name, svars):
             spath = tf.name
         util.validate_schema(spath, fpath)

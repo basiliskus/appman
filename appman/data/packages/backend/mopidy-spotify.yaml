@@ -1,0 +1,6 @@
+id: mopidy-spotify
+name: mopidy-spotify
+labels: []
+pmid:
+  pip: mopidy-spotify
+comments: install with sudo

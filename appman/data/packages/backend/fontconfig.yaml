@@ -1,0 +1,5 @@
+id: fontconfig
+name: fontconfig
+labels: []
+pmid:
+  apt: fontconfig

@@ -36,7 +36,7 @@ packages = [
         "id": "focusrite-control",
         "name": "Focusrite Control",
         "os": "windows",
-        "pt": "drivers",
+        "pt": "driver",
     },
 ]
 

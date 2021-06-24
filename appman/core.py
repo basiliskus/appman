@@ -29,21 +29,13 @@ class AppMan:
             formula.load(self._load_data_resource(config.FORMULAS_PKG, ffile.name))
             self.formulas.append(formula)
 
-        # apps
-        for pfile in self._get_data_resource_files(config.APPS_PKG):
-            data = self._load_data_resource(config.APPS_PKG, pfile.name)
-            package = Package(pfile.stem, "app")
-            package.load(data)
-            self.packages.append(package)
-
-        # other packages
-        ptypes = ["backend", "drivers", "extensions", "fonts", "provisioned"]
-        for ptype in ptypes:
-            for presult in self._get_grouped_data_resource_files(
-                f"{config.PACKAGES_PKG}.{ptype}"
-            ):
-                package = Package(presult["id"], presult["ptype"])
-                package.load(presult["data"])
+        # packages
+        for pt in config.PACKAGES_TYPES:
+            pkg = f"{config.PACKAGES_PKG}.{pt['pkg']}"
+            for pfile in self._get_data_resource_files(pkg):
+                data = self._load_data_resource(pkg, pfile.name)
+                package = Package(pfile.stem, pt["id"])
+                package.load(data)
                 self.packages.append(package)
 
         # user packages
