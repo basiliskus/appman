@@ -94,19 +94,26 @@ def uninstall(ctx, package_id, package_type, labels, test):
 def search(ctx, package_type, id, labels):
     os = ctx.obj["os"]
     appman = ctx.obj["appman"]
+    verbose = ctx.obj["verbose"]
+    try:
+        if id:
+            pkg = appman.get_package(package_type, id)
+            if pkg:
+                util.print_info(f"Package definition for '{id}' found")
+            else:
+                util.print_info(f"Package definition for '{id}' not found")
+            return
 
-    if id:
-        pkg = find_package(appman, package_type, id)
-        if pkg:
-            util.print_info(f"Package '{id}' found")
-        return
+        pkgs = appman.get_packages(package_type, os, labels=labels)
+        if not pkgs:
+            util.print_info("No packages found")
+            return
 
-    pkgs = find_packages(appman, package_type, os, labels=labels)
-    if not pkgs:
-        return
-
-    for pkg in pkgs:
-        util.print_info(pkg.id)
+        for pkg in pkgs:
+            util.print_info(pkg.id)
+    except Exception as e:
+        e.verbose = verbose
+        raise
 
 
 @cli.command()
@@ -118,6 +125,13 @@ def list(ctx, package_type, labels):
     try:
         appman = ctx.obj["appman"]
         pkgs = appman.get_user_packages(package_type, labels)
+        if not pkgs:
+            msg = f"No {package_type} packages found"
+            if labels:
+                msg += f" with labels: {', '.join(labels)}"
+            util.print_info(msg)
+            return
+
         for pkg in pkgs:
             util.print_info(f"* {pkg.id} (labels: {','.join(pkg.labels)})")
     except Exception as e:
@@ -134,12 +148,16 @@ def add(ctx, package_type, id, labels):
     verbose = ctx.obj["verbose"]
     try:
         appman = ctx.obj["appman"]
-        pkg = find_package(appman, package_type, id)
+
+        pkg = appman.get_package(package_type, id)
         if not pkg:
+            util.print_info(f"Package definition for '{id}' not found")
             return
+
         if appman.get_user_package(package_type, id):
             util.print_warning(f"Package '{id}' already found")
             return
+
         appman.add_user_package(pkg, labels)
     except Exception as e:
         e.verbose = verbose
@@ -165,30 +183,25 @@ def delete(ctx, package_type, id):
         raise
 
 
-def find_package(appman, package_type, id):
-    pkg = appman.get_package(package_type, id)
-    if pkg:
-        return pkg
-    util.print_info(f"Package '{id}' not found")
-
-
-def find_packages(appman, package_type, os, labels):
-    packages = appman.get_packages(package_type, os, labels=labels)
-    if packages:
-        return packages
-    util.print_info("No packages found")
-
-
 def run_command(ctx, action, package_id, package_type, labels, test, verbose):
     os = ctx.obj["os"]
     appman = ctx.obj["appman"]
     if package_id:
-        package = find_package(appman, package_type, package_id)
-        if package:
-            package_run(package, action, appman, os, test, verbose, idprovided=True)
+        package = appman.get_user_package(package_type, package_id)
+        if not package:
+            util.print_info(
+                f"Package '{package_id}' not found. Make sure to add it first"
+            )
+            return
+        package_run(package, action, appman, os, test, verbose, idprovided=True)
     else:
-        packages = find_packages(appman, package_type, os, labels)
+        packages = appman.get_user_packages(package_type, labels)
         if not packages:
+            msg = f"No {package_type} packages found"
+            if labels:
+                msg += f" with labels: {', '.join(labels)}"
+            msg += ". Make sure to add them first"
+            util.print_info(msg)
             return
         for package in packages:
             package_run(package, action, appman, os, test, verbose)
