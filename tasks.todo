@@ -7,9 +7,6 @@ New Features:
     [ ] add package requirements handling and additional libraries
 Improvements:
   Framework:
-    [ ] create user package schema
-    [x] make data structure consistent for all package types @done(21-06-24 14:05)
-    [x] simplify data folder structure: merge folders cli + gui; and formulas + package-managers @done(21-06-24 11:12)
   Validation & Error Handling:
     [ ] add logging (make sure to log packages not able to install, uninstall or update)
     [ ] fail gracefully when a package type file/folder doesn't exist
@@ -22,6 +19,10 @@ Improvements:
 Bugs:
 
 Archive:
+  Framework:
+    [x] create user package schema @done(21-06-24 16:00)
+    [x] make data structure consistent for all package types @done(21-06-24 14:05)
+    [x] simplify data folder structure: merge folders cli + gui; and formulas + package-managers @done(21-06-24 11:12)
   New Features:
     [x] CLI for yaml file to create, delete and edit app entries @done(21-06-23 14:42)
       [x] delete: delete file or entry @done(21-06-23 14:41)

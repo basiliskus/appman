@@ -1,0 +1,5 @@
+any(list(include('package')))
+---
+package:
+  id: str()
+  labels: list()
