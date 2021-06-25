@@ -78,6 +78,7 @@ def install(ctx, package_id, package_type, labels, test):
 @click.pass_context
 def uninstall(ctx, package_id, package_type, labels, test):
     verbose = ctx.obj["verbose"]
+
     try:
         run_command(ctx, "uninstall", package_id, package_type, labels, test, verbose)
     except Exception as e:
@@ -96,6 +97,7 @@ def search(ctx, package_type, package_id, labels):
     os = ctx.obj["os"]
     appman = ctx.obj["appman"]
     verbose = ctx.obj["verbose"]
+
     try:
         if package_id:
             pkg = appman.get_package(package_type, package_id)
@@ -125,8 +127,9 @@ def search(ctx, package_type, package_id, labels):
 @click.pass_context
 def list(ctx, package_type, labels):
     verbose = ctx.obj["verbose"]
+    appman = ctx.obj["appman"]
+
     try:
-        appman = ctx.obj["appman"]
         pkgs = appman.get_user_packages(package_type, labels=labels)
         if not pkgs:
             msg = f"No {package_type} packages found"
@@ -150,13 +153,19 @@ def list(ctx, package_type, labels):
 )
 @click.pass_context
 def add(ctx, package_type, package_id, labels):
+    os = ctx.obj["os"]
     verbose = ctx.obj["verbose"]
-    try:
-        appman = ctx.obj["appman"]
+    appman = ctx.obj["appman"]
 
+    try:
         pkg = appman.get_package(package_type, package_id)
         if not pkg:
             util.print_info(f"Package definition for '{package_id}' not found")
+            pkgs = appman.get_packages(package_type, os)
+            if pkgs:
+                util.print_info(
+                    f"You can choose from this list: {', '.join([p.id for p in pkgs])}"
+                )
             return
 
         if appman.has_user_package(package_type, package_id):
@@ -170,6 +179,7 @@ def add(ctx, package_type, package_id, labels):
             labels = pkg.labels
 
         appman.add_user_package(pkg, labels)
+        util.print_success(f"Package '{package_id}' added")
     except Exception as e:
         e.verbose = verbose
         raise
@@ -181,11 +191,17 @@ def add(ctx, package_type, package_id, labels):
 @click.pass_context
 def delete(ctx, package_type, package_id):
     verbose = ctx.obj["verbose"]
+    appman = ctx.obj["appman"]
+
     try:
-        appman = ctx.obj["appman"]
         usr_pkg = appman.get_user_package(package_type, package_id)
         if not usr_pkg:
             util.print_warning(f"Package '{package_id}' was not found")
+            pkgs = appman.get_user_packages(package_type)
+            if pkgs:
+                util.print_info(
+                    f"You can choose from this list: {', '.join([p.id for p in pkgs])}"
+                )
             return
         appman.delete_user_package(usr_pkg)
         util.print_success(f"Package '{package_id}' removed")
@@ -197,6 +213,7 @@ def delete(ctx, package_type, package_id):
 def run_command(ctx, action, package_id, package_type, labels, test, verbose):
     os = ctx.obj["os"]
     appman = ctx.obj["appman"]
+
     if package_id:
         if not appman.has_user_package(package_type, package_id):
             util.print_info(
