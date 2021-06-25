@@ -180,7 +180,7 @@ class AppMan:
             ptype = self._get_package_type(file.stem)
             data = self._load_data_resource(package, file.name)
             if not data:
-                return
+                continue
             for d in data:
                 id = d if isinstance(d, str) else d["id"]
                 yield {
