@@ -62,7 +62,7 @@ class AppMan:
                 and (id is None or package.id == id)
             ):
                 packages.append(package)
-        return packages
+        return sorted(packages, key=lambda p: p.id)
 
     def get_user_package(self, package_type, id):
         packages = self.get_user_packages(package_type, id=id)
@@ -84,7 +84,7 @@ class AppMan:
                 and (id is None or package.id == id)
             ):
                 packages.append(package)
-        return packages
+        return sorted(packages, key=lambda p: p.id)
 
     def get_package(self, package_type, id):
         packages = self.get_packages(package_type, id=id)
