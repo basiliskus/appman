@@ -18,6 +18,7 @@ Improvements:
   Documentation:
     [ ] add instructions to install and usage in readme file
 Bugs:
+  [x] labels are duplicated when adding user packages in interactive mode and passing label as argument @done(21-06-25 16:39)
 
 Archive:
   Framework:

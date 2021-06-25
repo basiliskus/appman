@@ -191,7 +191,7 @@ def add(ctx, package_type, package_id, labels, interactive):
             qname = "add"
             choices = get_user_packages_choices(pkgs, usr_pkgs, qname)
             if not choices:
-                util.print_warning(f"No more {package_type} packages found")
+                util.print_warning(f"No {package_type} package definitions found")
                 return
             questions = get_prompt_questions(
                 "checkbox", f"Select {package_type} packages to add:", qname, choices
@@ -250,7 +250,9 @@ def delete(ctx, package_type, package_id, interactive):
             pkgs = appman.get_packages(package_type, os)
             choices = get_user_packages_choices(pkgs, usr_pkgs, qname)
             if not choices:
-                util.print_warning(f"No more {package_type} packages found")
+                util.print_warning(
+                    f"No matching {package_type} package definitions found"
+                )
                 return
             questions = get_prompt_questions(
                 "checkbox", f"Select {package_type} packages to delete:", qname, choices

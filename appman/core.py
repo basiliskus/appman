@@ -46,12 +46,11 @@ class AppMan:
 
     def add_user_package(self, package, labels=None):
         # add default labels for package
+        plabels = package.labels
         if labels:
-            labels.extend(package.labels)
-        else:
-            labels = package.labels
+            plabels.extend(labels)
 
-        user_package = UserPackage(package.id, package.type, labels)
+        user_package = UserPackage(package.id, package.type, plabels)
         resource = self._get_resource_name(package.type)
         self._add_data_resource(config.USER_PKG, resource, user_package.data)
 
