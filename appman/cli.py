@@ -1,6 +1,7 @@
 import platform
 
 import click
+import PyInquirer
 
 from . import core
 from . import util
@@ -147,17 +148,37 @@ def list(ctx, package_type, labels):
 
 @cli.command()
 @click.argument("package-type", type=click.Choice(PT_CHOICES, case_sensitive=False))
-@click.argument("package-id")
+@click.argument("package-id", required=False)
 @click.option(
     "--labels", "-l", callback=parse_labels, help="Comma-separated list of labels"
 )
+@click.option("--interactive", "-i", is_flag=True, help="Enter interactive mode")
 @click.pass_context
-def add(ctx, package_type, package_id, labels):
+def add(ctx, package_type, package_id, labels, interactive):
     os = ctx.obj["os"]
     verbose = ctx.obj["verbose"]
     appman = ctx.obj["appman"]
 
     try:
+        if interactive:
+            pkgs = appman.get_packages(package_type, os)
+            if not pkgs:
+                util.print_warning(f"No {package_type} package definitions found")
+                return
+            usr_pkgs = appman.get_user_packages(package_type)
+            qname = "add"
+            choices = get_user_packages_choices(pkgs, usr_pkgs, qname)
+            questions = get_prompt_questions(
+                choices, f"Select {package_type} packages to add", qname
+            )
+            answers = PyInquirer.prompt(questions)
+            pids = answers[qname]
+            for pid in pids:
+                pkg = appman.get_package(package_type, pid)
+                appman.add_user_package(pkg, labels)
+                util.print_success(f"Added {pid} package")
+            return
+
         pkg = appman.get_package(package_type, package_id)
         if not pkg:
             util.print_info(f"Package definition for '{package_id}' not found")
@@ -172,12 +193,6 @@ def add(ctx, package_type, package_id, labels):
             util.print_warning(f"Package '{package_id}' already found")
             return
 
-        # add default labels for package
-        if labels:
-            labels.extend(pkg.labels)
-        else:
-            labels = pkg.labels
-
         appman.add_user_package(pkg, labels)
         util.print_success(f"Package '{package_id}' added")
     except Exception as e:
@@ -187,13 +202,34 @@ def add(ctx, package_type, package_id, labels):
 
 @cli.command()
 @click.argument("package-type", type=click.Choice(PT_CHOICES, case_sensitive=False))
-@click.argument("package-id")
+@click.argument("package-id", required=False)
+@click.option("--interactive", "-i", is_flag=True, help="Enter interactive mode")
 @click.pass_context
-def delete(ctx, package_type, package_id):
+def delete(ctx, package_type, package_id, interactive):
+    os = ctx.obj["os"]
     verbose = ctx.obj["verbose"]
     appman = ctx.obj["appman"]
 
     try:
+        if interactive:
+            usr_pkgs = appman.get_user_packages(package_type)
+            if not usr_pkgs:
+                util.print_warning(f"No {package_type} user packages found")
+                return
+            qname = "delete"
+            pkgs = appman.get_packages(package_type, os)
+            choices = get_user_packages_choices(pkgs, usr_pkgs, qname)
+            questions = get_prompt_questions(
+                choices, f"Select {package_type} packages to delete", qname
+            )
+            answers = PyInquirer.prompt(questions)
+            pids = answers[qname]
+            for pid in pids:
+                usr_pkg = appman.get_user_package(package_type, pid)
+                appman.delete_user_package(usr_pkg)
+                util.print_success(f"Deleted {pid} package")
+            return
+
         usr_pkg = appman.get_user_package(package_type, package_id)
         if not usr_pkg:
             util.print_warning(f"Package '{package_id}' was not found")
@@ -208,6 +244,30 @@ def delete(ctx, package_type, package_id):
     except Exception as e:
         e.verbose = verbose
         raise
+
+
+def get_prompt_questions(choices, message, name):
+    return [
+        {
+            "type": "checkbox",
+            "message": message,
+            "name": name,
+            "choices": choices,
+        }
+    ]
+
+
+def get_user_packages_choices(packages, user_packages, action):
+    result = []
+    for p in packages:
+        found = any(up for up in user_packages if up.id == p.id)
+        choice = {"name": p.name, "value": p.id, "checked": found}
+        if action == "delete" and found:
+            choice["checked"] = False
+            result.append(choice)
+        elif (action == "add" and not found) or (action == "update"):
+            result.append(choice)
+    return result
 
 
 def run_command(ctx, action, package_id, package_type, labels, test, verbose):

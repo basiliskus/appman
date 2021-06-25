@@ -2,7 +2,7 @@ New Features:
   CLI:
     [ ] create command to add labels to existing user package
     [ ] create update-all command
-    [ ] create wizard to choose multiple user packages from global list
+    [x] create interactive mode to choose multiple user packages from global list @done(21-06-25 10:37)
   Framework:
     [ ] add package requirements handling and additional libraries
 Improvements:

@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "appman"
-version = "0.2.0a1"
+version = "0.2.0a2"
 description = "Cross-platform application management aggregator"
 authors = ["Basilio Bogado <541149+basiliskus@users.noreply.github.com>"]
 license = "MIT"
@@ -19,6 +19,7 @@ appman = 'appman.cli:main'
 python = "^3.9"
 pyyaml = "^5.3.1"
 click = "^8.0.1"
+PyInquirer = "^1.0.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
