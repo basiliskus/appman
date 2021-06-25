@@ -88,7 +88,9 @@ def uninstall(ctx, package_id, package_type, labels, test):
 
 
 @cli.command()
-@click.argument("package-type", type=click.Choice(PT_CHOICES, case_sensitive=False))
+@click.argument(
+    "package-type", type=click.Choice(PT_CHOICES, case_sensitive=False), required=False
+)
 @click.option("--package-id", "-id", help="Package id")
 @click.option(
     "--labels", "-l", callback=parse_labels, help="Comma-separated list of labels"
@@ -100,6 +102,9 @@ def search(ctx, package_type, package_id, labels):
     verbose = ctx.obj["verbose"]
 
     try:
+        if not package_type:
+            package_type = prompt_package_type()
+
         if package_id:
             pkg = appman.get_package(package_type, package_id)
             if pkg:
@@ -121,7 +126,9 @@ def search(ctx, package_type, package_id, labels):
 
 
 @cli.command()
-@click.argument("package-type", type=click.Choice(PT_CHOICES, case_sensitive=False))
+@click.argument(
+    "package-type", type=click.Choice(PT_CHOICES, case_sensitive=False), required=False
+)
 @click.option(
     "--labels", "-l", callback=parse_labels, help="Comma-separated list of labels"
 )
@@ -131,6 +138,9 @@ def list(ctx, package_type, labels):
     appman = ctx.obj["appman"]
 
     try:
+        if not package_type:
+            package_type = prompt_package_type()
+
         pkgs = appman.get_user_packages(package_type, labels=labels)
         if not pkgs:
             msg = f"No {package_type} packages found"
@@ -147,7 +157,9 @@ def list(ctx, package_type, labels):
 
 
 @cli.command()
-@click.argument("package-type", type=click.Choice(PT_CHOICES, case_sensitive=False))
+@click.argument(
+    "package-type", type=click.Choice(PT_CHOICES, case_sensitive=False), required=False
+)
 @click.argument("package-id", required=False)
 @click.option(
     "--labels", "-l", callback=parse_labels, help="Comma-separated list of labels"
@@ -160,7 +172,10 @@ def add(ctx, package_type, package_id, labels, interactive):
     appman = ctx.obj["appman"]
 
     try:
-        if interactive:
+        if interactive or not (package_type and package_id):
+            if not package_type:
+                package_type = prompt_package_type()
+
             pkgs = appman.get_packages(package_type, os)
             if not pkgs:
                 util.print_warning(f"No {package_type} package definitions found")
@@ -169,7 +184,7 @@ def add(ctx, package_type, package_id, labels, interactive):
             qname = "add"
             choices = get_user_packages_choices(pkgs, usr_pkgs, qname)
             questions = get_prompt_questions(
-                choices, f"Select {package_type} packages to add", qname
+                "checkbox", f"Select {package_type} packages to add:", qname, choices
             )
             answers = PyInquirer.prompt(questions)
             pids = answers[qname]
@@ -201,7 +216,9 @@ def add(ctx, package_type, package_id, labels, interactive):
 
 
 @cli.command()
-@click.argument("package-type", type=click.Choice(PT_CHOICES, case_sensitive=False))
+@click.argument(
+    "package-type", type=click.Choice(PT_CHOICES, case_sensitive=False), required=False
+)
 @click.argument("package-id", required=False)
 @click.option("--interactive", "-i", is_flag=True, help="Enter interactive mode")
 @click.pass_context
@@ -211,7 +228,10 @@ def delete(ctx, package_type, package_id, interactive):
     appman = ctx.obj["appman"]
 
     try:
-        if interactive:
+        if interactive or not (package_type and package_id):
+            if not package_type:
+                package_type = prompt_package_type()
+
             usr_pkgs = appman.get_user_packages(package_type)
             if not usr_pkgs:
                 util.print_warning(f"No {package_type} user packages found")
@@ -220,7 +240,7 @@ def delete(ctx, package_type, package_id, interactive):
             pkgs = appman.get_packages(package_type, os)
             choices = get_user_packages_choices(pkgs, usr_pkgs, qname)
             questions = get_prompt_questions(
-                choices, f"Select {package_type} packages to delete", qname
+                "checkbox", f"Select {package_type} packages to delete:", qname, choices
             )
             answers = PyInquirer.prompt(questions)
             pids = answers[qname]
@@ -246,10 +266,10 @@ def delete(ctx, package_type, package_id, interactive):
         raise
 
 
-def get_prompt_questions(choices, message, name):
+def get_prompt_questions(type, message, name, choices):
     return [
         {
-            "type": "checkbox",
+            "type": type,
             "message": message,
             "name": name,
             "choices": choices,
@@ -268,6 +288,14 @@ def get_user_packages_choices(packages, user_packages, action):
         elif (action == "add" and not found) or (action == "update"):
             result.append(choice)
     return result
+
+
+def prompt_package_type():
+    questions = get_prompt_questions(
+        "list", "First, select the package type:", "ptype", PT_CHOICES
+    )
+    answers = PyInquirer.prompt(questions)
+    return answers["ptype"]
 
 
 def run_command(ctx, action, package_id, package_type, labels, test, verbose):
