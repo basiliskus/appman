@@ -28,6 +28,7 @@ class RunCommand(click.Command):
                     PT_CHOICES,
                     case_sensitive=False,
                 ),
+                required=False,
             ),
             click.Option(("--package-id", "-id"), help="Package ID"),
             click.Option(
@@ -69,6 +70,9 @@ def cli(ctx, verbose):
 def install(ctx, package_id, package_type, labels, test):
     verbose = ctx.obj["verbose"]
     try:
+        if not package_type:
+            package_type = prompt_package_type()
+
         run_command(ctx, "install", package_id, package_type, labels, test, verbose)
     except Exception as e:
         e.verbose = verbose
@@ -81,6 +85,9 @@ def uninstall(ctx, package_id, package_type, labels, test):
     verbose = ctx.obj["verbose"]
 
     try:
+        if not package_type:
+            package_type = prompt_package_type()
+
         run_command(ctx, "uninstall", package_id, package_type, labels, test, verbose)
     except Exception as e:
         e.verbose = verbose
