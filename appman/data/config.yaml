@@ -10,19 +10,26 @@ defaults:
       windows: [ scoop, choco, npm, pip, cargo ]
       ubuntu: [ apt, npm, pip, cargo, snap ]
       darwin: [ brew, npm, pip, cargo ]
-    backend:
-      any: [ npm, pip, cargo ]
     font:
       windows: [ scoop ]
       ubuntu: []
       darwin: [ brew ]
     driver:
       any: []
-    vscode:
-      any: [ vscode-extensions ]
     provisioned:
       windows: [ appx ]
-      ubuntu: [ apt ]
+    backend:
+      python:
+        any: [ pip ]
+      node:
+        any: [ npm ]
+      rust:
+        any: [ cargo ]
+    extensions:
+      vscode:
+        any: [ vscode-extensions ]
+      sublime:
+        any: []
   tags:
     - cli
     - gui

@@ -8,43 +8,46 @@ from . import util
 from . import config
 
 
-PT_CHOICES = [
-    "app",
-    "backend",
-    "font",
-    "driver",
-    "vscode",
-    "provisioned",
-]
-
-
-class RunCommand(click.Command):
+class BaseCommand(click.Command):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.params = [
             click.Argument(
                 ("package-type",),
-                type=click.Choice(
-                    PT_CHOICES,
-                    case_sensitive=False,
-                ),
+                nargs=-1,
+                callback=self.parse_pt,
                 required=False,
             ),
             click.Option(("--package-id", "-id"), help="Package ID"),
             click.Option(
                 ("--labels", "-l"),
-                callback=parse_labels,
+                callback=self.parse_labels,
                 help="Comma-separated list of labels",
-            ),
-            click.Option(
-                ("--test", "-t"), is_flag=True, help="Print commands without running"
             ),
         ] + self.params
 
+    @staticmethod
+    def parse_labels(ctx, param, value):
+        if value:
+            return value.split(",")
 
-def parse_labels(ctx, param, value):
-    if value:
-        return value.split(",")
+    @staticmethod
+    def parse_pt(ctx, param, value):
+        choices = config.ptchoices()
+        for v in value:
+            valid_choices = ", ".join(
+                [*choices] if isinstance(choices, dict) else choices
+            )
+            if not choices:
+                raise ValueError(f"'{v}' is not valid. Too many arguments")
+            if v not in choices:
+                raise ValueError(
+                    f"'{v}' is not a valid argument. Please choose from: {valid_choices}"
+                )
+            if not isinstance(choices, dict):
+                break
+            choices = choices[v]
+        return "-".join(value)
 
 
 @click.group()
@@ -65,7 +68,8 @@ def cli(ctx, verbose):
         raise
 
 
-@cli.command(cls=RunCommand)
+@cli.command(cls=BaseCommand)
+@click.option("--test", "-t", is_flag=True, help="Print commands without running")
 @click.pass_context
 def install(ctx, package_id, package_type, labels, test):
     verbose = ctx.obj["verbose"]
@@ -79,7 +83,8 @@ def install(ctx, package_id, package_type, labels, test):
         raise
 
 
-@cli.command(cls=RunCommand)
+@cli.command(cls=BaseCommand)
+@click.option("--test", "-t", is_flag=True, help="Print commands without running")
 @click.pass_context
 def uninstall(ctx, package_id, package_type, labels, test):
     verbose = ctx.obj["verbose"]
@@ -94,14 +99,7 @@ def uninstall(ctx, package_id, package_type, labels, test):
         raise
 
 
-@cli.command()
-@click.argument(
-    "package-type", type=click.Choice(PT_CHOICES, case_sensitive=False), required=False
-)
-@click.option("--package-id", "-id", help="Package id")
-@click.option(
-    "--labels", "-l", callback=parse_labels, help="Comma-separated list of labels"
-)
+@cli.command(cls=BaseCommand)
 @click.pass_context
 def search(ctx, package_type, package_id, labels):
     os = ctx.obj["os"]
@@ -132,21 +130,22 @@ def search(ctx, package_type, package_id, labels):
         raise
 
 
-@cli.command()
-@click.argument(
-    "package-type", type=click.Choice(PT_CHOICES, case_sensitive=False), required=False
-)
-@click.option(
-    "--labels", "-l", callback=parse_labels, help="Comma-separated list of labels"
-)
+@cli.command(cls=BaseCommand)
 @click.pass_context
-def list(ctx, package_type, labels):
+def list(ctx, package_type, package_id, labels):
     verbose = ctx.obj["verbose"]
     appman = ctx.obj["appman"]
 
     try:
         if not package_type:
             package_type = prompt_package_type()
+
+        if package_id:
+            if appman.has_user_package(package_type, package_id):
+                util.print_info(f"Package '{package_id}' found")
+            else:
+                util.print_info(f"Package '{package_id}' not found")
+            return
 
         pkgs = appman.get_user_packages(package_type, labels=labels)
         if not pkgs:
@@ -163,14 +162,7 @@ def list(ctx, package_type, labels):
         raise
 
 
-@cli.command()
-@click.argument(
-    "package-type", type=click.Choice(PT_CHOICES, case_sensitive=False), required=False
-)
-@click.argument("package-id", required=False)
-@click.option(
-    "--labels", "-l", callback=parse_labels, help="Comma-separated list of labels"
-)
+@cli.command(cls=BaseCommand)
 @click.option("--interactive", "-i", is_flag=True, help="Enter interactive mode")
 @click.pass_context
 def add(ctx, package_type, package_id, labels, interactive):
@@ -225,14 +217,10 @@ def add(ctx, package_type, package_id, labels, interactive):
         raise
 
 
-@cli.command()
-@click.argument(
-    "package-type", type=click.Choice(PT_CHOICES, case_sensitive=False), required=False
-)
-@click.argument("package-id", required=False)
+@cli.command(cls=BaseCommand)
 @click.option("--interactive", "-i", is_flag=True, help="Enter interactive mode")
 @click.pass_context
-def delete(ctx, package_type, package_id, interactive):
+def delete(ctx, package_type, package_id, labels, interactive):
     os = ctx.obj["os"]
     verbose = ctx.obj["verbose"]
     appman = ctx.obj["appman"]
@@ -242,7 +230,7 @@ def delete(ctx, package_type, package_id, interactive):
             if not package_type:
                 package_type = prompt_package_type()
 
-            usr_pkgs = appman.get_user_packages(package_type)
+            usr_pkgs = appman.get_user_packages(package_type, labels=labels)
             if not usr_pkgs:
                 util.print_warning(f"No {package_type} user packages found")
                 return
@@ -268,7 +256,7 @@ def delete(ctx, package_type, package_id, interactive):
         usr_pkg = appman.get_user_package(package_type, package_id)
         if not usr_pkg:
             util.print_warning(f"Package '{package_id}' was not found")
-            pkgs = appman.get_user_packages(package_type)
+            pkgs = appman.get_user_packages(package_type, labels=labels)
             if pkgs:
                 util.print_info(
                     f"You can choose from this list: {', '.join([p.id for p in pkgs])}"
@@ -305,12 +293,16 @@ def get_user_packages_choices(packages, user_packages, action):
     return result
 
 
-def prompt_package_type():
+def prompt_package_type(suffix="", choices=config.ptchoices()):
+    choice_list = choices.keys() if isinstance(choices, dict) else choices
     questions = get_prompt_questions(
-        "list", "First, select the package type:", "ptype", PT_CHOICES
+        "list", "Select the package type:", "ptype", choice_list
     )
     answers = PyInquirer.prompt(questions)
-    return answers["ptype"]
+    ptype = f"{suffix}-{answers['ptype']}" if suffix else answers["ptype"]
+    if isinstance(choices, dict) and choices[ptype]:
+        return prompt_package_type(ptype, choices[ptype])
+    return ptype
 
 
 def run_command(ctx, action, package_id, package_type, labels, test, verbose):

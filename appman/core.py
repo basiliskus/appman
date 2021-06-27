@@ -376,13 +376,18 @@ class Command:
 
 class Config:
     any_os = "any"
+    pt_sep = "-"
 
     def __init__(self, data):
         self.os = data["os"]
         self.defaults = data["defaults"]
 
     def get_pm_defaults(self, ptype):
-        return self.defaults["pm"][ptype]
+        pts = ptype.split(self.pt_sep)
+        ptconfig = self.defaults["pm"]
+        for pt in pts:
+            ptconfig = ptconfig[pt]
+        return ptconfig
 
     def get_compatible_pms(self, os, ptype):
         return list(set(self._get_compatible_pms(os, ptype)))

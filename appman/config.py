@@ -10,14 +10,6 @@ FORMULAS_PKG = "appman.data.formulas"
 PACKAGES_PKG = "appman.data.packages"
 USER_PKG = "appman.data.user"
 
-PACKAGES_TYPES = [
-    {"id": "app", "pkg": "apps"},
-    {"id": "backend", "pkg": "backend"},
-    {"id": "driver", "pkg": "drivers"},
-    {"id": "extension", "pkg": "extensions"},
-    {"id": "font", "pkg": "fonts"},
-    {"id": "provisioned", "pkg": "provisioned"},
-]
 
 APPMAN_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = Path(APPMAN_DIR).parent
@@ -30,3 +22,30 @@ PACKAGES_DIR = os.path.join(DATA_DIR, "packages")
 USER_DIR = os.path.join(DATA_DIR, "user")
 FORMULAS_DIR = os.path.join(DATA_DIR, "formulas")
 CONFIG_PATH = os.path.join(DATA_DIR, CONFIG_RES_YAML)
+
+
+PACKAGES_TYPES = [
+    {"id": "app", "pkg": "apps"},
+    {"id": "font", "pkg": "fonts"},
+    {"id": "driver", "pkg": "drivers"},
+    {"id": "provisioned", "pkg": "provisioned"},
+    {"id": "backend-node", "pkg": "backend.node"},
+    {"id": "backend-python", "pkg": "backend.python"},
+    {"id": "backend-rust", "pkg": "backend.rust"},
+    {"id": "extension-sublime", "pkg": "extensions.sublime"},
+    {"id": "extension-vscode", "pkg": "extensions.vscode"},
+]
+
+
+def ptchoices():
+    choices = {}
+    for pt in PACKAGES_TYPES:
+        pt = pt["id"]
+        v = None
+        if "-" in pt:
+            pt, v = pt.split("-")
+        if not choices or pt not in choices:
+            choices[pt] = []
+        if v:
+            choices[pt].append(v)
+    return choices
