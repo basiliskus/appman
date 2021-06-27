@@ -4,7 +4,6 @@ New Features:
     [ ] create update-all command
     [ ] add interactive mode for selecting labels
     [ ] create 'buckets' to handle multiple sources of package definitions
-    [x] create interactive mode to choose multiple user packages from global list @done(21-06-25 10:37)
   Framework:
     [ ] add package requirements handling and additional libraries
 Improvements:
@@ -20,7 +19,6 @@ Improvements:
   Documentation:
     [ ] add instructions to install and usage in readme file
 Bugs:
-  [x] labels are duplicated when adding user packages in interactive mode and passing label as argument @done(21-06-25 16:39)
 
 Archive:
   Framework:
@@ -28,10 +26,12 @@ Archive:
     [x] make data structure consistent for all package types @done(21-06-24 14:05)
     [x] simplify data folder structure: merge folders cli + gui; and formulas + package-managers @done(21-06-24 11:12)
   New Features:
-    [x] CLI for yaml file to create, delete and edit app entries @done(21-06-23 14:42)
-      [x] delete: delete file or entry @done(21-06-23 14:41)
-      [x] create: one file per package type @done(21-06-23 10:39)
-      [x] list: display all packages, filter by flags @done(21-06-23 10:39)
+    CLI:
+      [x] CLI for yaml file to create, delete and edit app entries @done(21-06-23 14:42)
+        [x] delete: delete file or entry @done(21-06-23 14:41)
+        [x] create: one file per package type @done(21-06-23 10:39)
+        [x] list: display all packages, filter by flags @done(21-06-23 10:39)
+      [x] create interactive mode to choose multiple user packages from global list @done(21-06-25 10:37)
   Improvements:
     [x] use multi-label cli option @done(21-06-23 14:41)
     [x] sanity checks @done(21-06-09 23:49)
@@ -45,4 +45,5 @@ Archive:
     [x] add validations for cli @done(21-06-13 10:56)
     [x] detect os instead of passing as parameter @done(21-06-16 10:32)
   Bugs:
+    [x] labels are duplicated when adding user packages in interactive mode and passing label as argument @done(21-06-25 16:39)
     [x] use package id instead of package name to identify package @done(21-06-14 14:24)
