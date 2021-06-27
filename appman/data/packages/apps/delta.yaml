@@ -1,0 +1,9 @@
+id: delta
+name: delta
+description: A viewer for git and diff output
+labels:
+  - cli
+  - utils
+pid:
+  cargo: git-delta
+home: https://github.com/dandavison/delta

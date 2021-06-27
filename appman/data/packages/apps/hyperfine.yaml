@@ -1,0 +1,9 @@
+id: hyperfine
+name: hyperfine
+description: A command-line benchmarking tool
+labels:
+  - cli
+  - utils
+pid:
+  cargo: hyperfine
+home: https://github.com/sharkdp/hyperfine

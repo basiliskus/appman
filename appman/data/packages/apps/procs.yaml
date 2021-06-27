@@ -1,0 +1,9 @@
+id: procs
+name: procs
+description: A modern replacement for ps written in Rust
+labels:
+  - cli
+  - utils
+pid:
+  cargo: procs
+home: https://github.com/dalance/procs

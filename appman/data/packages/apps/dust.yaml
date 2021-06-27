@@ -1,0 +1,9 @@
+id: dust
+name: dust
+description: A more intuitive version of du in rust
+labels:
+  - cli
+  - utils
+pid:
+  cargo: du-dust
+home: https://github.com/bootandy/dust
