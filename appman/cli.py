@@ -201,7 +201,7 @@ def add(ctx, package_type, package_id, labels, interactive):
 @cli.command(cls=BaseCommand)
 @click.option("--interactive", "-i", is_flag=True, help="Enter interactive mode")
 @click.pass_context
-def delete(ctx, package_type, package_id, labels, interactive):
+def remove(ctx, package_type, package_id, labels, interactive):
     os = ctx.obj["os"]
     verbose = ctx.obj["verbose"]
     appman = ctx.obj["appman"]
@@ -215,7 +215,7 @@ def delete(ctx, package_type, package_id, labels, interactive):
             if not usr_pkgs:
                 util.print_warning(f"No {package_type} user packages found")
                 return
-            qname = "delete"
+            qname = "remove"
             pkgs = appman.get_packages(package_type, os)
             choices = get_user_packages_choices(pkgs, usr_pkgs, qname)
             if not choices:
@@ -224,14 +224,14 @@ def delete(ctx, package_type, package_id, labels, interactive):
                 )
                 return
             questions = get_prompt_questions(
-                "checkbox", f"Select {package_type} packages to delete:", qname, choices
+                "checkbox", f"Select {package_type} packages to remove:", qname, choices
             )
             answers = PyInquirer.prompt(questions)
             pids = answers[qname]
             for pid in pids:
                 usr_pkg = appman.get_user_package(package_type, pid)
-                appman.delete_user_package(usr_pkg)
-                util.print_success(f"Deleted {pid} package")
+                appman.remove_user_package(usr_pkg)
+                util.print_success(f"Removed {pid} package")
             return
 
         usr_pkg = appman.get_user_package(package_type, package_id)
@@ -243,7 +243,7 @@ def delete(ctx, package_type, package_id, labels, interactive):
                     f"You can choose from this list: {', '.join([p.id for p in pkgs])}"
                 )
             return
-        appman.delete_user_package(usr_pkg)
+        appman.remove_user_package(usr_pkg)
         util.print_success(f"Package '{package_id}' removed")
     except Exception as e:
         e.verbose = verbose
@@ -266,7 +266,7 @@ def get_user_packages_choices(packages, user_packages, action):
     for p in packages:
         found = any(up for up in user_packages if up.id == p.id)
         choice = {"name": p.name, "value": p.id, "checked": found}
-        if action == "delete" and found:
+        if action == "remove" and found:
             choice["checked"] = False
             result.append(choice)
         elif (action == "add" and not found) or (action == "update"):

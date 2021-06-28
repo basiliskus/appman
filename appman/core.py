@@ -56,9 +56,9 @@ class AppMan:
         resource = self._get_resource_name(package.type)
         self._add_data_resource(config.USER_PKG, resource, user_package.data)
 
-    def delete_user_package(self, user_package):
+    def remove_user_package(self, user_package):
         resource = self._get_resource_name(user_package.type)
-        self._delete_data_resource(config.USER_PKG, resource, user_package.data)
+        self._remove_data_resource(config.USER_PKG, resource, user_package.data)
 
     def get_user_packages(self, package_type, id=None, labels=None):
         packages = []
@@ -154,7 +154,7 @@ class AppMan:
         content = sorted(content, key=lambda o: o["id"])
         self._write_data_resource(package, resource, content)
 
-    def _delete_data_resource(self, package, resource, data):
+    def _remove_data_resource(self, package, resource, data):
         content = self._read_data_resource(package, resource)
         content.remove(data)
         self._write_data_resource(package, resource, content)
