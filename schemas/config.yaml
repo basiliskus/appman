@@ -2,11 +2,16 @@ os: list()
 defaults:
   pm:
     app: include('package-manager')
-    backend: include('package-manager')
     font: include('package-manager')
     driver: include('package-manager')
-    vscode: include('package-manager')
     provisioned: include('package-manager')
+    backend:
+      python: include('package-manager')
+      node: include('package-manager')
+      rust: include('package-manager')
+    extensions:
+      vscode: include('package-manager')
+      sublime: include('package-manager')
   tags: list()
 ---
 package-manager:

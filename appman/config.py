@@ -24,23 +24,22 @@ FORMULAS_DIR = os.path.join(DATA_DIR, "formulas")
 CONFIG_PATH = os.path.join(DATA_DIR, CONFIG_RES_YAML)
 
 
-PACKAGES_TYPES = [
-    {"id": "app", "pkg": "apps"},
-    {"id": "font", "pkg": "fonts"},
-    {"id": "driver", "pkg": "drivers"},
-    {"id": "provisioned", "pkg": "provisioned"},
-    {"id": "backend-node", "pkg": "backend.node"},
-    {"id": "backend-python", "pkg": "backend.python"},
-    {"id": "backend-rust", "pkg": "backend.rust"},
-    {"id": "extension-sublime", "pkg": "extensions.sublime"},
-    {"id": "extension-vscode", "pkg": "extensions.vscode"},
-]
+PACKAGES_TYPES = {
+    "app": {"pkg": "apps"},
+    "font": {"pkg": "fonts"},
+    "driver": {"pkg": "drivers"},
+    "provisioned": {"pkg": "provisioned"},
+    "backend-node": {"pkg": "backend.node"},
+    "backend-python": {"pkg": "backend.python"},
+    "backend-rust": {"pkg": "backend.rust"},
+    "extension-sublime": {"pkg": "extensions.sublime"},
+    "extension-vscode": {"pkg": "extensions.vscode"},
+}
 
 
 def ptchoices():
     choices = {}
-    for pt in PACKAGES_TYPES:
-        pt = pt["id"]
+    for pt in PACKAGES_TYPES.keys():
         v = None
         if "-" in pt:
             pt, v = pt.split("-")

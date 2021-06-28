@@ -12,11 +12,10 @@ class BaseCommand(click.Command):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.params = [
-            click.Argument(
-                ("package-type",),
-                nargs=-1,
-                callback=self.parse_pt,
-                required=False,
+            click.Option(
+                ("--package-type", "-pt"),
+                type=click.Choice(config.PACKAGES_TYPES),
+                help="Package type",
             ),
             click.Option(("--package-id", "-id"), help="Package ID"),
             click.Option(
@@ -30,24 +29,6 @@ class BaseCommand(click.Command):
     def parse_labels(ctx, param, value):
         if value:
             return value.split(",")
-
-    @staticmethod
-    def parse_pt(ctx, param, value):
-        choices = config.ptchoices()
-        for v in value:
-            valid_choices = ", ".join(
-                [*choices] if isinstance(choices, dict) else choices
-            )
-            if not choices:
-                raise ValueError(f"'{v}' is not valid. Too many arguments")
-            if v not in choices:
-                raise ValueError(
-                    f"'{v}' is not a valid argument. Please choose from: {valid_choices}"
-                )
-            if not isinstance(choices, dict):
-                break
-            choices = choices[v]
-        return "-".join(value)
 
 
 @click.group()

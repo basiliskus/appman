@@ -8,6 +8,8 @@ from . import config
 
 
 class AppMan:
+    pts = config.PACKAGES_TYPES
+
     def __init__(self):
         self.config = None
         self.formulas = []
@@ -30,11 +32,11 @@ class AppMan:
             self.formulas.append(formula)
 
         # packages
-        for pt in config.PACKAGES_TYPES:
-            pkg = f"{config.PACKAGES_PKG}.{pt['pkg']}"
+        for pt in self.pts:
+            pkg = f"{config.PACKAGES_PKG}.{self.pts[pt]['pkg']}"
             for pfile in self._get_data_resource_files(pkg):
                 data = self._load_data_resource(pkg, pfile.name)
-                package = Package(pfile.stem, pt["id"])
+                package = Package(pfile.stem, pt)
                 package.load(data)
                 self.packages.append(package)
 
@@ -193,10 +195,10 @@ class AppMan:
         return path.joinpath(f"{resource}{config.DEFS_EXT}")
 
     def _get_resource_name(self, ptype):
-        return next(pt["pkg"] for pt in config.PACKAGES_TYPES if pt["id"] == ptype)
+        return next(self.pts[pt]["pkg"] for pt in self.pts if pt == ptype)
 
     def _get_package_type(self, resource):
-        return next(pt["id"] for pt in config.PACKAGES_TYPES if pt["pkg"] == resource)
+        return next(pt for pt in self.pts if self.pts[pt]["pkg"] == resource)
 
 
 class CommonPackage:

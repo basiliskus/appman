@@ -3,11 +3,13 @@ cliargs = {
     "os": ["windows", "linux"],
     "package-type": [
         "app",
-        "backend",
         "font",
         "driver",
-        "vscode",
         "provisioned",
+        "backend-python",
+        "backend-node",
+        "extension-vscode",
+        "extension-sublime",
     ],
     "labels": ["", "dev-tools", "utils"],
     "package-id": [
