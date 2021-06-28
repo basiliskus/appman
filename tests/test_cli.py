@@ -79,10 +79,10 @@ def test_add_package():
     assert result.exit_code == 0
 
 
-def test_delete_package():
+def test_remove_package():
     package_type = "app"
     package_id = "git"
-    args = ["delete"]
+    args = ["remove"]
     args += ["--package-type", package_type]
     args += ["--package-id", package_id]
     runner = CliRunner()
