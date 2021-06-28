@@ -4,7 +4,7 @@ description: A code-searching tool similar to ack, but faster.
 labels:
   - cli
   - utils
-pid:
+pmid:
   apt: silversearcher-ag
   choco: ag
   winget: "The Silver Searcher"

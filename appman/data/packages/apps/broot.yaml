@@ -4,6 +4,6 @@ description: A new way to see and navigate directory trees
 labels:
   - cli
   - utils
-pid:
+pmid:
   cargo: broot
 home: https://dystroy.org/broot

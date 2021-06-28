@@ -4,6 +4,6 @@ description: A viewer for git and diff output
 labels:
   - cli
   - utils
-pid:
+pmid:
   cargo: git-delta
 home: https://github.com/dandavison/delta

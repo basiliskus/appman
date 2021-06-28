@@ -4,7 +4,7 @@ description: ripgrep recursively searches directories for a regex pattern while 
 labels:
   - cli
   - utils
-pid:
+pmid:
   apt: ripgrep
   cargo: ripgrep
 home: https://github.com/BurntSushi/ripgrep

@@ -4,6 +4,6 @@ description: A modern replacement for ps written in Rust
 labels:
   - cli
   - utils
-pid:
+pmid:
   cargo: procs
 home: https://github.com/dalance/procs

@@ -4,6 +4,6 @@ description: A simple, fast and user-friendly alternative to 'find'
 labels:
   - cli
   - utils
-pid:
+pmid:
   cargo: fd-find
 home: https://github.com/sharkdp/fd
