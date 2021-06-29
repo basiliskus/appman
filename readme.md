@@ -89,8 +89,8 @@ You can install appman from [PyPI](https://pypi.org/project/appman/):
     [?] Select the package type: (Use arrow keys)
     >app
 
-    * 7zip (labels: cli, utils)
-    * curl (labels: cli, utils)
+     • 7zip (cli, utils)
+     • curl (cli, utils)
     ```
 
     Directly passing parameters:
