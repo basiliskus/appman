@@ -59,7 +59,7 @@ You can install appman from [PyPI](https://pypi.org/project/appman/):
   Using interactive mode:
 
   ```console
-  $ appman add
+  $ appman remove
 
   [?] Select the package type: (Use arrow keys)
   >app
@@ -128,7 +128,7 @@ You can install appman from [PyPI](https://pypi.org/project/appman/):
   Directly passing parameters:
 
   ```console
-  $ appman search -pt app
+  $ appman search -pt app -id 7zip
   ```
 
 ### Install/Uninstall packages in your user packages list
