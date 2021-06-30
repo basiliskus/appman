@@ -31,8 +31,6 @@ PACKAGES_TYPES = {
     "provisioned": {"pkg": "provisioned"},
     "backend-node": {"pkg": "backend.node"},
     "backend-python": {"pkg": "backend.python"},
-    "backend-rust": {"pkg": "backend.rust"},
-    "extension-sublime": {"pkg": "extensions.sublime"},
     "extension-vscode": {"pkg": "extensions.vscode"},
 }
 

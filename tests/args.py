@@ -9,7 +9,6 @@ cliargs = {
         "backend-python",
         "backend-node",
         "extension-vscode",
-        "extension-sublime",
     ],
     "labels": ["", "dev-tools", "utils"],
     "package-id": [
@@ -43,5 +42,3 @@ packages = [
 ]
 
 userlabels = ["essentials", "home"]
-
-simplefiles = ["vscode.yaml", "sublime.yaml", "missing.yaml"]

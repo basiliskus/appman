@@ -8,10 +8,8 @@ defaults:
     backend:
       python: include('package-manager')
       node: include('package-manager')
-      rust: include('package-manager')
-    extensions:
+    extension:
       vscode: include('package-manager')
-      sublime: include('package-manager')
   tags: list()
 ---
 package-manager:

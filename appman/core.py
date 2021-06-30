@@ -183,9 +183,8 @@ class AppMan:
             if not data:
                 continue
             for d in data:
-                id = d if isinstance(d, str) else d["id"]
                 yield {
-                    "id": id,
+                    "id": d["id"],
                     "data": d,
                     "ptype": ptype,
                 }

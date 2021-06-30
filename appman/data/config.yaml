@@ -23,13 +23,9 @@ defaults:
         any: [ pip ]
       node:
         any: [ npm ]
-      rust:
-        any: [ cargo ]
-    extensions:
+    extension:
       vscode:
-        any: [ vscode-extensions ]
-      sublime:
-        any: []
+        any: [ vscode-extension ]
   tags:
     - cli
     - gui

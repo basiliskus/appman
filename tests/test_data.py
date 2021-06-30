@@ -34,11 +34,3 @@ def test_validate_packages_schema(schemas_root, packages_root, config_path, svar
             spath = tf.name
         util.validate_schema(spath, fpath)
     os.remove(tf.name)
-
-
-def test_validate_simple_packages_schema(schemas_root, packages_root):
-    schema_path = os.path.join(schemas_root, "packages-simple.yaml")
-    for fpath in util.get_file_paths(
-        packages_root, filter=(lambda x: x in args.simplefiles)
-    ):
-        util.validate_schema(schema_path, fpath)
