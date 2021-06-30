@@ -1,5 +1,5 @@
 .vscode/
-appman/data/user
+appman/user
 
 credentials.conf
 *.personal.yaml

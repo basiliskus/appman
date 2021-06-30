@@ -20,20 +20,22 @@ class AppMan:
     def load_data(self):
 
         # config
-        cfdata = self._load_data_resource(config.DATA_PKG, config.CONFIG_RES_YAML)
+        cfdata = self._load_data_resource(config.BUCKET_PKG, config.CONFIG_RES_YAML)
         self.config = Config(cfdata)
 
         # formulas
-        for ffile in self._get_data_resource_files(config.FORMULAS_PKG):
-            data = self._load_data_resource(config.FORMULAS_PKG, ffile.name)
+        for ffile in self._get_data_resource_files(config.BUCKET_FORMULAS_PKG):
+            data = self._load_data_resource(config.BUCKET_FORMULAS_PKG, ffile.name)
             custom = data["type"] == "custom"
             formula = Formula(ffile.stem, custom=custom)
-            formula.load(self._load_data_resource(config.FORMULAS_PKG, ffile.name))
+            formula.load(
+                self._load_data_resource(config.BUCKET_FORMULAS_PKG, ffile.name)
+            )
             self.formulas.append(formula)
 
         # packages
         for pt in self.pts:
-            pkg = f"{config.PACKAGES_PKG}.{self.pts[pt]['pkg']}"
+            pkg = f"{config.BUCKET_PACKAGES_PKG}.{self.pts[pt]['pkg']}"
             for pfile in self._get_data_resource_files(pkg):
                 data = self._load_data_resource(pkg, pfile.name)
                 package = Package(pfile.stem, pt)
@@ -41,7 +43,7 @@ class AppMan:
                 self.packages.append(package)
 
         # user packages
-        for presult in self._get_grouped_data_resource_files(config.USER_PKG):
+        for presult in self._get_grouped_data_resource_files(config.USER_DATA_PKG):
             package = UserPackage(presult["id"], presult["ptype"])
             package.load(presult["data"])
             self.user_packages.append(package)
@@ -54,11 +56,11 @@ class AppMan:
 
         user_package = UserPackage(package.id, package.type, plabels)
         resource = self._get_resource_name(package.type)
-        self._add_data_resource(config.USER_PKG, resource, user_package.data)
+        self._add_data_resource(config.USER_DATA_PKG, resource, user_package.data)
 
     def remove_user_package(self, user_package):
         resource = self._get_resource_name(user_package.type)
-        self._remove_data_resource(config.USER_PKG, resource, user_package.data)
+        self._remove_data_resource(config.USER_DATA_PKG, resource, user_package.data)
 
     def get_user_packages(self, package_type, id=None, labels=None):
         packages = []
@@ -132,7 +134,7 @@ class AppMan:
                 return self.get_formula(pm)
 
     def _create_packages(self, ptype):
-        pname = f"{config.PACKAGES_PKG}.{ptype}"
+        pname = f"{config.BUCKET_PACKAGES_PKG}.{ptype}"
         for pfile in self._get_data_resource_files(pname):
             package = Package(pfile.stem, ptype)
             package.load(self._load_data_resource(pname, pfile.name))

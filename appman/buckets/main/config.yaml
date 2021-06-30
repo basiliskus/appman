@@ -1,3 +1,4 @@
+# bucket: https://github.com/basiliskus/appman-bucket
 os:
   - windows
   - unix-like:

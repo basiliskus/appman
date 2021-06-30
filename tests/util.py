@@ -12,8 +12,8 @@ def safe_load_yaml_files(path):
             yaml.safe_load(file)
 
 
-def get_file_paths(data_root, filter=None):
-    for path, directories, files in os.walk(data_root):
+def get_file_paths(bucket_root, filter=None):
+    for path, directories, files in os.walk(bucket_root):
         files = [
             fi for fi in files if fi.endswith(EXT) and (filter is None or filter(fi))
         ]
@@ -21,9 +21,9 @@ def get_file_paths(data_root, filter=None):
             yield os.path.join(path, name)
 
 
-def get_validation_files(schemas_root, data_root, name):
+def get_validation_files(schemas_root, bucket_root, name):
     schema_path = os.path.join(schemas_root, f"{name}{EXT}")
-    data_path = os.path.join(data_root, name)
+    data_path = os.path.join(bucket_root, name)
     return schema_path, data_path
 
 

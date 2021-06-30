@@ -1,11 +1,11 @@
 OS_SUPPORTED = ["linux", "windows", "darwin"]
 DEFS_EXT = ".yaml"
 
-DATA_PKG = "appman.data"
+USER_DATA_PKG = "appman.user.data"
+BUCKET_PKG = "appman.buckets.main"
+BUCKET_FORMULAS_PKG = f"{BUCKET_PKG}.formulas"
+BUCKET_PACKAGES_PKG = f"{BUCKET_PKG}.packages"
 CONFIG_RES_YAML = "config.yaml"
-FORMULAS_PKG = "appman.data.formulas"
-PACKAGES_PKG = "appman.data.packages"
-USER_PKG = "appman.data.user"
 
 PACKAGES_TYPES = {
     "app": {"pkg": "apps"},
