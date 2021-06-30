@@ -17,8 +17,10 @@ Improvements:
     [ ] add test cases for unexpected behaviour
     [ ] add integration tests
   Documentation:
-    [ ] add instructions to install and usage in readme file
+    [x] add instructions to install and usage in readme file @done(21-06-29 18:31)
 Bugs:
+    [ ] filter by os when using commands: list, install/uninstall
+    [ ] extension packages ids match filename instead of id
 
 Archive:
   Framework:
