@@ -4,7 +4,7 @@ appman is cross-platform application management aggregator
 
 [![Build Status](https://travis-ci.com/basiliskus/appman.svg?branch=main)](https://travis-ci.com/basiliskus/appman)
 
-<p align="center"><img src="/docs/demo.gif?raw=true"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/basiliskus/appman/main/docs/demo.gif"/></p>
 
 ## Requirements
 
@@ -24,108 +24,117 @@ You can install appman from [PyPI](https://pypi.org/project/appman/):
 
 - Add a package to your user packages list
 
-    Using interactive mode:
-    ```console
-    $ appman add
+  Using interactive mode:
 
-    [?] Select the package type: (Use arrow keys)
-    >app
-     font
-     driver
-     provisioned
-     backend
-     extension
+  ```console
+  $ appman add
 
-    [?] Select app packages to add: (<up>, <down> to move, <space> to select, <a> to toggle, <i> to invert)
-     ○ curl
-     ○ fzf
-    >● git
-     ○ jq
-     ○ python
-     ○ ...
+  [?] Select the package type: (Use arrow keys)
+  >app
+   font
+   driver
+   provisioned
+   backend
+   extension
 
-    Added git package
-    ```
+  [?] Select app packages to add: (<up>, <down> to move, <space> to select, <a> to toggle, <i> to invert)
+   ○ curl
+   ○ fzf
+  >● git
+   ○ jq
+   ○ python
+   ○ ...
 
-    or directly passing parameters:
-    ```console
-    $ appman add -pt app -id git
-    ```
+  Added git package
+  ```
+
+  or directly passing parameters:
+
+  ```console
+  $ appman add -pt app -id git
+  ```
 
 - Remove a previously added package
 
-    Using interactive mode:
-    ```console
-    $ appman add
+  Using interactive mode:
 
-    [?] Select the package type: (Use arrow keys)
-    >app
-     font
-     driver
-     provisioned
-     backend
-     extension
+  ```console
+  $ appman add
 
-    [?] Select app packages to remove: (<up>, <down> to move, <space> to select, <a> to toggle, <i> to invert)
-     ○ 7zip
-     ○ curl
-    >● git
-     ○ ...
+  [?] Select the package type: (Use arrow keys)
+  >app
+   font
+   driver
+   provisioned
+   backend
+   extension
 
-    Removed git package
-    ```
+  [?] Select app packages to remove: (<up>, <down> to move, <space> to select, <a> to toggle, <i> to invert)
+   ○ 7zip
+   ○ curl
+  >● git
+   ○ ...
 
-    Directly passing parameters:
-    ```console
-    $ appman remove -pt app -id git
-    ```
+  Removed git package
+  ```
+
+  Directly passing parameters:
+
+  ```console
+  $ appman remove -pt app -id git
+  ```
 
 - Show your user packages list
 
-    Using interactive mode:
-    ```console
-    $ appman list
+  Using interactive mode:
 
-    [?] Select the package type: (Use arrow keys)
-    >app
+  ```console
+  $ appman list
 
-     • 7zip (cli, utils)
-     • curl (cli, utils)
-    ```
+  [?] Select the package type: (Use arrow keys)
+  >app
 
-    Directly passing parameters:
-    ```console
-    $ appman list -pt app
-    ```
+   • 7zip (cli, utils)
+   • curl (cli, utils)
+  ```
+
+  Directly passing parameters:
+
+  ```console
+  $ appman list -pt app
+  ```
 
 - Search all available packages to add
 
-    Using interactive mode:
-    ```console
-    $ appman search
+  Using interactive mode:
 
-    [?] Select the package type: (Use arrow keys)
-    >app
+  ```console
+  $ appman search
 
-    7zip
-    ack
-    apache2
-    aria2
-    bottom
-    broot
-    cookiecutter
-    curl
-    ...
-    ```
+  [?] Select the package type: (Use arrow keys)
+  >app
 
-    Directly passing parameters:
-    ```console
-    $ appman search -pt app
-    ```
+  7zip
+  ack
+  apache2
+  aria2
+  bottom
+  broot
+  cookiecutter
+  curl
+  ...
+  ```
+
+  Directly passing parameters:
+
+  ```console
+  $ appman search -pt app
+  ```
 
 ### Install/Uninstall packages in your user packages list
 
 Using interactive mode:
+
 ```console
 $ appman install
 
@@ -138,13 +147,14 @@ Installing ack...
 ```
 
 Directly passing parameters:
+
 ```console
 $ appman install -pt app -id 7zip
 ```
 
 ### Using labels
 
-All packages have pre-defined labels (e.g. for apps: 'cli' & 'gui'), but you can also add your own labels by passing the --labels/-l parameter to the 'add' command. 
+All packages have pre-defined labels (e.g. for apps: 'cli' & 'gui'), but you can also add your own labels by passing the --labels/-l parameter to the 'add' command.
 
 ```console
 $ appman add -pt app -id 7zip -l server
