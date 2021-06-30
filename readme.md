@@ -18,6 +18,20 @@ You can install appman from [PyPI](https://pypi.org/project/appman/):
 > pip install appman
 ```
 
+## Background
+
+While working on my [dotfiles](https://wiki.archlinux.org/title/Dotfiles) repository, I realized that I also wanted to have a way to handle not just configuration files but also my installed applications. That way I'd be able to define what applications I want to have installed on any new environment, have those under version control, and run a script to install/uninstall applications on any new personal or work computer, server, etc.
+
+## Goals
+
+The main goal for appman is to be flexible and extensible. In that context the goals are:
+
+- Cross-platform: handle multiple OS and devices. Currently appman handles Ubuntu and Windows (desktop).
+- Multi-profile: define different profiles with a unique list of applications for different environments (e.g., work and personal computers).
+- Supported Packages: aside from desktop and command line applications, support software like: device drivers, software plugins and extensions (e.g., vscode extensions), backend libraries (e.g., python libraries), fonts, etc.
+- Package Management: support any package manager (e.g., apt-get, scoop) or custom formulas to define how to install, uninstall and upgrade packages.
+- Buckets: currently there is only [one source](https://github.com/basiliskus/appman/tree/main/appman/buckets/main) to choose packages, but the idea is that any user can create their own buckets which can then be shared and used by other users.
+
 ## How to use
 
 ### Set up your user package list
