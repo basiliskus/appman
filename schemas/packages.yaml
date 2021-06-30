@@ -19,6 +19,7 @@ pmid:
   scoop: str(required=False)
   snap: str(required=False)
   winget: str(required=False)
+  vscode-extension: str(required=False)
 
 formula:
   name: str()

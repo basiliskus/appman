@@ -1,0 +1,5 @@
+id: ms-azuretools.vscode-docker
+name: ms-azuretools.vscode-docker
+labels: []
+pmid:
+  vscode-extension: ms-azuretools.vscode-docker

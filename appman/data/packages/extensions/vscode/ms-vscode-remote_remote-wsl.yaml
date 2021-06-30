@@ -1,0 +1,5 @@
+id: ms-vscode-remote.remote-wsl
+name: ms-vscode-remote.remote-wsl
+labels: []
+pmid:
+  vscode-extension: ms-vscode-remote.remote-wsl
