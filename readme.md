@@ -20,7 +20,7 @@ You can install appman from [PyPI](https://pypi.org/project/appman/):
 
 ## How to use
 
-### Set up you user package list
+### Set up your user package list
 
 - Add a package to your user packages list
 
