@@ -6,7 +6,10 @@ New Features:
     [ ] create 'buckets' to handle multiple sources of package definitions
   Framework:
     [ ] add package requirements handling and additional libraries
+    [ ] handle package versions
 Improvements:
+  CLI:
+    [ ] add user feedback when installing/uninstalling to track progress
   Framework:
     [ ] read and prioritize user config
   Validation & Error Handling:
@@ -17,7 +20,6 @@ Improvements:
     [ ] add test cases for unexpected behaviour
     [ ] add integration tests
   Documentation:
-    [x] add instructions to install and usage in readme file @done(21-06-29 18:31)
 Bugs:
     [ ] filter by os when using commands: list, install/uninstall
     [ ] extension packages ids match filename instead of id
@@ -35,6 +37,7 @@ Archive:
         [x] list: display all packages, filter by flags @done(21-06-23 10:39)
       [x] create interactive mode to choose multiple user packages from global list @done(21-06-25 10:37)
   Improvements:
+    [x] add instructions to install and usage in readme file @done(21-06-29 18:31)
     [x] use multi-label cli option @done(21-06-23 14:41)
     [x] sanity checks @done(21-06-09 23:49)
     [x] validate yaml data format @done(21-06-09 23:49)
