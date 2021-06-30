@@ -137,7 +137,7 @@ def list(ctx, package_type, package_id, labels):
             return
 
         for pkg in pkgs:
-            util.print_info(f"* {pkg.id} (labels: {','.join(pkg.labels)})")
+            util.print_info(f"  • {pkg.id} ({', '.join(pkg.labels)})")
     except Exception as e:
         e.verbose = verbose
         raise
