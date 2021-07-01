@@ -29,8 +29,8 @@ The main goal for appman is to be flexible and extensible. In that context the g
 - Cross-platform: handle multiple OS and devices. Currently appman handles Ubuntu and Windows (desktop).
 - Multi-profile: define different profiles with a unique list of applications for different environments (e.g., work and personal computers).
 - Supported Packages: aside from desktop and command line applications, support software like: device drivers, software plugins and extensions (e.g., vscode extensions), backend libraries (e.g., python libraries), fonts, etc.
-- Package Management: support any package manager (e.g., apt-get, scoop) or custom formulas to define how to install, uninstall and upgrade packages.
-- Buckets: currently there is only [one source](https://github.com/basiliskus/appman/tree/main/appman/buckets/main) to choose packages, but the idea is that any user can create their own buckets which can then be shared and used by other users.
+- Package Management: support any package manager (e.g., apt, brew, scoop) or custom formulas to define how to install, uninstall and upgrade packages.
+- Buckets: currently there is only [one source](https://github.com/basiliskus/appman/tree/main/appman/buckets/main) to choose packages from, but the idea is to have any user able to create their own buckets which can then be shared and used by other users.
 
 ## How to use
 
