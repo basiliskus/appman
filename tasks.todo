@@ -1,9 +1,10 @@
 New Features:
   CLI:
+    [ ] create 'buckets' to handle multiple sources of package definitions
     [ ] create command to add labels to existing user package
     [ ] create update-all command
     [ ] add interactive mode for selecting labels
-    [ ] create 'buckets' to handle multiple sources of package definitions
+    [ ] create cli manager for buckets definitions
   Framework:
     [ ] add package requirements handling and additional libraries
     [ ] handle package versions
@@ -21,7 +22,7 @@ Improvements:
     [ ] add integration tests
   Documentation:
 Bugs:
-    [ ] filter by os when using commands: list, install/uninstall
+    [x] filter by os when using commands: list, install/uninstall @done(21-07-01 10:37)
     [ ] extension packages ids match filename instead of id
 
 Archive:
@@ -31,24 +32,24 @@ Archive:
     [x] simplify data folder structure: merge folders cli + gui; and formulas + package-managers @done(21-06-24 11:12)
   New Features:
     CLI:
+      [x] create interactive mode to choose multiple user packages from global list @done(21-06-25 10:37)
       [x] CLI for yaml file to create, delete and edit app entries @done(21-06-23 14:42)
         [x] delete: delete file or entry @done(21-06-23 14:41)
         [x] create: one file per package type @done(21-06-23 10:39)
         [x] list: display all packages, filter by flags @done(21-06-23 10:39)
-      [x] create interactive mode to choose multiple user packages from global list @done(21-06-25 10:37)
   Improvements:
     [x] add instructions to install and usage in readme file @done(21-06-29 18:31)
     [x] use multi-label cli option @done(21-06-23 14:41)
-    [x] sanity checks @done(21-06-09 23:49)
-    [x] validate yaml data format @done(21-06-09 23:49)
     [x] move packages files to appman data folder @done(21-06-23 06:51)
       [x] use new files to store user data @done(21-06-23 10:39)
-    [x] use poetry python library for package management @done(21-06-09 10:57)
-    [x] use click python library for cli @done(21-06-09 12:28)
-    [x] create yaml data schemas @done(21-06-09 23:49)
-    [x] set up continous integration @done(21-06-11 06:53)
-    [x] add validations for cli @done(21-06-13 10:56)
     [x] detect os instead of passing as parameter @done(21-06-16 10:32)
+    [x] add validations for cli @done(21-06-13 10:56)
+    [x] set up continous integration @done(21-06-11 06:53)
+    [x] sanity checks @done(21-06-09 23:49)
+    [x] validate yaml data format @done(21-06-09 23:49)
+    [x] create yaml data schemas @done(21-06-09 23:49)
+    [x] use click python library for cli @done(21-06-09 12:28)
+    [x] use poetry python library for package management @done(21-06-09 10:57)
   Bugs:
     [x] labels are duplicated when adding user packages in interactive mode and passing label as argument @done(21-06-25 16:39)
     [x] use package id instead of package name to identify package @done(21-06-14 14:24)

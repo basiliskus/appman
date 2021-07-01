@@ -22,6 +22,11 @@ def bucket_root():
 
 
 @pytest.fixture
+def bucket_package():
+    return config.BUCKET_PKG
+
+
+@pytest.fixture
 def schemas_root():
     return os.path.join(ROOT_DIR, "schemas")
 
@@ -37,5 +42,25 @@ def user_data_root():
 
 
 @pytest.fixture
+def user_data_package():
+    return config.USER_DATA_PKG
+
+
+@pytest.fixture
 def svars():
     return ["tags"]
+
+
+@pytest.fixture
+def apps_multi_os():
+    return {
+        "apps": [
+            {"id": "7zip", "labels": []},
+            {"id": "winmerge", "labels": []},
+            {"id": "zsh", "labels": []},
+        ],
+        "os_compatible": {
+            "windows": ["7zip", "winmerge"],
+            "ubuntu": ["7zip", "zsh"],
+        },
+    }

@@ -10,43 +10,47 @@ from . import config
 class AppMan:
     pts = config.PACKAGES_TYPES
 
-    def __init__(self):
+    def __init__(self, bpackage):
         self.config = None
         self.formulas = []
         self.packages = []
         self.user_packages = []
-        self.load_data()
+        self.load_bucket_data(bpackage)
 
-    def load_data(self):
+    def load_bucket_data(self, bpackage):
 
         # config
-        cfdata = self._load_data_resource(config.BUCKET_PKG, config.CONFIG_RES_YAML)
+        cfdata = self._load_data_resource(bpackage, config.CONFIG_RES_YAML)
         self.config = Config(cfdata)
 
         # formulas
-        for ffile in self._get_data_resource_files(config.BUCKET_FORMULAS_PKG):
-            data = self._load_data_resource(config.BUCKET_FORMULAS_PKG, ffile.name)
+        fpackage = f"{bpackage}.{config.BUCKET_FORMULAS_PKG}"
+        for ffile in self._get_data_resource_files(fpackage):
+            data = self._load_data_resource(fpackage, ffile.name)
             custom = data["type"] == "custom"
             formula = Formula(ffile.stem, custom=custom)
-            formula.load(
-                self._load_data_resource(config.BUCKET_FORMULAS_PKG, ffile.name)
-            )
+            formula.load(self._load_data_resource(fpackage, ffile.name))
             self.formulas.append(formula)
 
         # packages
+        fpackage = f"{bpackage}.{config.BUCKET_PACKAGES_PKG}"
         for pt in self.pts:
-            pkg = f"{config.BUCKET_PACKAGES_PKG}.{self.pts[pt]['pkg']}"
+            pkg = f"{fpackage}.{self.pts[pt]['pkg']}"
             for pfile in self._get_data_resource_files(pkg):
                 data = self._load_data_resource(pkg, pfile.name)
                 package = Package(pfile.stem, pt)
                 package.load(data)
                 self.packages.append(package)
 
-        # user packages
-        for presult in self._get_grouped_data_resource_files(config.USER_DATA_PKG):
-            package = UserPackage(presult["id"], presult["ptype"])
-            package.load(presult["data"])
-            self.user_packages.append(package)
+    def load_user_data(self, upackage):
+        path = resources.files(upackage)
+        for path in path.glob(f"*{config.DEFS_EXT}"):
+            ptype = self._get_package_type(path.stem)
+            data = self._load_data_resource(upackage, path.name)
+            for pd in data:
+                package = UserPackage(pd["id"], ptype)
+                package.load(pd)
+                self.user_packages.append(package)
 
     def add_user_package(self, package, labels=None):
         # add default labels for package
@@ -62,15 +66,17 @@ class AppMan:
         resource = self._get_resource_name(user_package.type)
         self._remove_data_resource(config.USER_DATA_PKG, resource, user_package.data)
 
-    def get_user_packages(self, package_type, id=None, labels=None):
+    def get_user_packages(self, package_type, os="any", id=None, labels=None):
         packages = []
-        for package in self.user_packages:
+        for user_package in self.user_packages:
+            package = self.get_package(package_type, user_package.id)
             if (
-                package.type == package_type
-                and package.has_labels(labels)
-                and (id is None or package.id == id)
+                user_package.type == package_type
+                and user_package.has_labels(labels)
+                and (package is None or package.is_compatible(os, self.config))
+                and (id is None or user_package.id == id)
             ):
-                packages.append(package)
+                packages.append(user_package)
         return sorted(packages, key=lambda p: p.id)
 
     def get_user_package(self, package_type, id):
@@ -133,13 +139,6 @@ class AppMan:
             if pm in fnames:
                 return self.get_formula(pm)
 
-    def _create_packages(self, ptype):
-        pname = f"{config.BUCKET_PACKAGES_PKG}.{ptype}"
-        for pfile in self._get_data_resource_files(pname):
-            package = Package(pfile.stem, ptype)
-            package.load(self._load_data_resource(pname, pfile.name))
-            yield package
-
     def _load_data_resource(self, package, resource):
         with resources.open_text(package, resource) as file:
             data = yaml.load(file, Loader=yaml.FullLoader)
@@ -176,20 +175,6 @@ class AppMan:
     def _get_data_resource_files(self, package):
         path = resources.files(package)
         yield from path.glob(f"*{config.DEFS_EXT}")
-
-    def _get_grouped_data_resource_files(self, package):
-        path = resources.files(package)
-        for file in path.glob(f"*{config.DEFS_EXT}"):
-            ptype = self._get_package_type(file.stem)
-            data = self._load_data_resource(package, file.name)
-            if not data:
-                continue
-            for d in data:
-                yield {
-                    "id": d["id"],
-                    "data": d,
-                    "ptype": ptype,
-                }
 
     def _get_resource_file(self, package, resource):
         path = resources.files(package)
