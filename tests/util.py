@@ -50,7 +50,7 @@ def replace_in_tmp_file(config_path, data_path, tmp_path, svars):
     # replace variables if found in data file
     found = False
     for svar in svars:
-        value = fconfig["defaults"][svar]
+        value = fconfig[svar]
         svar = f"${svar}"
         if svar in fdata:
             fdata = fdata.replace(svar, ",".join(map(lambda x: f"'{x}'", value)))

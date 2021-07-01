@@ -128,7 +128,7 @@ class AppMan:
                 return formula
 
         # priority 2: compatible package management formulas
-        # using order in config.defaults
+        # using order in config.pms
         for pm in self.config.get_compatible_pms(os, package.type):
             if pm in fnames:
                 return self.get_formula(pm)
@@ -382,12 +382,12 @@ class Config:
     pt_sep = "-"
 
     def __init__(self, data):
-        self.os = data["os"]
-        self.defaults = data["defaults"]
+        self.pms = data["package-managers"]
+        self.tags = data["tags"]
 
     def get_pm_defaults(self, ptype):
         pts = ptype.split(self.pt_sep)
-        ptconfig = self.defaults["pm"]
+        ptconfig = self.pms
         for pt in pts:
             ptconfig = ptconfig[pt]
         return ptconfig
@@ -396,7 +396,7 @@ class Config:
         return list(set(self._get_compatible_pms(os, ptype)))
 
     def get_os_family_names(self, os):
-        return self._get_os_family_names(self.os, os)
+        return self._get_os_family_names(os)
 
     def is_os_compatible(self, source, dest):
         return (
@@ -405,7 +405,7 @@ class Config:
             or (dest in self.get_os_family_names(source))
         )
 
-    def _get_os_family_names(self, data, os=None, found=False):
+    def _get_os_family_names(self, data=config.OS, os=None, found=False):
         for e in data:
             if isinstance(e, dict):
                 yield from self._get_os_family_names(e, os, found)
