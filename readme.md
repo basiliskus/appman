@@ -20,7 +20,7 @@ You can install appman from [PyPI](https://pypi.org/project/appman/):
 
 ## Background
 
-While working on my [dotfiles](https://wiki.archlinux.org/title/Dotfiles) repository, I realized that I also wanted to have a way to handle not just configuration files but also my installed applications. That way I'd be able to define what applications I want to have installed on any new environment, have those under version control, and run a script to install/uninstall applications on any new personal or work computer, server, etc.
+While working on my [dotfiles](https://wiki.archlinux.org/title/Dotfiles) repository, I realized that I also wanted to have a way to handle not just configuration files but also my installed applications. That way I'd be able to define which applications I want to have installed on any new environment, have those under version control, and run a script to install/uninstall applications on any new personal or work computer, server, etc.
 
 ## Goals
 
