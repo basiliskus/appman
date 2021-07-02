@@ -38,7 +38,7 @@ class AppMan:
             pkg = f"{fpackage}.{self.pts[pt]['pkg']}"
             for pfile in self._get_data_resource_files(pkg):
                 data = self._load_data_resource(pkg, pfile.name)
-                package = Package(pfile.stem, pt)
+                package = Package(data["id"], pt)
                 package.load(data)
                 self.packages.append(package)
 

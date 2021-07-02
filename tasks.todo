@@ -15,6 +15,7 @@ Improvements:
     [ ] read and prioritize user config
   Validation & Error Handling:
     [ ] add logging (make sure to log packages not able to install, uninstall or update)
+    [ ] make sure package formulas run as expected
     [ ] fail gracefully when a package type file/folder doesn't exist
     [ ] make sure package formula exists in data/formulas
   Tests:
@@ -23,7 +24,7 @@ Improvements:
   Documentation:
 Bugs:
     [x] filter by os when using commands: list, install/uninstall @done(21-07-01 10:37)
-    [ ] extension packages ids match filename instead of id
+    [x] extension packages ids match filename instead of id @done(21-07-01 17:40)
 
 Archive:
   Framework:
