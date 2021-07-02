@@ -1,3 +1,4 @@
+import sys
 import platform
 
 import click
@@ -36,10 +37,12 @@ class BaseCommand(click.Command):
 
 
 @click.group()
-@click.option("--verbose", "-v", is_flag=True, help="Print error stacktrace")
+@click.option("--quiet", "-q", is_flag=True, help="Print minimum information")
+@click.option("--verbose", "-v", is_flag=True, help="Print debugging information")
 @click.version_option(message="%(prog)s %(version)s")
 @click.pass_context
-def cli(ctx, verbose):
+def cli(ctx, verbose, quiet):
+    """Cross-platform application management aggregator"""
     try:
         os = platform.system().lower()
         if os not in config.OS_SUPPORTED:
@@ -51,48 +54,56 @@ def cli(ctx, verbose):
 
         am = core.AppMan(config.BUCKET_PKG)
         am.load_user_data(config.USER_DATA_PKG)
-        ctx.obj = {"appman": am, "os": os, "verbose": verbose}
+        ctx.obj = {"appman": am, "os": os, "verbose": verbose, "quiet": quiet}
     except Exception as e:
         e.verbose = verbose
         raise
 
 
-@cli.command(cls=BaseCommand)
+@cli.command(cls=BaseCommand, short_help="Install packages in user list")
 @click.option("--test", "-t", is_flag=True, help="Print commands without running")
 @click.pass_context
 def install(ctx, package_id, package_type, labels, os, test):
+    """Install packages in user list"""
     verbose = ctx.obj["verbose"]
-    try:
-        if not package_type:
-            package_type = prompt_package_type()
-
-        run_command(ctx, "install", package_id, package_type, labels, os, test, verbose)
-    except Exception as e:
-        e.verbose = verbose
-        raise
-
-
-@cli.command(cls=BaseCommand)
-@click.option("--test", "-t", is_flag=True, help="Print commands without running")
-@click.pass_context
-def uninstall(ctx, package_id, package_type, labels, os, test):
-    verbose = ctx.obj["verbose"]
+    quiet = ctx.obj["quiet"]
 
     try:
         if not package_type:
             package_type = prompt_package_type()
 
         run_command(
-            ctx, "uninstall", package_id, package_type, labels, os, test, verbose
+            ctx, "install", package_id, package_type, labels, os, test, verbose, quiet
         )
     except Exception as e:
         e.verbose = verbose
         raise
 
 
-@cli.command(cls=BaseCommand)
+@cli.command(cls=BaseCommand, short_help="Uninstall packages in user list")
+@click.option("--test", "-t", is_flag=True, help="Print commands without running")
+@click.pass_context
+def uninstall(ctx, package_id, package_type, labels, os, test):
+    """Uninstall packages in user list"""
+    verbose = ctx.obj["verbose"]
+    quiet = ctx.obj["quiet"]
+
+    try:
+        if not package_type:
+            package_type = prompt_package_type()
+
+        run_command(
+            ctx, "uninstall", package_id, package_type, labels, os, test, verbose, quiet
+        )
+    except Exception as e:
+        e.verbose = verbose
+        raise
+
+
+@cli.command(cls=BaseCommand, short_help="Search for packages available in bucket")
 @click.pass_context
 def search(ctx, package_type, package_id, labels, os):
+    """Search for packages available in bucket"""
     os = os or ctx.obj["os"]
     appman = ctx.obj["appman"]
     verbose = ctx.obj["verbose"]
@@ -121,9 +132,10 @@ def search(ctx, package_type, package_id, labels, os):
         raise
 
 
-@cli.command(cls=BaseCommand)
+@cli.command(cls=BaseCommand, short_help="List packages added by user")
 @click.pass_context
 def list(ctx, package_type, package_id, labels, os):
+    """List packages added by user"""
     os = os or ctx.obj["os"]
     verbose = ctx.obj["verbose"]
     appman = ctx.obj["appman"]
@@ -157,10 +169,11 @@ def list(ctx, package_type, package_id, labels, os):
         raise
 
 
-@cli.command(cls=BaseCommand)
+@cli.command(cls=BaseCommand, short_help="Add package to user list")
 @click.option("--interactive", "-i", is_flag=True, help="Enter interactive mode")
 @click.pass_context
 def add(ctx, package_type, package_id, labels, os, interactive):
+    """Add package to user list"""
     os = os or ctx.obj["os"]
     verbose = ctx.obj["verbose"]
     appman = ctx.obj["appman"]
@@ -212,10 +225,11 @@ def add(ctx, package_type, package_id, labels, os, interactive):
         raise
 
 
-@cli.command(cls=BaseCommand)
+@cli.command(cls=BaseCommand, short_help="Remove package from user list")
 @click.option("--interactive", "-i", is_flag=True, help="Enter interactive mode")
 @click.pass_context
 def remove(ctx, package_type, package_id, labels, os, interactive):
+    """Remove package from user list"""
     os = os or ctx.obj["os"]
     verbose = ctx.obj["verbose"]
     appman = ctx.obj["appman"]
@@ -300,7 +314,9 @@ def prompt_package_type(suffix="", choices=config.ptchoices()):
     return ptype
 
 
-def run_command(ctx, action, package_id, package_type, labels, os, test, verbose):
+def run_command(
+    ctx, action, package_id, package_type, labels, os, test, verbose, quiet
+):
     os = os or ctx.obj["os"]
     appman = ctx.obj["appman"]
 
@@ -311,7 +327,7 @@ def run_command(ctx, action, package_id, package_type, labels, os, test, verbose
             )
             return
         package = appman.get_package(package_type, package_id)
-        package_run(package, action, appman, os, test, verbose, idprovided=True)
+        package_run(package, action, appman, os, test, verbose, quiet, idprovided=True)
     else:
         packages = appman.get_user_packages(package_type, os=os, labels=labels)
         if not packages:
@@ -325,10 +341,10 @@ def run_command(ctx, action, package_id, package_type, labels, os, test, verbose
         for pkg in packages:
             package = appman.get_package(pkg.type, pkg.id)
             if package:
-                package_run(package, action, appman, os, test, verbose)
+                package_run(package, action, appman, os, test, verbose, quiet)
 
 
-def package_run(package, action, appman, os, test, verbose, idprovided=False):
+def package_run(package, action, appman, os, test, verbose, quiet, idprovided=False):
     formula = appman.find_best_formula(os, package)
 
     if not formula:
@@ -340,23 +356,45 @@ def package_run(package, action, appman, os, test, verbose, idprovided=False):
             f"{util.get_verb(action, 'present').capitalize()} {package.name}"
         )
 
-    formula.init(test)
-    result = package.run(formula, action, test=test, verbose=verbose)
+    verifiable = formula.has_command("installed")
+    if verifiable:
+        if action == "install" and package.is_installed(formula):
+            util.print_warning(f"{package.name} is already installed")
+            return
+        if action == "uninstall" and not package.is_installed(formula):
+            util.print_warning(f"{package.name} is not installed")
+            return
+    elif verbose:
+        util.print_warning(f"Not able to verify if {package.name} is installed")
+
+    if not idprovided:
+        formula.init(test)
+
+    result = package.run(formula, action, test=test, verbose=verbose, quiet=quiet)
 
     if test:
         return
 
-    if result.returncode == 0:
-        if idprovided:
-            util.print_success(
-                f"{package.name} {util.get_verb(action, 'past')} successfully"
-            )
-    else:
+    if result.returncode != 0:
         util.print_error(f"{package.name} was not {util.get_verb(action, 'past')}")
         if result.stderr:
             util.print_error(util.parse_stmsg(result.stderr))
         if verbose and result.stdout:
             util.print_info(util.parse_stmsg(result.stdout))
+        return
+
+    if not verifiable:
+        util.print_warning(f"Not able to verify if {package.name} was installed")
+        return
+
+    if (action == "install" and package.is_installed(formula)) or (
+        action == "uninstall" and not package.is_installed(formula)
+    ):
+        util.print_success(
+            f"{package.name} {util.get_verb(action, 'past')} successfully"
+        )
+    else:
+        util.print_warning(f"{package.name} was not {util.get_verb(action, 'past')}")
 
 
 def main():

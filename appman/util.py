@@ -19,9 +19,10 @@ def print_error(msg):
     click.secho(msg, fg="red")
 
 
-def parse_stmsg(stmsg):
-    msg = stmsg.decode("UTF-8") if isinstance(stmsg, bytes) else stmsg
-    return f"{os.linesep}".join(msg.splitlines())
+def parse_stmsg(msg):
+    msg = msg.decode("UTF-8") if isinstance(msg, bytes) else msg
+    msg = f"{os.linesep}".join(msg.splitlines()) if isinstance(msg, list) else msg
+    return msg.rstrip()
 
 
 def get_verb(action, tense):

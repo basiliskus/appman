@@ -4,6 +4,7 @@ from importlib import resources
 
 import yaml
 
+from . import util
 from . import config
 
 
@@ -247,12 +248,13 @@ class Package(CommonPackage):
         allusers=False,
         test=False,
         verbose=False,
+        quiet=False,
     ):
         args = self.get_args(formula.name)
         command = formula.get_command(commandtype, args, allusers)
         if command:
             return command.run(
-                shell=formula.shell, sudo=sudo, test=test, verbose=verbose
+                shell=formula.shell, sudo=sudo, test=test, verbose=verbose, quiet=quiet
             )
         raise ValueError(
             f"Command '{commandtype}' not found in formula '{formula.name}'"
@@ -267,6 +269,10 @@ class Package(CommonPackage):
                 return True
 
         return any(pm in config.get_compatible_pms(os, self.type) for pm in self.args)
+
+    def is_installed(self, formula):
+        result = self.run(formula, "installed", quiet=True)
+        return result.returncode == 0
 
     def get_args(self, name=None):
         if self.format == "simple":
@@ -345,7 +351,7 @@ class Command:
         self.name = name
         self.command = command
 
-    def run(self, shell=None, sudo=False, test=False, verbose=False):
+    def run(self, shell=None, sudo=False, test=False, verbose=False, quiet=False):
         command = self.command
         if shell == "powershell":
             command = ["powershell", "-Command", command]
@@ -353,13 +359,37 @@ class Command:
             command = f"sudo {command}"
         if test or verbose:
             self._print(command)
-        if not test:
-            return subprocess.run(command, shell=True, capture_output=True)
+        if test:
+            return
+
+        process = subprocess.Popen(
+            command,
+            shell=True,
+            stdout=subprocess.PIPE,
+            stderr=(subprocess.PIPE if quiet else subprocess.STDOUT),
+            encoding="utf-8",
+        )
+
+        if not quiet:
+            self._log_subprocess_output(process)
+        else:
+            process.wait()
+
+        return process
 
     def _print(self, command):
         if isinstance(command, list):
             command = " ".join(command)
         print(f"> {command}")
+
+    @staticmethod
+    def _log_subprocess_output(process):
+        while True:
+            line = process.stdout.readline()
+            if not line and process.poll() is not None:
+                break
+            print(util.parse_stmsg(line))
+        # logger.debug(line.strip())
 
 
 class Config:
