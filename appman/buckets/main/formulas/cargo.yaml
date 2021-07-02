@@ -2,6 +2,7 @@ type: package-manager
 os: any
 commands:
   install: cargo install $pmid
+  uninstall: cargo uninstall $pmid
   installed: cargo install --list | grep -F $pmid
 requires:
   - cargo
