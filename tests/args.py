@@ -11,34 +11,14 @@ cliargs = {
         "extension-vscode",
     ],
     "labels": ["", "dev-tools", "utils"],
-    "package-id": [
-        "git",
-        "chocolatey-cli",
-        "microsoft-visual-studio-code",
-        "focusrite-control",
-    ],
 }
 
 packages = [
-    {"id": "git", "name": "git", "os": "linux", "pt": "app"},
-    {
-        "id": "chocolatey-cli",
-        "name": "Chocolatey CLI",
-        "os": "windows",
-        "pt": "app",
-    },
-    {
-        "id": "microsoft-visual-studio-code",
-        "name": "microsoft-visual-studio-code",
-        "os": "linux",
-        "pt": "app",
-    },
-    {
-        "id": "focusrite-control",
-        "name": "Focusrite Control",
-        "os": "windows",
-        "pt": "driver",
-    },
+    {"id": "git", "os": "linux", "pt": "app"},
+    {"id": "chocolatey-cli", "os": "windows", "pt": "app"},
+    {"id": "microsoft-visual-studio-code", "os": "linux", "pt": "app"},
+    {"id": "focusrite-control", "os": "windows", "pt": "driver"},
+    {"id": "pylint", "os": "any", "pt": "backend-python"},
+    {"id": "eslint", "os": "any", "pt": "backend-node"},
+    {"id": "ms-azuretools.vscode-docker", "os": "any", "pt": "extension-vscode"},
 ]
-
-userlabels = ["essentials", "home"]

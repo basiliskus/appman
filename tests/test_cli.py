@@ -53,9 +53,8 @@ def test_install_multiple_packages(package_type, labels):
     assert result.exit_code == 0
 
 
-@pytest.mark.skip(reason="need better test parameters")
 @pytest.mark.parametrize("action", args.cliargs["action"])
-@pytest.mark.parametrize("package_type", ["cli"])
+@pytest.mark.parametrize("package_type", args.cliargs["package-type"])
 def test_actions(action, package_type):
     result = invoke_cli(action, package_type, test=True)
     assert result.exit_code == 0
