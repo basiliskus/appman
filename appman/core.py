@@ -1,6 +1,10 @@
 import re
 import subprocess
-from importlib import resources
+
+# from importlib import resources
+# for now using importlib_resources instead of importlib
+# for compatibility with python 3.8
+import importlib_resources as resources
 
 import yaml
 
