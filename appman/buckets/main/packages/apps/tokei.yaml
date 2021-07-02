@@ -1,0 +1,9 @@
+id: tokei
+name: tokei
+description: Count your code, quickly.
+labels:
+  - cli
+  - dev-tools
+pmid:
+  cargo: tokei
+  scoop: tokei
