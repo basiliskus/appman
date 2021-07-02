@@ -8,5 +8,6 @@ commands:
   install: brew install $pmid
   uninstall: brew uninstall $pmid
   update-all: brew upgrade
+  installed: brew list $pmid
 requires:
   - brew

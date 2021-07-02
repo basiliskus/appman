@@ -7,4 +7,5 @@ commands:
   install-global: str(required=False)
   uninstall: str(required=False)
   update-all: str(required=False)
+  installed: str(required=False)
 requires: list(str(), required=False)

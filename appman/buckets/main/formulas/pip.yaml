@@ -3,9 +3,11 @@ os: any
 commands:
   init: sudo pip install -U pip
   install: pip install $pmid
-  uninstall: pip uninstall $pmid
+  uninstall: pip uninstall -y $pmid
   update-all: pip freeze | cut -d"="" -f1 | xargs -n1 pip install -U
+  installed: pip list | grep -F $pmid
 requires:
   - sudo
   - pip
+  - grep
 

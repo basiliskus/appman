@@ -9,6 +9,7 @@ commands:
   install-global: scoop install --global $pmid
   uninstall: scoop uninstall $pmid
   update-all: scoop update --quiet *
+  installed: scoop list $pmid
 requires:
   - scoop
 

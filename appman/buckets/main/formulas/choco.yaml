@@ -5,5 +5,6 @@ commands:
   install: choco install --confirm $pmid
   uninstall: choco uninstall --confirm $pmid
   update-all: choco upgrade all
+  installed: choco list -l $pmid
 requires:
   - choco

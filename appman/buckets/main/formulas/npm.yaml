@@ -1,10 +1,10 @@
 type: package-manager
 os: any
 commands:
-  init: sudo npm install --global npm
-  install: sudo npm install --global $pmid
-  uninstall: sudo npm uninstall $pmid
-  update-all: sudo npm update --global
+  init: npm install --global npm
+  install: npm install --global $pmid
+  uninstall: npm uninstall --global $pmid
+  update-all: npm update --global
+  installed: npm ls --global $pmid
 requires:
-  - sudo
   - npm
