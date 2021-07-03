@@ -1,13 +1,16 @@
-import sys
 import platform
 
 import click
 import distro
 import PyInquirer
 
+from . import log
 from . import core
 from . import util
 from . import config
+
+
+logger = log.AppmanLogger(__file__, "DEBUG", "DEBUG")
 
 
 class BaseCommand(click.Command):
@@ -46,7 +49,7 @@ def cli(ctx, verbose, quiet):
     try:
         os = platform.system().lower()
         if os not in config.OS_SUPPORTED:
-            util.print_error(f"{os} is not supported")
+            logger.error(f"{os} is not supported")
             return
 
         if os == "linux":
@@ -111,22 +114,21 @@ def search(ctx, package_type, package_id, labels, os):
     try:
         if not package_type:
             package_type = prompt_package_type()
-
         if package_id:
             pkg = appman.get_package(package_type, package_id)
             if pkg:
-                util.print_info(f"Package definition for '{package_id}' found")
+                logger.console(f"Package definition for '{package_id}' found")
             else:
-                util.print_info(f"Package definition for '{package_id}' not found")
+                logger.console(f"Package definition for '{package_id}' not found")
             return
 
         pkgs = appman.get_packages(package_type, os, labels=labels)
         if not pkgs:
-            util.print_info("No packages found")
+            logger.console("No packages found")
             return
 
         for pkg in pkgs:
-            util.print_info(pkg.id)
+            logger.console(pkg.id)
     except Exception as e:
         e.verbose = verbose
         raise
@@ -146,9 +148,9 @@ def list(ctx, package_type, package_id, labels, os):
 
         if package_id:
             if appman.has_user_package(package_type, package_id):
-                util.print_info(f"Package '{package_id}' found")
+                logger.console(f"Package '{package_id}' found")
             else:
-                util.print_info(f"Package '{package_id}' not found")
+                logger.console(f"Package '{package_id}' not found")
             return
 
         pkgs = appman.get_user_packages(package_type, os=os, labels=labels)
@@ -156,14 +158,14 @@ def list(ctx, package_type, package_id, labels, os):
             msg = f"No {package_type} packages found"
             if labels:
                 msg += f" with labels: {', '.join(labels)}"
-            util.print_info(msg)
+            logger.console(msg)
             return
 
         for pkg in pkgs:
             msg = f"  • {pkg.id}"
             if pkg.labels:
                 msg += f" ({', '.join(pkg.labels)})"
-            util.print_info(msg)
+            logger.console(msg)
     except Exception as e:
         e.verbose = verbose
         raise
@@ -185,13 +187,13 @@ def add(ctx, package_type, package_id, labels, os, interactive):
 
             pkgs = appman.get_packages(package_type, os)
             if not pkgs:
-                util.print_warning(f"No {package_type} package definitions found")
+                logger.warning(f"No {package_type} package definitions found")
                 return
             usr_pkgs = appman.get_user_packages(package_type)
             qname = "add"
             choices = get_user_packages_choices(pkgs, usr_pkgs, qname)
             if not choices:
-                util.print_warning(f"No {package_type} package definitions found")
+                logger.warning(f"No {package_type} package definitions found")
                 return
             questions = get_prompt_questions(
                 "checkbox", f"Select {package_type} packages to add:", qname, choices
@@ -201,25 +203,25 @@ def add(ctx, package_type, package_id, labels, os, interactive):
             for pid in pids:
                 pkg = appman.get_package(package_type, pid)
                 appman.add_user_package(pkg, labels)
-                util.print_success(f"Added {pid} package")
+                logger.success(f"Added {pid} package")
             return
 
         pkg = appman.get_package(package_type, package_id)
         if not pkg:
-            util.print_info(f"Package definition for '{package_id}' not found")
+            logger.warning(f"Package definition for '{package_id}' not found")
             pkgs = appman.get_packages(package_type, os)
             if pkgs:
-                util.print_info(
+                logger.console(
                     f"You can choose from this list: {', '.join([p.id for p in pkgs])}"
                 )
             return
 
         if appman.has_user_package(package_type, package_id):
-            util.print_warning(f"Package '{package_id}' already found")
+            logger.warning(f"Package '{package_id}' already found")
             return
 
         appman.add_user_package(pkg, labels)
-        util.print_success(f"Package '{package_id}' added")
+        logger.success(f"Package '{package_id}' added")
     except Exception as e:
         e.verbose = verbose
         raise
@@ -241,15 +243,13 @@ def remove(ctx, package_type, package_id, labels, os, interactive):
 
             usr_pkgs = appman.get_user_packages(package_type, labels=labels)
             if not usr_pkgs:
-                util.print_warning(f"No {package_type} user packages found")
+                logger.warning(f"No {package_type} user packages found")
                 return
             qname = "remove"
             pkgs = appman.get_packages(package_type, os)
             choices = get_user_packages_choices(pkgs, usr_pkgs, qname)
             if not choices:
-                util.print_warning(
-                    f"No matching {package_type} package definitions found"
-                )
+                logger.warning(f"No matching {package_type} package definitions found")
                 return
             questions = get_prompt_questions(
                 "checkbox", f"Select {package_type} packages to remove:", qname, choices
@@ -259,20 +259,20 @@ def remove(ctx, package_type, package_id, labels, os, interactive):
             for pid in pids:
                 usr_pkg = appman.get_user_package(package_type, pid)
                 appman.remove_user_package(usr_pkg)
-                util.print_success(f"Removed {pid} package")
+                logger.success(f"Removed {pid} package")
             return
 
         usr_pkg = appman.get_user_package(package_type, package_id)
         if not usr_pkg:
-            util.print_warning(f"Package '{package_id}' was not found")
+            logger.warning(f"Package '{package_id}' was not found")
             pkgs = appman.get_user_packages(package_type, labels=labels)
             if pkgs:
-                util.print_info(
+                logger.console(
                     f"You can choose from this list: {', '.join([p.id for p in pkgs])}"
                 )
             return
         appman.remove_user_package(usr_pkg)
-        util.print_success(f"Package '{package_id}' removed")
+        logger.success(f"Package '{package_id}' removed")
     except Exception as e:
         e.verbose = verbose
         raise
@@ -322,9 +322,7 @@ def run_command(
 
     if package_id:
         if not appman.has_user_package(package_type, package_id):
-            util.print_info(
-                f"Package '{package_id}' not found. Make sure to add it first"
-            )
+            logger.info(f"Package '{package_id}' not found. Make sure to add it first")
             return
         package = appman.get_package(package_type, package_id)
         package_run(package, action, appman, os, test, verbose, quiet, idprovided=True)
@@ -335,7 +333,7 @@ def run_command(
             if labels:
                 msg += f" with labels: {', '.join(labels)}"
             msg += ". Make sure to add them first"
-            util.print_info(msg)
+            logger.info(msg)
             return
 
         for pkg in packages:
@@ -348,27 +346,25 @@ def package_run(package, action, appman, os, test, verbose, quiet, idprovided=Fa
     formula = appman.find_best_formula(os, package)
 
     if not formula:
-        util.print_warning(f"Formula not found for {package.name}")
+        logger.warning(f"Formula not found for {package.name}")
         return
 
     if not test:
-        util.print_info(
-            f"{util.get_verb(action, 'present').capitalize()} {package.name}"
-        )
+        logger.info(f"{util.get_verb(action, 'present').capitalize()} {package.name}")
 
-    verifiable = formula.has_command("installed")
-    if verifiable:
-        if action == "install" and package.is_installed(formula):
-            util.print_warning(f"{package.name} is already installed")
-            return
-        if action == "uninstall" and not package.is_installed(formula):
-            util.print_warning(f"{package.name} is not installed")
-            return
-    elif verbose:
-        util.print_warning(f"Not able to verify if {package.name} is installed")
+        verifiable = formula.has_command("installed")
+        if verifiable:
+            if action == "install" and package.is_installed(formula):
+                logger.warning(f"{package.name} is already installed")
+                return
+            if action == "uninstall" and not package.is_installed(formula):
+                logger.warning(f"{package.name} is not installed")
+                return
+        elif verbose:
+            logger.warning(f"Not able to verify if {package.name} is installed")
 
-    if not idprovided:
-        formula.init(test)
+        if not idprovided:
+            formula.init(test)
 
     result = package.run(formula, action, test=test, verbose=verbose, quiet=quiet)
 
@@ -376,25 +372,23 @@ def package_run(package, action, appman, os, test, verbose, quiet, idprovided=Fa
         return
 
     if result.returncode != 0:
-        util.print_error(f"{package.name} was not {util.get_verb(action, 'past')}")
+        logger.error(f"{package.name} was not {util.get_verb(action, 'past')}")
         if result.stderr:
-            util.print_error(util.parse_stmsg(result.stderr))
+            logger.error(util.parse_stmsg(result.stderr))
         if verbose and result.stdout:
-            util.print_info(util.parse_stmsg(result.stdout))
+            logger.info(util.parse_stmsg(result.stdout))
         return
 
     if not verifiable:
-        util.print_warning(f"Not able to verify if {package.name} was installed")
+        logger.warning(f"Not able to verify if {package.name} was installed")
         return
 
     if (action == "install" and package.is_installed(formula)) or (
         action == "uninstall" and not package.is_installed(formula)
     ):
-        util.print_success(
-            f"{package.name} {util.get_verb(action, 'past')} successfully"
-        )
+        logger.success(f"{package.name} {util.get_verb(action, 'past')} successfully")
     else:
-        util.print_warning(f"{package.name} was not {util.get_verb(action, 'past')}")
+        logger.warning(f"{package.name} was not {util.get_verb(action, 'past')}")
 
 
 def main():
@@ -403,4 +397,4 @@ def main():
     except Exception as e:
         if "verbose" in dir(e) and e.verbose:
             raise
-        util.print_error(e)
+        logger.error(e)

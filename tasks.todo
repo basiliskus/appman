@@ -15,7 +15,7 @@ Improvements:
     [ ] read and prioritize user config
     [x] make compatible with python 3.8 @done(21-07-02 16:07)
   Validation & Error Handling:
-    [ ] add logging (make sure to log packages not able to install, uninstall or update)
+    [x] add logging (make sure to log packages not able to install, uninstall or update) @done(21-07-02 18:03)
     [ ] make sure package formulas run as expected
     [ ] fail gracefully when a package type file/folder doesn't exist
     [ ] make sure package formula exists in data/formulas

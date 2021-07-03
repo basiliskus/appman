@@ -4,6 +4,7 @@ DEFS_EXT = ".yaml"
 
 USER_DATA_PKG = "appman.user.data"
 BUCKET_PKG = "appman.buckets.main"
+LOGS_PKG = "appman.logs"
 BUCKET_FORMULAS_PKG = "formulas"
 BUCKET_PACKAGES_PKG = "packages"
 CONFIG_RES_YAML = "config.yaml"

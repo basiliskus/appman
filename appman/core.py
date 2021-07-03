@@ -8,8 +8,12 @@ import importlib_resources as resources
 
 import yaml
 
+from . import log
 from . import util
 from . import config
+
+
+logger = log.AppmanLogger(__file__, "DEBUG", "DEBUG")
 
 
 class AppMan:
@@ -384,7 +388,7 @@ class Command:
     def _print(self, command):
         if isinstance(command, list):
             command = " ".join(command)
-        print(f"> {command}")
+        logger.console(f"> {command}")
 
     @staticmethod
     def _log_subprocess_output(process):
@@ -392,8 +396,7 @@ class Command:
             line = process.stdout.readline()
             if not line and process.poll() is not None:
                 break
-            print(util.parse_stmsg(line))
-        # logger.debug(line.strip())
+            logger.info(util.parse_stmsg(line))
 
 
 class Config:

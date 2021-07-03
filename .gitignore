@@ -3,6 +3,7 @@ appman/user
 
 credentials.conf
 *.personal.yaml
+*.log
 
 # python
 # Byte-compiled / optimized / DLL files
