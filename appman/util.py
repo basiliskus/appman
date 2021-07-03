@@ -1,4 +1,5 @@
 import os
+import io
 
 
 def parse_stmsg(msg):
@@ -19,3 +20,17 @@ def get_verb(action, tense):
         return f"{action}ed"
 
     return action
+
+
+def log_subprocess_output(process, logger):
+    buffer = io.BytesIO()
+    while True:
+        char = process.stdout.read(1)
+        buffer.write(char)
+        if char in (b"\r", b"\n"):
+            line = buffer.getvalue().decode("UTF-8").strip("\x00")
+            logger.info(line)
+            buffer.truncate(0)
+
+        if process.returncode is not None or process.poll() is not None:
+            break

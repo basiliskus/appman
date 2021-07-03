@@ -280,7 +280,7 @@ class Package(CommonPackage):
 
     def is_installed(self, formula):
         result = self.run(formula, "installed", quiet=True)
-        return result.returncode == 0
+        return result.returncode == 0 and result.stdout.readline()
 
     def get_args(self, name=None):
         if self.format == "simple":
@@ -375,13 +375,12 @@ class Command:
             shell=True,
             stdout=subprocess.PIPE,
             stderr=(subprocess.PIPE if quiet else subprocess.STDOUT),
-            encoding="utf-8",
         )
 
         if not quiet:
-            self._log_subprocess_output(process)
-        else:
-            process.wait()
+            util.log_subprocess_output(process, logger)
+
+        process.wait()
 
         return process
 
@@ -389,14 +388,6 @@ class Command:
         if isinstance(command, list):
             command = " ".join(command)
         logger.console(f"> {command}")
-
-    @staticmethod
-    def _log_subprocess_output(process):
-        while True:
-            line = process.stdout.readline()
-            if not line and process.poll() is not None:
-                break
-            logger.info(util.parse_stmsg(line))
 
 
 class Config:
