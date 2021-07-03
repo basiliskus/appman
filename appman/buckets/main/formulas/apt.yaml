@@ -7,4 +7,4 @@ commands:
   install: sudo apt-get install -qq --yes $pmid
   uninstall: sudo apt-get remove -qq --yes $pmid
   update-all: sudo apt-get upgrade -qq --yes
-  installed: apt list -qq $pmid
+  installed: apt list --installed -qq $pmid
