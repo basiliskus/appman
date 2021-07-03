@@ -31,6 +31,12 @@ class BaseCommand(click.Command):
             click.Option(
                 ("--os", "-os"), help="If no OS given, will use current detected OS"
             ),
+            click.Option(
+                ("--quiet", "-q"), is_flag=True, help="Print minimum information"
+            ),
+            click.Option(
+                ("--verbose", "-v"), is_flag=True, help="Print debugging information"
+            ),
         ] + self.params
 
     @staticmethod
@@ -40,11 +46,9 @@ class BaseCommand(click.Command):
 
 
 @click.group()
-@click.option("--quiet", "-q", is_flag=True, help="Print minimum information")
-@click.option("--verbose", "-v", is_flag=True, help="Print debugging information")
 @click.version_option(message="%(prog)s %(version)s")
 @click.pass_context
-def cli(ctx, verbose, quiet):
+def cli(ctx):
     """Cross-platform application management aggregator"""
     try:
         os = platform.system().lower()
@@ -57,20 +61,17 @@ def cli(ctx, verbose, quiet):
 
         am = core.AppMan(config.BUCKET_PKG)
         am.load_user_data(config.USER_DATA_PKG)
-        ctx.obj = {"appman": am, "os": os, "verbose": verbose, "quiet": quiet}
+        ctx.obj = {"appman": am, "os": os}
     except Exception as e:
-        e.verbose = verbose
+        e.verbose = True
         raise
 
 
 @cli.command(cls=BaseCommand, short_help="Install packages in user list")
 @click.option("--test", "-t", is_flag=True, help="Print commands without running")
 @click.pass_context
-def install(ctx, package_id, package_type, labels, os, test):
+def install(ctx, package_id, package_type, labels, os, verbose, quiet, test):
     """Install packages in user list"""
-    verbose = ctx.obj["verbose"]
-    quiet = ctx.obj["quiet"]
-
     try:
         if not package_type:
             package_type = prompt_package_type()
@@ -86,11 +87,8 @@ def install(ctx, package_id, package_type, labels, os, test):
 @cli.command(cls=BaseCommand, short_help="Uninstall packages in user list")
 @click.option("--test", "-t", is_flag=True, help="Print commands without running")
 @click.pass_context
-def uninstall(ctx, package_id, package_type, labels, os, test):
+def uninstall(ctx, package_id, package_type, labels, os, verbose, quiet, test):
     """Uninstall packages in user list"""
-    verbose = ctx.obj["verbose"]
-    quiet = ctx.obj["quiet"]
-
     try:
         if not package_type:
             package_type = prompt_package_type()
@@ -105,11 +103,10 @@ def uninstall(ctx, package_id, package_type, labels, os, test):
 
 @cli.command(cls=BaseCommand, short_help="Search for packages available in bucket")
 @click.pass_context
-def search(ctx, package_type, package_id, labels, os):
+def search(ctx, package_type, package_id, labels, os, verbose, quiet):
     """Search for packages available in bucket"""
     os = os or ctx.obj["os"]
     appman = ctx.obj["appman"]
-    verbose = ctx.obj["verbose"]
 
     try:
         if not package_type:
@@ -136,10 +133,9 @@ def search(ctx, package_type, package_id, labels, os):
 
 @cli.command(cls=BaseCommand, short_help="List packages added by user")
 @click.pass_context
-def list(ctx, package_type, package_id, labels, os):
+def list(ctx, package_type, package_id, labels, os, verbose, quiet):
     """List packages added by user"""
     os = os or ctx.obj["os"]
-    verbose = ctx.obj["verbose"]
     appman = ctx.obj["appman"]
 
     try:
@@ -174,10 +170,9 @@ def list(ctx, package_type, package_id, labels, os):
 @cli.command(cls=BaseCommand, short_help="Add package to user list")
 @click.option("--interactive", "-i", is_flag=True, help="Enter interactive mode")
 @click.pass_context
-def add(ctx, package_type, package_id, labels, os, interactive):
+def add(ctx, package_type, package_id, labels, os, verbose, quiet, interactive):
     """Add package to user list"""
     os = os or ctx.obj["os"]
-    verbose = ctx.obj["verbose"]
     appman = ctx.obj["appman"]
 
     try:
@@ -230,10 +225,9 @@ def add(ctx, package_type, package_id, labels, os, interactive):
 @cli.command(cls=BaseCommand, short_help="Remove package from user list")
 @click.option("--interactive", "-i", is_flag=True, help="Enter interactive mode")
 @click.pass_context
-def remove(ctx, package_type, package_id, labels, os, interactive):
+def remove(ctx, package_type, package_id, labels, os, verbose, quiet, interactive):
     """Remove package from user list"""
     os = os or ctx.obj["os"]
-    verbose = ctx.obj["verbose"]
     appman = ctx.obj["appman"]
 
     try:

@@ -21,8 +21,6 @@ def invoke_cli(
     verbose=False,
 ):
     args = []
-    if verbose:
-        args += ["--verbose"]
     args += [action]
     args += ["--package-type", package_type]
     if package_id:
@@ -31,6 +29,8 @@ def invoke_cli(
         args += ["--labels", labels]
     if os:
         args += ["--os", os]
+    if verbose:
+        args += ["--verbose"]
     if test:
         args += ["--test"]
     runner = click.testing.CliRunner()
