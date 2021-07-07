@@ -350,6 +350,7 @@ class Command:
             shell=True,
             stdout=subprocess.PIPE,
             stderr=(subprocess.PIPE if quiet else subprocess.STDOUT),
+            text=(True if quiet else None),
         )
 
         if not quiet:
