@@ -1,9 +1,9 @@
 os: ubuntu
 commands:
   init: >-
-    sudo apt-get update -qq
-    && sudo apt-get upgrade -qq --yes
-  install: sudo apt-get install -qq --yes $pmid
-  uninstall: sudo apt-get remove -qq --yes $pmid
-  update-all: sudo apt-get upgrade -qq --yes
+    sudo apt-get update -qq -o=Dpkg::Use-Pty=0
+    && sudo apt-get upgrade -yqq -o=Dpkg::Use-Pty=0
+  install: sudo apt-get install -yqq -o=Dpkg::Use-Pty=0 $pmid
+  uninstall: sudo apt-get remove -yqq -o=Dpkg::Use-Pty=0 $pmid
+  update-all: sudo apt-get upgrade -yqq -o=Dpkg::Use-Pty=0
   installed: apt list --installed -qq $pmid
