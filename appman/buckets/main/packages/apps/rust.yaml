@@ -15,5 +15,6 @@ custom-formulas:
     commands:
       install: curl https://sh.rustup.rs -sSf | sh -s -- -y
       uninstall: rustup self uninstall
+      installed: command -v rustup
     requires:
       - curl

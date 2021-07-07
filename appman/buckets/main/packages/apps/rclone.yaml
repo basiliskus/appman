@@ -12,5 +12,6 @@ custom-formulas:
       uninstall: >-
         sudo rm /usr/bin/rclone
         && sudo rm /usr/local/share/man/man1/rclone.1
+      installed: command -v rclone
     requires:
       - curl

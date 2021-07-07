@@ -1,4 +1,4 @@
-os: linux
+os: ubuntu
 commands:
   install: >-
     EXT='.zip'
@@ -13,10 +13,12 @@ commands:
     && fc-cache -f -v
   uninstall: >-
     rm -f ~/.local/share/fonts/$fid*.ttf
+  installed: fc-list | grep -i $fid
 args:
   - source
   - fid
 requires:
-  - wget
-  - unzip
   - fontconfig
+  - grep
+  - unzip
+  - wget

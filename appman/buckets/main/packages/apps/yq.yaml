@@ -15,3 +15,4 @@ custom-formulas:
         && sudo apt update
         && sudo apt install -y yq
       uninstall: sudo apt remove -y yq
+      installed: apt list --installed -qq yq

@@ -10,6 +10,7 @@ custom-formulas:
     commands:
       install: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
       uninstall: rm -rf "$NVM_DIR"
+      installed: command -v nvm
     requires:
       - curl
       - bash

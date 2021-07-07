@@ -2,5 +2,7 @@ os: any
 commands:
   install: code --install-extension $pmid
   uninstall: code --uninstall-extension $pmid
+  installed: code --list-extensions | grep -i $pmid
 requires:
+  - grep
   - microsoft-visual-studio-code

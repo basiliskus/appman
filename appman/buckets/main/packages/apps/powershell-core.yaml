@@ -19,6 +19,7 @@ custom-formulas:
         && sudo dpkg -i ~/tmp/${NAME}${EXT}
         && sudo apt-get install -f
       uninstall: sudo apt-get remove -qq --yes powershell
+      installed: apt list --installed -qq powershell
     requires:
       - wget
     notes: https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-7.1#ubuntu-2004
