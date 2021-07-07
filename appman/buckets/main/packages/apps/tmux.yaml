@@ -2,5 +2,5 @@ id: tmux
 name: tmux
 labels:
   - cli
-pmid:
+formulas:
   apt: tmux

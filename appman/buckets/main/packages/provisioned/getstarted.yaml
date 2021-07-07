@@ -1,5 +1,5 @@
 id: getstarted
 name: Getstarted
 labels: []
-pmid:
+formulas:
   appx: Microsoft.Getstarted

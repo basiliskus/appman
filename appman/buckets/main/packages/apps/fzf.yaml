@@ -4,6 +4,6 @@ description: A general-purpose command-line fuzzy finder
 labels:
   - cli
   - utils
-pmid:
+formulas:
   choco: fzf
   apt: fzf

@@ -5,6 +5,6 @@ description: Download videos from YouTube.com (and a few more sites) using comma
 labels:
   - cli
   - utils
-pmid:
+formulas:
   scoop: youtube-dl
   choco: youtube-dl

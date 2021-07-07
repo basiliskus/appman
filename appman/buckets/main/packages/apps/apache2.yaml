@@ -4,6 +4,6 @@ description: The Apache HTTP Server ('httpd')
 labels:
   - cli
   - web-server
-pmid:
+formulas:
   scoop: apache
   apt: apache2

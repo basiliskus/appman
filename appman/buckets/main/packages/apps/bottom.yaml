@@ -4,6 +4,6 @@ description: Yet another cross-platform graphical process/system monitor.
 labels:
   - cli
   - utils
-pmid:
+formulas:
   cargo: bottom
-home: https://github.com/ClementTsang/bottom
+homepage: https://github.com/ClementTsang/bottom

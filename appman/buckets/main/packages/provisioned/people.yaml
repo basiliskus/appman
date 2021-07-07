@@ -1,5 +1,5 @@
 id: people
 name: People
 labels: []
-pmid:
+formulas:
   appx: Microsoft.People

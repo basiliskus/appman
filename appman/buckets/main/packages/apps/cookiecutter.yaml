@@ -3,5 +3,5 @@ name: cookiecutter
 labels:
   - cli
   - dev-tools
-pmid:
+formulas:
   pip: cookiecutter

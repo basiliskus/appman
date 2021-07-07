@@ -4,6 +4,6 @@ description: Test your internet connection speed and ping using speedtest.net fr
   the CLI
 labels:
   - cli
-pmid:
+formulas:
   npm: speed-test
-home: https://github.com/sindresorhus/speed-test
+homepage: https://github.com/sindresorhus/speed-test

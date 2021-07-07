@@ -1,5 +1,5 @@
 id: xboxgamingoverlay
 name: XboxGamingOverlay
 labels: []
-pmid:
+formulas:
   appx: Microsoft.XboxGamingOverlay

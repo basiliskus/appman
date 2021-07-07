@@ -4,6 +4,6 @@ description: Count your code, quickly.
 labels:
   - cli
   - dev-tools
-pmid:
+formulas:
   cargo: tokei
   scoop: tokei

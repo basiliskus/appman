@@ -3,5 +3,5 @@ name: Chocolatey GUI
 labels:
   - gui
   - package-manager
-pmid:
+formulas:
   choco: chocolateygui

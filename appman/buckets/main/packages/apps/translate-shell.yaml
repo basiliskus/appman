@@ -4,6 +4,6 @@ description: Command-line translator using Google Translate, Bing Translator, Ya
 labels:
   - cli
   - utils
-pmid:
+formulas:
   apt: translate-shell
-home: https://github.com/soimort/translate-shell
+homepage: https://github.com/soimort/translate-shell

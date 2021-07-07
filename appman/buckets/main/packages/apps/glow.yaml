@@ -4,5 +4,5 @@ description: Markdown reader for the terminal with a TUI and encrypted cloud sta
 labels:
   - cli
   - utils
-pmid:
+formulas:
   scoop: glow

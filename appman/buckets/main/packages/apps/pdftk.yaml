@@ -4,5 +4,5 @@ description: A command-line tool for working with PDFs
 labels:
   - cli
   - utils
-pmid:
+formulas:
   scoop: pdftk

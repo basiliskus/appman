@@ -4,6 +4,6 @@ description: Google Calendar Command Line Interface
 labels:
   - cli
   - utils
-pmid:
+formulas:
   apt: gcalcli
-home: https://github.com/insanum/gcalcli
+homepage: https://github.com/insanum/gcalcli

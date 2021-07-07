@@ -3,6 +3,6 @@ name: navi
 description: An interactive cheatsheet tool for the command-line
 labels:
   - cli
-pmid:
+formulas:
   cargo: navi
-home: https://github.com/denisidoro/navi
+homepage: https://github.com/denisidoro/navi

@@ -4,5 +4,5 @@ description: Static analysis tool for shell scripts
 labels:
   - cli
   - dev-tools
-pmid:
+formulas:
   scoop: shellcheck

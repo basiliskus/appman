@@ -16,7 +16,7 @@ def appm(bucket_package):
 def test_get_packages_by_id(appm, user_data_package, action, os, pt, pmid):
     appm.load_user_data(user_data_package)
     package = appm.get_package(pt, pmid)
-    formula = appm.find_best_formula(os, package)
+    formula = package.find_best_formula(os, appm.config)
     if not formula:
         print(f"Formula not found for: {package.name}")
         return

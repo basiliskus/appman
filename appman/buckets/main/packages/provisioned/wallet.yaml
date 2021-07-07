@@ -1,5 +1,5 @@
 id: wallet
 name: Wallet
 labels: []
-pmid:
+formulas:
   appx: Microsoft.Wallet

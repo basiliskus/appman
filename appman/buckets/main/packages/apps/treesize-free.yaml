@@ -4,5 +4,5 @@ labels:
   - gui
   - utils
   - sysadmin
-pmid:
+formulas:
   winget: JAMSoftware.TreeSizeFree

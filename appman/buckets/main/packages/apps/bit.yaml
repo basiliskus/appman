@@ -4,6 +4,6 @@ description: Modernized git CLI
 labels:
   - cli
   - dev-tools
-home: https://github.com/chriswalz/bit
-pmid:
+homepage: https://github.com/chriswalz/bit
+formulas:
   scoop: bit

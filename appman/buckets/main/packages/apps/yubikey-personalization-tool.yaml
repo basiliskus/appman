@@ -3,6 +3,6 @@ name: Yubikey Personalization Tool
 labels:
   - gui
   - security
-pmid:
+formulas:
   choco: yubikey-personalization-tool
   winget: Yubico.YubikeyManager

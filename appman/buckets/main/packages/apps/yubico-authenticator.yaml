@@ -3,6 +3,6 @@ name: Yubico Authenticator
 labels:
   - gui
   - security
-pmid:
+formulas:
   choco: yubico-authenticator
   winget: Yubico.Authenticator

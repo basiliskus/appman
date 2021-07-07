@@ -1,5 +1,5 @@
 id: windowscommunicationsapps
 name: windowscommunicationsapps
 labels: []
-pmid:
+formulas:
   appx: microsoft.windowscommunicationsapps

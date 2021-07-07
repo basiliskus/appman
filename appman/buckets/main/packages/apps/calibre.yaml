@@ -3,5 +3,5 @@ name: Calibre
 labels:
   - gui
   - books
-pmid:
+formulas:
   winget: calibre.calibre

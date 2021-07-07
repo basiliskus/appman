@@ -1,5 +1,5 @@
 id: fonts-powerline
 name: Fonts Powerline
 labels: []
-pmid:
+formulas:
   apt: fonts-powerline

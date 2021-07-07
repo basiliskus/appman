@@ -3,5 +3,5 @@ name: Spotify
 labels:
   - gui
   - music
-pmid:
+formulas:
   winget: Spotify.Spotify

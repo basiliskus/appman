@@ -5,8 +5,12 @@ labels:
   - cli
   - dev-tools
   - web-server
-formulas:
-  - name: sh-script-3
-    os: linux
-    args:
-      source: https://rclone.org/install.sh
+custom-formulas:
+  - os: linux
+    commands:
+      install: curl https://rclone.org/install.sh | sudo bash
+      uninstall: >-
+        sudo rm /usr/bin/rclone
+        && sudo rm /usr/local/share/man/man1/rclone.1
+    requires:
+      - curl

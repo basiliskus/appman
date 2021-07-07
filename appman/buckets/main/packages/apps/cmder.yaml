@@ -2,5 +2,5 @@ id: cmder
 name: Cmder
 labels:
   - gui
-pmid:
+formulas:
   choco: Cmder

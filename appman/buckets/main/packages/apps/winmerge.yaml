@@ -3,6 +3,6 @@ name: WinMerge
 labels:
   - gui
   - dev-tools
-pmid:
+formulas:
   choco: winmerge
   winget: WinMerge.WinMerge

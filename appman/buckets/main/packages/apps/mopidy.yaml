@@ -3,5 +3,5 @@ name: mopidy
 labels:
   - cli
   - music
-pmid:
+formulas:
   apt: mopidy

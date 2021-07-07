@@ -1,5 +1,5 @@
 id: click
 name: click
 labels: []
-pmid:
+formulas:
   pip: click

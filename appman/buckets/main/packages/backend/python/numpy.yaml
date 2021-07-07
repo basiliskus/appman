@@ -1,5 +1,5 @@
 id: numpy
 name: numpy
 labels: []
-pmid:
+formulas:
   pip: numpy

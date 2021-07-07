@@ -1,0 +1,7 @@
+os: any
+commands:
+  install: nvm install $pmid
+  uninstall: nvm uninstall $pmid
+  installed: nvm ls $pmid
+requires:
+  - nvm

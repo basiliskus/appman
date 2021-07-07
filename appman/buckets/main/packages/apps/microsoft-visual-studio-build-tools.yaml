@@ -3,5 +3,5 @@ name: Microsoft Visual Studio Build Tools
 labels:
   - gui
   - dev-tools
-pmid:
+formulas:
   winget: Microsoft.VisualStudio.BuildTools

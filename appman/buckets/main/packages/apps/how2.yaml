@@ -3,6 +3,6 @@ name: how2
 description: stackoverflow from the terminal
 labels:
   - cli
-pmid:
+formulas:
   npm: how-2
-home: https://github.com/santinic/how2
+homepage: https://github.com/santinic/how2

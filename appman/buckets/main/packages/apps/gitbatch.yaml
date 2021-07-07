@@ -3,4 +3,4 @@ name: gitbatch
 description: manage your git repositories in one place
 labels:
   - cli
-home: https://github.com/isacikgoz/gitbatch
+homepage: https://github.com/isacikgoz/gitbatch

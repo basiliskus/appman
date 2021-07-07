@@ -4,6 +4,6 @@ labels:
   - gui
   - network
   - utils
-pmid:
+formulas:
   choco: wireshark
   winget: WiresharkFoundation.Wireshark

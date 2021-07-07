@@ -3,5 +3,5 @@ name: Oracle VirtualBox
 labels:
   - gui
   - dev-tools
-pmid:
+formulas:
   winget: Oracle.VirtualBox

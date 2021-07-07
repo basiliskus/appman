@@ -1,6 +1,6 @@
 id: mopidy-mpd
 name: mopidy-mpd
 labels: []
-pmid:
+formulas:
   pip: mopidy-mpd
 comments: install with sudo

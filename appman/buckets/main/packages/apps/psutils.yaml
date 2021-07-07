@@ -5,5 +5,5 @@ description: A collection of command line utilities written in PowerShell proudl
 labels:
   - cli
   - utils
-pmid:
+formulas:
   scoop: psutils

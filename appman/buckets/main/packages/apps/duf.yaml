@@ -4,5 +4,5 @@ description: Disk Usage/Free Utility - a better 'df' alternative
 labels:
   - cli
   - utils
-home: https://github.com/muesli/duf
+homepage: https://github.com/muesli/duf
 notes: https://github.com/muesli/duf#installation

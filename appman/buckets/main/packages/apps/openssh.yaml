@@ -4,5 +4,5 @@ description: A suite of secure networking utilities based on the Secure Shell pr
 labels:
   - cli
   - security
-pmid:
+formulas:
   scoop: openssh

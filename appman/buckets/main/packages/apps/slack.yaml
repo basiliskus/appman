@@ -3,5 +3,5 @@ name: Slack
 labels:
   - gui
   - communication
-pmid:
+formulas:
   winget: SlackTechnologies.Slack

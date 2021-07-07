@@ -5,6 +5,6 @@ description: A complete, cross-platform solution to record, convert and stream a
 labels:
   - cli
   - utils
-pmid:
+formulas:
   scoop: ffmpeg
   choco: ffmpeg

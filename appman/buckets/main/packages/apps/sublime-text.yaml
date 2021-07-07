@@ -3,5 +3,5 @@ name: Sublime Text
 labels:
   - gui
   - editor
-pmid:
+formulas:
   winget: SublimeHQ.SublimeText

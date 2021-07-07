@@ -1,5 +1,5 @@
 id: requests
 name: requests
 labels: []
-pmid:
+formulas:
   pip: requests

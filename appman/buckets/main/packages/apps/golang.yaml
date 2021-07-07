@@ -6,13 +6,10 @@ labels:
   - cli
   - dev-tools
   - prog-langs
-pmid:
+formulas:
   scoop: go
   choco: golang
   winget: GoLang.Go
-formulas:
-  - name: tar-cp-package
-    os: linux
-    args:
-      source: https://golang.org/dl/go1.16.5.linux-amd64.tar.gz
-      destination: /usr/local
+  tar-cp-package:
+    source: https://golang.org/dl/go1.16.5.linux-amd64.tar.gz
+    destination: /usr/local

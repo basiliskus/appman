@@ -1,6 +1,0 @@
-type: custom
-os: linux
-commands:
-  install: curl $source -sSf | sh -s -- -y
-requires:
-  - curl

@@ -1,5 +1,5 @@
 id: ms-python.python
 name: ms-python.python
 labels: []
-pmid:
+formulas:
   vscode-extension: ms-python.python

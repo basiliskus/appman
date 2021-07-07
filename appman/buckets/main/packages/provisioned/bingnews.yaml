@@ -1,5 +1,5 @@
 id: bingnews
 name: BingNews
 labels: []
-pmid:
+formulas:
   appx: Microsoft.BingNews

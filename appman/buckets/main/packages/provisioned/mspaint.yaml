@@ -1,5 +1,5 @@
 id: mspaint
 name: MSPaint
 labels: []
-pmid:
+formulas:
   appx: Microsoft.MSPaint

@@ -5,8 +5,5 @@ description: As an asynchronous event driven JavaScript runtime, Node is designe
 labels:
   - cli
   - dev-tools
-pmid:
-  scoop: nodejs
-  choco: nodejs
-  winget: OpenJS.NodeJS
-  apt: nodejs
+formulas:
+  nvm: node

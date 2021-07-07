@@ -4,6 +4,6 @@ description: System monitoring dashboard for terminal
 labels:
   - cli
   - utils
-pmid:
+formulas:
   npm: gtop
-home: https://github.com/aksakalli/gtop
+homepage: https://github.com/aksakalli/gtop

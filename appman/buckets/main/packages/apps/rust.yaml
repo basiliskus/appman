@@ -6,12 +6,14 @@ labels:
   - cli
   - dev-tools
   - prog-langs
-pmid:
+formulas:
   scoop: rust
   choco: rust
   winget: Rustlang.rust-gnu
-formulas:
-  - name: sh-script-2
-    os: linux
-    args:
-      source: https://sh.rustup.rs
+custom-formulas:
+  - os: linux
+    commands:
+      install: curl https://sh.rustup.rs -sSf | sh -s -- -y
+      uninstall: rustup self uninstall
+    requires:
+      - curl

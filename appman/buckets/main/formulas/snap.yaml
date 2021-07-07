@@ -1,0 +1,4 @@
+os: linux
+commands:
+  install: sudo snap install $pmid
+  uninstall: sudo snap remove $pmid

@@ -4,5 +4,5 @@ description: Tool for interacting with VirusTotal
 labels:
   - cli
   - security
-pmid:
+formulas:
   scoop: vt-cli

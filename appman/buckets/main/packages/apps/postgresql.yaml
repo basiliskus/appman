@@ -4,7 +4,7 @@ labels:
   - cli
   - dev-tools
   - db
-pmid:
+formulas:
   scoop: postgresql
   choco: postgresql
   winget: PostgreSQL.PostgreSQL

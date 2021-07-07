@@ -4,6 +4,6 @@ description: A more intuitive version of du in rust
 labels:
   - cli
   - utils
-pmid:
+formulas:
   cargo: du-dust
-home: https://github.com/bootandy/dust
+homepage: https://github.com/bootandy/dust

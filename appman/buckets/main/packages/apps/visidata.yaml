@@ -3,6 +3,6 @@ name: visidata
 description: A terminal spreadsheet multitool for discovering and arranging data
 labels:
   - cli
-pmid:
+formulas:
   pip: visidata
-home: https://github.com/saulpw/visidata
+homepage: https://github.com/saulpw/visidata

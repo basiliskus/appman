@@ -1,5 +1,5 @@
 id: yourphone
 name: YourPhone
 labels: []
-pmid:
+formulas:
   appx: Microsoft.YourPhone

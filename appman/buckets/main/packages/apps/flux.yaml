@@ -3,5 +3,5 @@ name: flux
 labels:
   - gui
   - utils
-pmid:
+formulas:
   winget: flux.flux

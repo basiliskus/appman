@@ -1,5 +1,5 @@
 id: xbox.tcui
 name: Xbox.TCUI
 labels: []
-pmid:
+formulas:
   appx: Microsoft.Xbox.TCUI

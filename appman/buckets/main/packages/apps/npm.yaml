@@ -1,7 +1,0 @@
-id: npm
-name: npm
-labels:
-  - cli
-  - dev-tools
-pmid:
-  apt: npm

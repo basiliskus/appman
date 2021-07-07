@@ -4,6 +4,6 @@ description: A secure runtime for JavaScript and TypeScript
 labels:
   - cli
   - dev-tools
-pmid:
+formulas:
   scoop: deno
   choco: deno

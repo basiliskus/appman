@@ -4,6 +4,6 @@ description: The command line vault (Windows, macOS, & Linux).
 labels:
   - cli
   - security
-pmid:
+formulas:
   npm: '@bitwarden/cli'
-home: https://github.com/bitwarden/cli
+homepage: https://github.com/bitwarden/cli

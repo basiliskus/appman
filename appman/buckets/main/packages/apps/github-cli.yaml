@@ -4,7 +4,7 @@ description: Official GitHub CLI
 labels:
   - cli
   - dev-tools
-pmid:
+formulas:
   scoop: gh
   choco: gh
   winget: GitHub.cli

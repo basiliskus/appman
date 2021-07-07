@@ -3,6 +3,6 @@ name: Powertoys
 labels:
   - gui
   - utils
-pmid:
+formulas:
   choco: powertoys
   winget: Microsoft.PowerToys

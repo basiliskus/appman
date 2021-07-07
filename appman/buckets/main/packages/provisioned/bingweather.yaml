@@ -1,5 +1,5 @@
 id: bingweather
 name: BingWeather
 labels: []
-pmid:
+formulas:
   appx: Microsoft.BingWeather

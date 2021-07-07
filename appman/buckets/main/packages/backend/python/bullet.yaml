@@ -1,5 +1,5 @@
 id: bullet
 name: bullet
 labels: []
-pmid:
+formulas:
   pip: bullet

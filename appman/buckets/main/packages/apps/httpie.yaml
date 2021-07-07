@@ -4,7 +4,7 @@ description: As easy as /aitch-tee-tee-pie/ 🥧 Modern, user-friendly command-l
 labels:
   - cli
   - utils
-pmid:
+formulas:
   pip: httpie
-home: https://github.com/httpie
+homepage: https://github.com/httpie
 notes: https://github.com/httpie/httpie#id7

@@ -3,6 +3,6 @@ name: tldr
 description: Collaborative cheatsheets for console commands
 labels:
   - cli
-pmid:
+formulas:
   npm: tldr
-home: https://github.com/tldr-pages/tldr
+homepage: https://github.com/tldr-pages/tldr

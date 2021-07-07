@@ -4,6 +4,6 @@ description: A command-line benchmarking tool
 labels:
   - cli
   - utils
-pmid:
+formulas:
   cargo: hyperfine
-home: https://github.com/sharkdp/hyperfine
+homepage: https://github.com/sharkdp/hyperfine

@@ -4,6 +4,6 @@ labels:
   - gui
   - dev-tools
   - db
-pmid:
+formulas:
   choco: pgadmin4
   winget: PostgreSQL.pgAdmin

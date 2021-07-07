@@ -3,5 +3,5 @@ name: oh-my-posh3
 description: A prompt theme engine for any shell
 labels:
   - cli
-pmid:
+formulas:
   scoop: oh-my-posh3

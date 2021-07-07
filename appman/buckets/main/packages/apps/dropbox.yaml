@@ -3,6 +3,6 @@ name: Dropbox
 labels:
   - gui
   - cloud
-pmid:
+formulas:
   choco: dropbox
   winget: Dropbox.Dropbox

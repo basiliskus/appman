@@ -1,5 +1,5 @@
 id: zunemusic
 name: ZuneMusic
 labels: []
-pmid:
+formulas:
   appx: Microsoft.ZuneMusic

@@ -1,5 +1,5 @@
 id: microsoftsolitairecollection
 name: MicrosoftSolitaireCollection
 labels: []
-pmid:
+formulas:
   appx: Microsoft.MicrosoftSolitaireCollection

@@ -3,5 +3,5 @@ name: Mozilla Firefox Developer Edition
 labels:
   - gui
   - browser
-pmid:
+formulas:
   winget: Mozilla.FirefoxDeveloperEdition

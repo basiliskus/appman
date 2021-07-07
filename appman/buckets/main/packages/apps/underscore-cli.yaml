@@ -3,6 +3,6 @@ name: underscore-cli
 description: Command-line utility-belt for hacking JSON and Javascript.
 labels:
   - cli
-pmid:
+formulas:
   npm: underscore-cli
-home: https://github.com/ddopson/underscore-cli
+homepage: https://github.com/ddopson/underscore-cli

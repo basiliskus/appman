@@ -1,5 +1,5 @@
 id: oneconnect
 name: OneConnect
 labels: []
-pmid:
+formulas:
   appx: Microsoft.OneConnect

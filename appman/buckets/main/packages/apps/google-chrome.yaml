@@ -3,5 +3,5 @@ name: Google Chrome
 labels:
   - gui
   - browser
-pmid:
+formulas:
   winget: Google.Chrome

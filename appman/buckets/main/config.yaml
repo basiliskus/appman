@@ -1,11 +1,11 @@
 package-managers:
   app:
-    windows: [ scoop, choco, npm, pip, cargo ]
-    ubuntu: [ apt, npm, pip, cargo, snap ]
-    darwin: [ brew, npm, pip, cargo ]
+    windows: [ scoop, choco, npm, pip, cargo, nvm ]
+    ubuntu: [ apt, npm, pip, cargo, nvm, snap ]
+    darwin: [ brew, npm, pip, cargo, nvm ]
   font:
     windows: [ scoop ]
-    ubuntu: []
+    ubuntu: [ font-local-share ]
     darwin: [ brew ]
   driver:
     any: []

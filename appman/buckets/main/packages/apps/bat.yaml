@@ -4,5 +4,5 @@ description: A cat(1) clone with syntax highlighting and Git integration
 labels:
   - cli
   - utils
-pmid:
+formulas:
   scoop: bat

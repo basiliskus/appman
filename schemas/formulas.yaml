@@ -1,5 +1,4 @@
-type: enum('package-manager', 'custom')
-os: enum('linux', 'windows', 'darwin', 'ubuntu', 'any')
+os: enum('linux', 'windows', 'darwin', 'ubuntu', 'unix-like', 'any')
 shell:  enum('cmd', 'powershell', required=False)
 commands:
   init: str(required=False)
@@ -8,4 +7,5 @@ commands:
   uninstall: str(required=False)
   update-all: str(required=False)
   installed: str(required=False)
+args: list(str(), required=False)
 requires: list(str(), required=False)

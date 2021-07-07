@@ -1,5 +1,5 @@
 id: beautifulsoup4
 name: beautifulsoup4
 labels: []
-pmid:
+formulas:
   pip: beautifulsoup4

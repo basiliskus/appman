@@ -3,6 +3,6 @@ name: howdoi
 description: instant coding answers via the command line
 labels:
   - cli
-pmid:
+formulas:
   pip: howdoi
-home: https://github.com/gleitz/howdoi
+homepage: https://github.com/gleitz/howdoi

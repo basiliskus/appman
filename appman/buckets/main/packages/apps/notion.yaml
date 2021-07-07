@@ -3,5 +3,5 @@ name: Notion
 labels:
   - gui
   - notes
-pmid:
+formulas:
   winget: Notion.Notion

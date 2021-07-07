@@ -4,5 +4,5 @@ notes: included in psutils
 labels:
   - cli
   - utils
-pmid:
+formulas:
   scoop: sudo

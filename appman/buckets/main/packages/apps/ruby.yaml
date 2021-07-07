@@ -5,5 +5,5 @@ labels:
   - cli
   - dev-tools
   - prog-langs
-pmid:
+formulas:
   scoop: ruby

@@ -3,6 +3,6 @@ name: Docker Desktop
 labels:
   - gui
   - dev-tools
-pmid:
+formulas:
   choco: docker-desktop
   winget: Docker.DockerDesktop

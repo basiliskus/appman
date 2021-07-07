@@ -3,5 +3,5 @@ name: FileZilla Client
 labels:
   - gui
   - utils
-pmid:
+formulas:
   winget: TimKosse.FileZillaClient

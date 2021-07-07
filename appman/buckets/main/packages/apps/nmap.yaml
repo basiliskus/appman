@@ -4,5 +4,5 @@ description: Network exploration and security auditing utility. (includes Npcap)
 labels:
   - cli
   - security
-pmid:
+formulas:
   scoop: nmap

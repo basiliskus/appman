@@ -4,5 +4,5 @@ description: Intuitive find & replace CLI (sed alternative)
 labels:
   - cli
   - utils
-pmid:
+formulas:
   scoop: sd

@@ -5,5 +5,5 @@ description: A highly configurable text editor for efficiently creating and chan
 labels:
   - cli
   - editor
-pmid:
+formulas:
   scoop: vim

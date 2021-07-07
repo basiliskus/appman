@@ -3,6 +3,6 @@ name: Putty
 labels:
   - gui
   - utils
-pmid:
+formulas:
   choco: putty
   winget: PuTTY.PuTTY

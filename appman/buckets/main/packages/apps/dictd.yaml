@@ -4,6 +4,6 @@ description: Client/server software, human language dictionary databases, and to
 labels:
   - cli
   - utils
-pmid:
+formulas:
   apt: dictd
-home: https://sourceforge.net/projects/dict/
+homepage: https://sourceforge.net/projects/dict/

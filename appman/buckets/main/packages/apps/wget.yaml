@@ -3,5 +3,5 @@ name: wget
 labels:
   - cli
   - utils
-pmid:
+formulas:
   apt: wget

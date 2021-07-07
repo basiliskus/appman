@@ -1,5 +1,5 @@
 id: poetry
 name: poetry
 labels: []
-pmid:
+formulas:
   pip: poetry

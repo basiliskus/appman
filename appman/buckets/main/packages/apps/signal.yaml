@@ -3,5 +3,5 @@ name: Signal
 labels:
   - gui
   - communication
-pmid:
+formulas:
   winget: Signal.Signal

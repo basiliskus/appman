@@ -4,5 +4,5 @@ description: null
 labels:
   - cli
   - editor
-pmid:
+formulas:
   apt: nano

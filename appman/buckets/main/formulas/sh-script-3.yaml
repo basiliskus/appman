@@ -1,6 +1,0 @@
-type: custom
-os: linux
-commands:
-  install: curl $source | sudo bash
-requires:
-  - curl

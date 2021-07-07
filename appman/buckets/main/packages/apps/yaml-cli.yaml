@@ -3,6 +3,6 @@ name: yaml-cli
 description: A simple CLI for querying and updating YAML files
 labels:
   - cli
-pmid:
+formulas:
   npm: yaml-cli
-home: https://github.com/pandastrike/yaml-cli
+homepage: https://github.com/pandastrike/yaml-cli

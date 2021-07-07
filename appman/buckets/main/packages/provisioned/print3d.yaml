@@ -1,5 +1,5 @@
 id: print3d
 name: Print3D
 labels: []
-pmid:
+formulas:
   appx: Microsoft.Print3D

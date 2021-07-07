@@ -6,6 +6,6 @@ labels:
   - cli
   - dev-tools
   - web-server
-pmid:
+formulas:
   scoop: nginx
   apt: nginx

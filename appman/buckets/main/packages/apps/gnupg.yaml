@@ -4,7 +4,7 @@ description: A complete and free implementation of the OpenPGP standard
 labels:
   - cli
   - security
-pmid:
+formulas:
   scoop: gnupg
   choco: gnupg
   winget: GnuPG.GnuPG

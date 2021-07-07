@@ -1,5 +1,5 @@
 id: windowsmaps
 name: WindowsMaps
 labels: []
-pmid:
+formulas:
   appx: Microsoft.WindowsMaps

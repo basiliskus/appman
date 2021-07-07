@@ -3,5 +3,5 @@ name: ncmpcpp
 labels:
   - cli
   - music
-pmid:
+formulas:
   apt: ncmpcpp

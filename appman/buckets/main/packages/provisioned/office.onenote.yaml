@@ -1,5 +1,5 @@
 id: office.onenote
 name: Office.OneNote
 labels: []
-pmid:
+formulas:
   appx: Microsoft.Office.OneNote

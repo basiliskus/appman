@@ -4,5 +4,5 @@ description: Vim-fork focused on extensibility and usability
 labels:
   - cli
   - editor
-pmid:
+formulas:
   scoop: neovim

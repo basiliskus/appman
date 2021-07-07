@@ -3,5 +3,5 @@ name: Microsoft OneDrive
 labels:
   - gui
   - cloud
-pmid:
+formulas:
   winget: Microsoft.OneDrive

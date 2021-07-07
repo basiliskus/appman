@@ -4,7 +4,7 @@ description: A tool like grep, optimized for programmers
 labels:
   - cli
   - utils
-pmid:
+formulas:
   scoop: ack
   choco: ack
   apt: ack

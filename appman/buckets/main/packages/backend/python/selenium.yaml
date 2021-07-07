@@ -1,5 +1,5 @@
 id: selenium
 name: selenium
 labels: []
-pmid:
+formulas:
   pip: selenium

@@ -1,5 +1,5 @@
 id: pytest
 name: pytest
 labels: []
-pmid:
+formulas:
   pip: pytest

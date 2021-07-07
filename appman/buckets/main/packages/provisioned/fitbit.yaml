@@ -1,5 +1,5 @@
 id: fitbit
 name: Fitbit
 labels: []
-pmid:
+formulas:
   appx: Fitbit.FitbitCoach

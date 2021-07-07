@@ -1,5 +1,5 @@
 id: xboxidentityprovider
 name: XboxIdentityProvider
 labels: []
-pmid:
+formulas:
   appx: Microsoft.XboxIdentityProvider

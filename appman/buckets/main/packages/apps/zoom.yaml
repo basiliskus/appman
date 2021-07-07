@@ -3,5 +3,5 @@ name: Zoom
 labels:
   - gui
   - communication
-pmid:
+formulas:
   winget: Zoom.Zoom

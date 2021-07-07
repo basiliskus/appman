@@ -5,7 +5,7 @@ labels:
   - cli
   - dev-tools
   - db
-pmid:
+formulas:
   scoop: mongodb
   choco: mongodb
   winget: MongoDB.Server

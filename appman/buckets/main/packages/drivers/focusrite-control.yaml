@@ -1,8 +1,12 @@
 id: focusrite-control
 name: Focusrite Control
 labels: []
-formulas:
-  - name: exe-setup
-    os: windows
-    args:
-      source: https://fael-downloads-prod.focusrite.com/customer/prod/s3fs-public/downloads/Focusrite%20Control%20-%203.6.0.1822.exe
+custom-formulas:
+  - os: windows
+    shell: powershell
+    commands:
+      install: >
+        $NAME = Split-Path https://fael-downloads-prod.focusrite.com/customer/prod/s3fs-public/downloads/Focusrite%20Control%20-%203.6.0.1822.exe -leaf
+        Invoke-WebRequest -Uri $source -OutFile $HOME/tmp/$NAME
+        cmd $HOME/tmp/$NAME
+        Remove-Item $HOME/tmp/$NAME

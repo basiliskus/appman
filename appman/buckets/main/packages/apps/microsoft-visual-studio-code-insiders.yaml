@@ -4,5 +4,5 @@ labels:
   - gui
   - dev-tools
   - editor
-pmid:
+formulas:
   winget: Microsoft.VisualStudioCode.Insiders

@@ -6,6 +6,6 @@ labels:
   - cli
   - dev-tools
   - db
-pmid:
+formulas:
   scoop: mysql
   apt: mysql-server

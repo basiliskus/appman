@@ -1,5 +1,5 @@
 id: pylint
 name: pylint
 labels: []
-pmid:
+formulas:
   pip: pylint

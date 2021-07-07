@@ -3,6 +3,6 @@ name: Sandboxie
 labels:
   - gui
   - security
-pmid:
+formulas:
   choco: sandboxie
   winget: SandboxiePlus.SandboxiePlus

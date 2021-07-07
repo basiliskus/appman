@@ -3,5 +3,5 @@ name: keyring
 labels:
   - cli
   - security
-pmid:
+formulas:
   pip: keyring

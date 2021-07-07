@@ -1,5 +1,5 @@
 id: prettier
 name: prettier
 labels: []
-pmid:
+formulas:
   npm: prettier

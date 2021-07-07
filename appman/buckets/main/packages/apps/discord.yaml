@@ -3,5 +3,5 @@ name: Discord
 labels:
   - gui
   - communication
-pmid:
+formulas:
   winget: Discord.Discord

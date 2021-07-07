@@ -5,6 +5,6 @@ notes: may be replaced by sudo in psutils
 labels:
   - cli
   - utils
-pmid:
+formulas:
   choco: gsudo
   winget: gerardog.gsudo

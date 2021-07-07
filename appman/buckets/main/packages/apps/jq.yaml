@@ -4,6 +4,6 @@ description: Lightweight and flexible command-line JSON processor
 labels:
   - cli
   - utils
-pmid:
+formulas:
   scoop: jq
   apt: jq

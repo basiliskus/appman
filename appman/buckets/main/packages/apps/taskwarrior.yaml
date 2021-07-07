@@ -3,4 +3,4 @@ name: taskwarrior
 description: Taskwarrior - Commandline Task Management
 labels:
   - cli
-home: https://github.com/GothenburgBitFactory/taskwarrior
+homepage: https://github.com/GothenburgBitFactory/taskwarrior

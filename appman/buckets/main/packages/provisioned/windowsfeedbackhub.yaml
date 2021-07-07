@@ -1,5 +1,5 @@
 id: windowsfeedbackhub
 name: WindowsFeedbackHub
 labels: []
-pmid:
+formulas:
   appx: Microsoft.WindowsFeedbackHub

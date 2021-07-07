@@ -1,5 +1,5 @@
 id: libreoffice
 name: LibreOffice
 labels: []
-pmid:
+formulas:
   winget: LibreOffice.LibreOffice

@@ -337,7 +337,7 @@ def run_command(
 
 
 def package_run(package, action, appman, os, test, verbose, quiet, idprovided=False):
-    formula = appman.find_best_formula(os, package)
+    formula = package.find_best_formula(os, appman.config)
 
     if not formula:
         logger.warning(f"Formula not found for {package.name}")

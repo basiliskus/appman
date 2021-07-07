@@ -4,5 +4,5 @@ description: The package manager for .NET
 labels:
   - cli
   - dev-tools
-pmid:
+formulas:
   scoop: nuget

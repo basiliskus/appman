@@ -1,4 +1,5 @@
 import re
+import copy
 import subprocess
 
 # from importlib import resources
@@ -21,7 +22,6 @@ class AppMan:
 
     def __init__(self, bpackage):
         self.config = None
-        self.formulas = []
         self.packages = []
         self.user_packages = []
         self.load_bucket_data(bpackage)
@@ -33,13 +33,13 @@ class AppMan:
         self.config = Config(cfdata)
 
         # formulas
+        formulas = []
         fpackage = f"{bpackage}.{config.BUCKET_FORMULAS_PKG}"
         for ffile in self._get_data_resource_files(fpackage):
             data = self._load_data_resource(fpackage, ffile.name)
-            custom = data["type"] == "custom"
-            formula = Formula(ffile.stem, custom=custom)
+            formula = Formula(ffile.stem)
             formula.load(self._load_data_resource(fpackage, ffile.name))
-            self.formulas.append(formula)
+            formulas.append(formula)
 
         # packages
         fpackage = f"{bpackage}.{config.BUCKET_PACKAGES_PKG}"
@@ -48,7 +48,7 @@ class AppMan:
             for pfile in self._get_data_resource_files(pkg):
                 data = self._load_data_resource(pkg, pfile.name)
                 package = Package(data["id"], pt)
-                package.load(data)
+                package.load(data, formulas)
                 self.packages.append(package)
 
     def load_user_data(self, upackage):
@@ -82,7 +82,7 @@ class AppMan:
             if (
                 user_package.type == package_type
                 and user_package.has_labels(labels)
-                and (package is None or package.is_compatible(os, self.config))
+                and (package is None or package.is_compatible(os))
                 and (id is None or user_package.id == id)
             ):
                 packages.append(user_package)
@@ -104,7 +104,7 @@ class AppMan:
             if (
                 package.type == package_type
                 and package.has_labels(labels)
-                and package.is_compatible(os, self.config)
+                and package.is_compatible(os)
                 and (id is None or package.id == id)
             ):
                 packages.append(package)
@@ -113,40 +113,6 @@ class AppMan:
     def get_package(self, package_type, id):
         packages = self.get_packages(package_type, id=id)
         return packages[0] if packages else None
-
-    def get_formula(self, name):
-        for formula in self.formulas:
-            if formula.name == name:
-                return formula
-
-    def find_formulas(self, custom=None, command_name=None):
-        for formula in self.formulas:
-            if (
-                (custom is None or formula.custom == custom)
-                # and formula.is_compatible(os, self.config, package_type)
-                and (not command_name or formula.has_command(command_name))
-            ):
-                yield formula
-
-    def find_best_formula(self, os, package):
-        # if package has simple format
-        # there is only one way to get the formula
-        if package.format == "simple":
-            pm = self.config.get_compatible_pms(os, package.type)[0]
-            return self.get_formula(pm)
-
-        fnames = list(package.args.keys())
-
-        # priority 1: custom formula
-        for formula in self.find_formulas(custom=True):
-            if formula.name in fnames and self.config.is_os_compatible(os, formula.os):
-                return formula
-
-        # priority 2: compatible package management formulas
-        # using order in config.pms
-        for pm in self.config.get_compatible_pms(os, package.type):
-            if pm in fnames:
-                return self.get_formula(pm)
 
     def _load_data_resource(self, package, resource):
         with resources.open_text(package, resource) as file:
@@ -222,31 +188,31 @@ class UserPackage(CommonPackage):
 
 
 class Package(CommonPackage):
-    arg_default = "pmid"
-
-    def __init__(self, id, ptype, format="default"):
+    def __init__(self, id, ptype):
         super().__init__(id, ptype)
         self.name = id
-        self.format = format
         self.description = ""
-        self.args = {}
-        self.os = []
+        self.formulas = []
 
-    def load(self, obj):
-        if isinstance(obj, str):
-            self.format = "simple"
-            return
-
+    def load(self, obj, formulas):
         if "name" in obj:
             self.name = obj["name"]
         if "description" in obj:
             self.description = obj["description"]
         if "labels" in obj:
             self.labels = obj["labels"]
+        if "custom-formulas" in obj:
+            for fo in obj["custom-formulas"]:
+                formula = self._create_custom_formula(fo)
+                self.formulas.append(formula)
         if "formulas" in obj:
-            self._load_formula_args(obj["formulas"])
-        if self.arg_default in obj:
-            self._load_pm_args(obj[self.arg_default])
+            for fo in obj["formulas"]:
+                formula = next((f for f in formulas if f.name == fo), None)
+                if not formula:
+                    logger.error(f"Formula not found for '{fo}'")
+                    continue
+                formula = self._create_formula(formula, obj["formulas"][fo])
+                self.formulas.append(formula)
 
     def run(
         self,
@@ -258,8 +224,7 @@ class Package(CommonPackage):
         verbose=False,
         quiet=False,
     ):
-        args = self.get_args(formula.name)
-        command = formula.get_command(commandtype, args, allusers)
+        command = formula.get_command(commandtype, allusers)
         if command:
             return command.run(
                 shell=formula.shell, sudo=sudo, test=test, verbose=verbose, quiet=quiet
@@ -268,35 +233,43 @@ class Package(CommonPackage):
             f"Command '{commandtype}' not found in formula '{formula.name}'"
         )
 
-    def is_compatible(self, os, config):
-        if self.format == "simple":
-            return True
+    def find_best_formula(self, os, config):
+        # priority 1: custom formula
+        for formula in self.formulas:
+            if formula.custom and util.is_os_compatible(formula.os, os):
+                return formula
 
-        for o in self.os:
-            if config.is_os_compatible(o, os):
+        # priority 2: compatible package management formulas
+        # using order in config.pms
+        for pm in config.get_compatible_pms(os, self.type):
+            formula = self.get_formula(pm)
+            if formula:
+                return formula
+
+    def get_formula(self, name):
+        for formula in self.formulas:
+            if formula.name == name:
+                return formula
+
+    def is_compatible(self, os):
+        for f in self.formulas:
+            if util.is_os_compatible(f.os, os):
                 return True
-
-        return any(pm in config.get_compatible_pms(os, self.type) for pm in self.args)
 
     def is_installed(self, formula):
         result = self.run(formula, "installed", quiet=True)
         return result.returncode == 0 and result.stdout.readline()
 
-    def get_args(self, name=None):
-        if self.format == "simple":
-            return {self.arg_default: self.name}
-        if name and self.args:
-            return self.args[name]
-        return self.args
+    def _create_custom_formula(self, data):
+        formula = Formula("custom", custom=True)
+        formula.load(data)
+        return formula
 
-    def _load_formula_args(self, data):
-        for f in data:
-            self.args[f["name"]] = f["args"] if "args" in f else None
-            self.os.append(f["os"])
-
-    def _load_pm_args(self, data):
-        for f in data:
-            self.args[f] = {self.arg_default: data[f]}
+    def _create_formula(self, formula, argvalues):
+        newformula = copy.deepcopy(formula)
+        for command in newformula.commands:
+            command.command = formula.resolve_args(command.command, argvalues)
+        return newformula
 
 
 class Formula:
@@ -330,28 +303,30 @@ class Formula:
         name = f"{name}-global" if allusers else name
         return any(c for c in self.commands if c.name == name)
 
-    def get_command(self, name, args=None, allusers=False):
+    def get_command(self, name, allusers=False):
         name = f"{name}-global" if allusers else name
         for command in self.commands:
             if command.name == name:
-                if args:
-                    return Command(
-                        command.name, self._resolve_args(command.command, args)
-                    )
-                else:
-                    return command
+                return command
         return None
 
-    def _resolve_args(self, command, values):
-        args = self._infer_args(command)
-        for arg in args:
-            if arg in values.keys():
-                command = command.replace(f"${arg}", values[arg])
-        return command
-
-    def _infer_args(self, command):
+    @staticmethod
+    def resolve_args(command, argvalues):
+        # infer args
         regex = r"\$([a-z0-9_-]+)"
-        return re.findall(regex, command, re.U | re.M)
+        args = re.findall(regex, command, re.U | re.M)
+
+        if isinstance(argvalues, str):
+            if len(args) == 1:
+                return command.replace(f"${args[0]}", argvalues)
+            elif len(args) > 1:
+                logger.error(f"Need to specify key for '{argvalues}'")
+                return
+
+        for arg in args:
+            if arg in argvalues.keys():
+                command = command.replace(f"${arg}", argvalues[arg])
+        return command
 
 
 class Command:
@@ -391,7 +366,6 @@ class Command:
 
 
 class Config:
-    any_os = "any"
     pt_sep = "-"
 
     def __init__(self, data):
@@ -408,29 +382,8 @@ class Config:
     def get_compatible_pms(self, os, ptype):
         return list(set(self._get_compatible_pms(os, ptype)))
 
-    def get_os_family_names(self, os):
-        return self._get_os_family_names(os)
-
-    def is_os_compatible(self, source, dest):
-        return (
-            (source == dest)
-            or (source in self.any_os or dest in self.any_os)
-            or (dest in self.get_os_family_names(source))
-        )
-
-    def _get_os_family_names(self, data=config.OS, os=None, found=False):
-        for e in data:
-            if isinstance(e, dict):
-                yield from self._get_os_family_names(e, os, found)
-            else:
-                include = found or not os or os == e
-                if include:
-                    yield e
-                if isinstance(data, dict):
-                    yield from self._get_os_family_names(data[e], os, include)
-
     def _get_compatible_pms(self, os, ptype):
         pmc = self.get_pm_defaults(ptype)
         for pmos in pmc:
-            if self.is_os_compatible(os, pmos):
+            if util.is_os_compatible(os, pmos):
                 yield from pmc[pmos]

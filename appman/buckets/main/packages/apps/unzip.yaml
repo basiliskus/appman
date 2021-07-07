@@ -3,5 +3,5 @@ name: unzip
 labels:
   - cli
   - utils
-pmid:
+formulas:
   apt: unzip

@@ -3,6 +3,6 @@ name: Mozilla Firefox
 labels:
   - gui
   - browser
-pmid:
+formulas:
   choco: firefox
   winget: Mozilla.Firefox

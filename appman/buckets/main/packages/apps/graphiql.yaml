@@ -3,5 +3,5 @@ name: GraphiQL
 labels:
   - gui
   - dev-tools
-pmid:
+formulas:
   winget: AdamMiskiewicz.GraphiQL

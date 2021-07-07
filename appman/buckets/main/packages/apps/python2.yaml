@@ -4,6 +4,6 @@ labels:
   - cli
   - dev-tools
   - prog-langs
-pmid:
+formulas:
   choco: python2
   winget: Python.Python.2

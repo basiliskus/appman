@@ -4,7 +4,7 @@ description: Create, edit, compose, and convert 200+ of bitmap images formats
 labels:
   - cli
   - utils
-pmid:
+formulas:
   scoop: imagemagick
   choco: imagemagick
   winget: ImageMagick.ImageMagick

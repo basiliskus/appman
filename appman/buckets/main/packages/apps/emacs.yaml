@@ -3,5 +3,5 @@ name: emacs
 labels:
   - cli
   - editor
-pmid:
+formulas:
   apt: emacs

@@ -1,5 +1,5 @@
 id: gnuwin32
 name: GNUWin32
 labels: []
-pmid:
+formulas:
   choco: gnuwin32-coreutils.install

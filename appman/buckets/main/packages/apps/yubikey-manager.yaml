@@ -3,5 +3,5 @@ name: Yubikey Manager
 labels:
   - gui
   - security
-pmid:
+formulas:
   choco: yubikey-manager

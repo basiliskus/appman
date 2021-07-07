@@ -1,4 +1,3 @@
-type: package-manager
 os: any
 commands:
   init: python -m pip install --upgrade pip

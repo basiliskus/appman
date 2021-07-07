@@ -3,5 +3,5 @@ name: Microsoft Edge
 labels:
   - gui
   - browser
-pmid:
+formulas:
   winget: Microsoft.Edge

@@ -1,5 +1,5 @@
 id: sysinternals
 name: sysinternals
 labels: []
-pmid:
+formulas:
   choco: sysinternals

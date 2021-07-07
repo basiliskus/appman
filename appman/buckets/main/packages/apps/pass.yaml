@@ -3,5 +3,5 @@ name: pass
 labels:
   - cli
   - security
-pmid:
+formulas:
   apt: pass

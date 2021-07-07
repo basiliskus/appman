@@ -2,5 +2,5 @@ id: matplotlib
 name: matplotlib
 requires: gnuplot
 labels: []
-pmid:
+formulas:
   pip: matplotlib

@@ -1,5 +1,5 @@
 id: microsoftofficehub
 name: MicrosoftOfficeHub
 labels: []
-pmid:
+formulas:
   appx: Microsoft.MicrosoftOfficeHub

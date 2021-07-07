@@ -1,5 +1,5 @@
 id: xboxspeechtotextoverlay
 name: XboxSpeechToTextOverlay
 labels: []
-pmid:
+formulas:
   appx: Microsoft.XboxSpeechToTextOverlay

@@ -6,5 +6,5 @@ labels:
   - cli
   - dev-tools
   - db
-pmid:
+formulas:
   scoop: redis

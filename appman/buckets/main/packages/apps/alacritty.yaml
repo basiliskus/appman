@@ -2,5 +2,5 @@ id: alacritty
 name: Alacritty
 labels:
   - gui
-pmid:
+formulas:
   winget: Alacritty.Alacritty
