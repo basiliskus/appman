@@ -8,7 +8,7 @@ labels:
 custom-formulas:
   - os: linux
     commands:
-      install: curl https://rclone.org/install.sh | sudo bash
+      install: curl -s https://rclone.org/install.sh | sudo bash
       uninstall: >-
         sudo rm /usr/bin/rclone
         && sudo rm /usr/local/share/man/man1/rclone.1
