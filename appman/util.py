@@ -30,7 +30,8 @@ def get_verb(action, tense):
 def log_subprocess_output(process, logger):
     while process.poll() is None:
         line = process.stdout.readline()
-        logger.info(line.strip())
+        if line:
+            logger.info(line.strip())
         sys.stdout.flush()
 
 
