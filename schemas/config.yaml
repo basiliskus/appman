@@ -6,6 +6,7 @@ package-managers:
   backend:
     python: include('package-manager')
     node: include('package-manager')
+    rust: include('package-manager')
   extension:
     vscode: include('package-manager')
 tags: list()

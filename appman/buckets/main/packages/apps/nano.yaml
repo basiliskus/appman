@@ -1,6 +1,6 @@
 id: nano
 name: nano
-description: null
+description: Nano's ANOther editor, inspired by Pico
 labels:
   - cli
   - editor

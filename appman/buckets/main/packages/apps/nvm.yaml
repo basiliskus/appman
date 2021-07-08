@@ -13,4 +13,3 @@ custom-formulas:
       installed: command -v nvm
     requires:
       - curl
-      - bash

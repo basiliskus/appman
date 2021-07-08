@@ -1,6 +1,0 @@
-id: audacity
-name: Audacity
-labels:
-  - gui
-formulas:
-  winget: Audacity.Audacity

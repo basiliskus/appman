@@ -1,8 +1,10 @@
 id: duf
 name: duf
 description: Disk Usage/Free Utility - a better 'df' alternative
+homepage: https://github.com/muesli/duf
+notes: https://github.com/muesli/duf#installation
 labels:
   - cli
   - utils
-homepage: https://github.com/muesli/duf
-notes: https://github.com/muesli/duf#installation
+formulas:
+  go: github.com/muesli/duf

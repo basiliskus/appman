@@ -1,6 +1,7 @@
 id: silversearcher-ag
 name: silversearcher-ag
 description: A code-searching tool similar to ack, but faster.
+homepage: https://github.com/ggreer/the_silver_searcher
 labels:
   - cli
   - utils
@@ -8,4 +9,3 @@ formulas:
   apt: silversearcher-ag
   choco: ag
   winget: "The Silver Searcher"
-homepage: https://github.com/ggreer/the_silver_searcher

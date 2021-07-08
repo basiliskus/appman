@@ -8,3 +8,6 @@ formulas:
   scoop: gh
   choco: gh
   winget: GitHub.cli
+  conda:
+    pmid: gh
+    channel: conda-forge

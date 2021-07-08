@@ -1,8 +1,8 @@
 id: howdoi
 name: howdoi
 description: instant coding answers via the command line
+homepage: https://github.com/gleitz/howdoi
 labels:
   - cli
 formulas:
   pip: howdoi
-homepage: https://github.com/gleitz/howdoi

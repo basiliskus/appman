@@ -7,3 +7,11 @@ labels:
 formulas:
   scoop: deno
   choco: deno
+custom-formulas:
+  - os: unix-like
+    commands:
+      install: curl -fsSL https://deno.land/x/install/install.sh | sh
+      uninstall: rm `which deno`
+      installed: command -v deno
+    requires:
+      - curl

@@ -1,0 +1,10 @@
+os: any
+commands:
+  init: conda update conda
+  install: conda install -qy $pmid --channel $channel
+  uninstall: conda remove -qy $pmid
+  installed: conda list | grep $pmid
+requires:
+  - miniconda
+  - grep
+

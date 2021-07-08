@@ -1,8 +1,8 @@
 package-managers:
   app:
-    windows: [ scoop, choco, npm, pip, cargo, nvm ]
-    ubuntu: [ apt, npm, pip, cargo, nvm, snap ]
-    darwin: [ brew, npm, pip, cargo, nvm ]
+    windows: [ scoop, choco, npm, pip, cargo, go, conda, nvm ]
+    ubuntu: [ apt, npm, pip, cargo, go, conda, nvm, snap ]
+    darwin: [ brew, npm, pip, cargo, go, conda, nvm ]
   font:
     windows: [ scoop ]
     ubuntu: [ font-local-share ]
@@ -16,6 +16,8 @@ package-managers:
       any: [ pip ]
     node:
       any: [ npm ]
+    rust:
+      any: [ cargo ]
   extension:
     vscode:
       any: [ vscode-extension ]

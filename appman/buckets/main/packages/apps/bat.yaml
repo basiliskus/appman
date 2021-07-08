@@ -5,4 +5,5 @@ labels:
   - cli
   - utils
 formulas:
+  apt: bat
   scoop: bat

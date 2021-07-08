@@ -1,0 +1,8 @@
+os: any
+commands:
+  install: go get -u $pmid
+  uninstall: go clean -i $pmid
+  installed: command -v $name
+requires:
+  - go
+
