@@ -1,6 +1,7 @@
 import re
 import copy
 import subprocess
+from pathlib import Path
 
 # from importlib import resources
 # for now using importlib_resources instead of importlib
@@ -26,7 +27,15 @@ class AppMan:
         self.user_packages = []
         self.load_bucket_data(bpackage)
 
+    def init_bucket(self, bpath):
+        logger.info(f"Initializing bucket. Pulling from: {config.BUCKET_REPO}")
+        # bpath.mkdir(exist_ok=True)
+        subprocess.run(["git", "clone", config.BUCKET_REPO, bpath], check=True)
+
     def load_bucket_data(self, bpackage):
+
+        if not config.MAIN_BUCKET_PATH.is_dir():
+            self.init_bucket(config.MAIN_BUCKET_PATH)
 
         # config
         cfdata = self._load_data_resource(bpackage, config.CONFIG_RES_YAML)

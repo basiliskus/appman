@@ -1,6 +1,14 @@
+import pathlib
+
+BUCKET_REPO = "https://github.com/basiliskus/appman-main"
+
 OS = ["windows", {"unix-like": [{"linux": ["ubuntu"]}, "darwin"]}]
 OS_SUPPORTED = ["linux", "windows", "darwin"]
 DEFS_EXT = ".yaml"
+
+ROOT_PATH = pathlib.Path(__file__).parent
+BUCKETS_PATH = ROOT_PATH / "buckets"
+MAIN_BUCKET_PATH = BUCKETS_PATH / "main"
 
 USER_DATA_PKG = "appman.user.data"
 BUCKET_PKG = "appman.buckets.main"
