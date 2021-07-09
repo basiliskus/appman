@@ -358,7 +358,7 @@ def package_run(package, action, appman, os, test, verbose, quiet, idprovided=Fa
             logger.warning(f"Not able to verify if {package.name} is installed")
 
         if not idprovided:
-            formula.init(test)
+            formula.init(test, verbose, quiet)
 
     result = package.run(formula, action, test=test, verbose=verbose, quiet=quiet)
 
@@ -367,10 +367,6 @@ def package_run(package, action, appman, os, test, verbose, quiet, idprovided=Fa
 
     if result.returncode != 0:
         logger.error(f"{package.name} was not {util.get_verb(action, 'past')}")
-        if result.stderr:
-            logger.error(util.parse_stmsg(result.stderr))
-        if verbose and result.stdout:
-            logger.info(util.parse_stmsg(result.stdout))
         return
 
     if not verifiable:
@@ -382,7 +378,9 @@ def package_run(package, action, appman, os, test, verbose, quiet, idprovided=Fa
     ):
         logger.success(f"{package.name} {util.get_verb(action, 'past')} successfully")
     else:
-        logger.warning(f"{package.name} was not {util.get_verb(action, 'past')}")
+        logger.warning(
+            f"{package.name} was not {util.get_verb(action, 'past')} successfully"
+        )
 
 
 def main():

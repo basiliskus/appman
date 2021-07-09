@@ -233,12 +233,8 @@ class Package(CommonPackage):
         quiet=False,
     ):
         command = formula.get_command(commandtype, allusers)
-        if command:
-            return command.run(
-                shell=formula.shell, sudo=sudo, test=test, verbose=verbose, quiet=quiet
-            )
-        raise ValueError(
-            f"Command '{commandtype}' not found in formula '{formula.name}'"
+        return command.run(
+            shell=formula.shell, sudo=sudo, test=test, verbose=verbose, quiet=quiet
         )
 
     def find_best_formula(self, os, config):
@@ -265,8 +261,8 @@ class Package(CommonPackage):
                 return True
 
     def is_installed(self, formula):
-        result = self.run(formula, "installed", quiet=True)
-        return result.returncode == 0 and result.stdout.readline()
+        command = formula.get_command("installed")
+        return command.check_output()
 
     def _create_custom_formula(self, data):
         formula = Formula("custom", custom=True)
@@ -297,11 +293,11 @@ class Formula:
             command = data["commands"][name]
             self.add_command(name, command)
 
-    def init(self, test=False):
+    def init(self, test=False, verbose=False, quiet=False):
         if self.initialized or not self.has_command("init"):
             return
         command = self.get_command("init")
-        command.run(test=test)
+        command.run(test=test, verbose=verbose, quiet=quiet)
         self.initialized = True
 
     def add_command(self, name, command):
@@ -316,7 +312,7 @@ class Formula:
         for command in self.commands:
             if command.name == name:
                 return command
-        return None
+        raise ValueError(f"Command '{name}' not found in formula '{self.name}'")
 
     @staticmethod
     def resolve_args(command, argvalues):
@@ -364,9 +360,20 @@ class Command:
         if not quiet:
             util.log_subprocess_output(process, logger)
 
-        process.wait()
+        try:
+            outs, errs = process.communicate(timeout=180)
+            if process.returncode != 0 and errs:
+                logger.error(util.parse_stmsg(errs))
+        except subprocess.TimeoutExpired as e:
+            logger.error(e)
+            process.kill()
+            process.communicate()
 
         return process
+
+    def check_output(self):
+        process = subprocess.run(self.command, capture_output=True, shell=True)
+        return process.returncode == 0 and process.stdout
 
     def _print(self, command):
         if isinstance(command, list):
