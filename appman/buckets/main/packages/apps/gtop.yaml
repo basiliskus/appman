@@ -1,9 +1,0 @@
-id: gtop
-name: gtop
-description: System monitoring dashboard for terminal
-homepage: https://github.com/aksakalli/gtop
-labels:
-  - cli
-  - utils
-formulas:
-  npm: gtop

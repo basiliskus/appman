@@ -1,5 +1,0 @@
-id: eslint
-name: eslint
-labels: []
-formulas:
-  npm: eslint

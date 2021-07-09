@@ -1,5 +1,0 @@
-id: requests
-name: requests
-labels: []
-formulas:
-  pip: requests

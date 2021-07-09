@@ -1,8 +1,0 @@
-id: treesize-free
-name: TreeSize Free
-labels:
-  - gui
-  - utils
-  - sysadmin
-formulas:
-  winget: JAMSoftware.TreeSizeFree

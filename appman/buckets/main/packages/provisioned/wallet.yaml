@@ -1,5 +1,0 @@
-id: wallet
-name: Wallet
-labels: []
-formulas:
-  appx: Microsoft.Wallet

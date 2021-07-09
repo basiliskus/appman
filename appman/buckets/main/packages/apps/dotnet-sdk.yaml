@@ -1,9 +1,0 @@
-id: dotnet-sdk
-name: .NET SDK
-description: .NET is a free, cross-platform, open source developer platform for building
-  many different types of applications.
-labels:
-  - cli
-  - dev-tools
-formulas:
-  scoop: dotnet-sdk

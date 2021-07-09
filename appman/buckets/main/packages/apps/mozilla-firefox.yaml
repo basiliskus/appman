@@ -1,8 +1,0 @@
-id: mozilla-firefox
-name: Mozilla Firefox
-labels:
-  - gui
-  - browser
-formulas:
-  choco: firefox
-  winget: Mozilla.Firefox

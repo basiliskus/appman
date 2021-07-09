@@ -1,8 +1,0 @@
-id: sudo
-name: sudo
-notes: included in psutils
-labels:
-  - cli
-  - utils
-formulas:
-  scoop: sudo

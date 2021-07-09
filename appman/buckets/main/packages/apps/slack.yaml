@@ -1,7 +1,0 @@
-id: slack
-name: Slack
-labels:
-  - gui
-  - communication
-formulas:
-  winget: SlackTechnologies.Slack

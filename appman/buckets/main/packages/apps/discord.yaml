@@ -1,7 +1,0 @@
-id: discord
-name: Discord
-labels:
-  - gui
-  - communication
-formulas:
-  winget: Discord.Discord

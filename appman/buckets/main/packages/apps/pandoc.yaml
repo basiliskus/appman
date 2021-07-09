@@ -1,8 +1,0 @@
-id: pandoc
-name: pandoc
-description: Universal markup converter
-labels:
-  - cli
-  - utils
-formulas:
-  scoop: pandoc

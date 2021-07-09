@@ -1,9 +1,0 @@
-id: gcalcli
-name: gcalcli
-description: Google Calendar Command Line Interface
-homepage: https://github.com/insanum/gcalcli
-labels:
-  - cli
-  - utils
-formulas:
-  apt: gcalcli

@@ -1,7 +1,0 @@
-id: oracle-virtualbox
-name: Oracle VirtualBox
-labels:
-  - gui
-  - dev-tools
-formulas:
-  winget: Oracle.VirtualBox

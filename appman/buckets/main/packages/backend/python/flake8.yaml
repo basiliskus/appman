@@ -1,5 +1,0 @@
-id: flake8
-name: flake8
-labels: []
-formulas:
-  pip: flake8

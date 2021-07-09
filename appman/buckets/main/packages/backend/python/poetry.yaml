@@ -1,5 +1,0 @@
-id: poetry
-name: poetry
-labels: []
-formulas:
-  pip: poetry

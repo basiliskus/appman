@@ -1,8 +1,0 @@
-id: yaml-cli
-name: yaml-cli
-description: A simple CLI for querying and updating YAML files
-homepage: https://github.com/pandastrike/yaml-cli
-labels:
-  - cli
-formulas:
-  npm: yaml-cli

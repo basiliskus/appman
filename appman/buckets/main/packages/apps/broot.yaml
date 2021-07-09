@@ -1,9 +1,0 @@
-id: broot
-name: broot
-description: A new way to see and navigate directory trees
-homepage: https://dystroy.org/broot
-labels:
-  - cli
-  - utils
-formulas:
-  cargo: broot

@@ -1,7 +1,0 @@
-id: alacritty
-name: Alacritty
-labels:
-  - gui
-formulas:
-  cargo: alacritty
-  winget: Alacritty.Alacritty

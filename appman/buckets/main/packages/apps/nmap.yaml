@@ -1,8 +1,0 @@
-id: nmap
-name: nmap
-description: Network exploration and security auditing utility. (includes Npcap)
-labels:
-  - cli
-  - security
-formulas:
-  scoop: nmap

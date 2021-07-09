@@ -1,7 +1,0 @@
-id: graphiql
-name: GraphiQL
-labels:
-  - gui
-  - dev-tools
-formulas:
-  winget: AdamMiskiewicz.GraphiQL

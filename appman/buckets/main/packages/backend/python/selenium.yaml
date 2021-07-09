@@ -1,5 +1,0 @@
-id: selenium
-name: selenium
-labels: []
-formulas:
-  pip: selenium

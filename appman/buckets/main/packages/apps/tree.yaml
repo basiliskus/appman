@@ -1,7 +1,0 @@
-id: tree
-name: tree
-labels:
-  - cli
-  - utils
-formulas:
-  apt: tree

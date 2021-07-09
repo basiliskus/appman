@@ -1,7 +1,0 @@
-id: mozilla-firefox-developer-edition
-name: Mozilla Firefox Developer Edition
-labels:
-  - gui
-  - browser
-formulas:
-  winget: Mozilla.FirefoxDeveloperEdition

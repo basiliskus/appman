@@ -1,8 +1,0 @@
-id: underscore-cli
-name: underscore-cli
-description: Command-line utility-belt for hacking JSON and Javascript.
-homepage: https://github.com/ddopson/underscore-cli
-labels:
-  - cli
-formulas:
-  npm: underscore-cli

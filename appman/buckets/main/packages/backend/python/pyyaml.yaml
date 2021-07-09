@@ -1,5 +1,0 @@
-id: pyyaml
-name: pyyaml
-labels: []
-formulas:
-  pip: pyyaml

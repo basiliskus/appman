@@ -1,6 +1,0 @@
-id: cmder
-name: Cmder
-labels:
-  - gui
-formulas:
-  choco: Cmder

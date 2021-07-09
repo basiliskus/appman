@@ -1,8 +1,0 @@
-id: sandboxie
-name: Sandboxie
-labels:
-  - gui
-  - security
-formulas:
-  choco: sandboxie
-  winget: SandboxiePlus.SandboxiePlus

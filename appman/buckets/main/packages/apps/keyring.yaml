@@ -1,7 +1,0 @@
-id: keyring
-name: keyring
-labels:
-  - cli
-  - security
-formulas:
-  pip: keyring

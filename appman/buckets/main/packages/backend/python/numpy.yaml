@@ -1,5 +1,0 @@
-id: numpy
-name: numpy
-labels: []
-formulas:
-  pip: numpy

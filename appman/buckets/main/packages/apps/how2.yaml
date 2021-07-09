@@ -1,8 +1,0 @@
-id: how2
-name: how2
-description: stackoverflow from the terminal
-homepage: https://github.com/santinic/how2
-labels:
-  - cli
-formulas:
-  npm: how-2

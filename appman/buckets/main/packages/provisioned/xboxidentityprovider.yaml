@@ -1,5 +1,0 @@
-id: xboxidentityprovider
-name: XboxIdentityProvider
-labels: []
-formulas:
-  appx: Microsoft.XboxIdentityProvider

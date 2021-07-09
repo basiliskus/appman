@@ -1,7 +1,0 @@
-id: spotify
-name: Spotify
-labels:
-  - gui
-  - music
-formulas:
-  winget: Spotify.Spotify

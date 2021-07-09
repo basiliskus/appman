@@ -1,8 +1,0 @@
-id: navi
-name: navi
-description: An interactive cheatsheet tool for the command-line
-homepage: https://github.com/denisidoro/navi
-labels:
-  - cli
-formulas:
-  cargo: navi

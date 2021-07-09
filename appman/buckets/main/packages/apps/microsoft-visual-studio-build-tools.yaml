@@ -1,7 +1,0 @@
-id: microsoft-visual-studio-build-tools
-name: Microsoft Visual Studio Build Tools
-labels:
-  - gui
-  - dev-tools
-formulas:
-  winget: Microsoft.VisualStudio.BuildTools

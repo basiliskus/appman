@@ -1,7 +1,0 @@
-id: cookiecutter
-name: cookiecutter
-labels:
-  - cli
-  - dev-tools
-formulas:
-  pip: cookiecutter

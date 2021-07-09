@@ -1,6 +1,0 @@
-id: jrnl
-name: jrnl
-labels:
-  - cli
-formulas:
-  pip: jrnl

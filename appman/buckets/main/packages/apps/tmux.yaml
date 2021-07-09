@@ -1,6 +1,0 @@
-id: tmux
-name: tmux
-labels:
-  - cli
-formulas:
-  apt: tmux

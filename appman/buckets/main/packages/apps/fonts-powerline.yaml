@@ -1,5 +1,0 @@
-id: fonts-powerline
-name: Fonts Powerline
-labels: []
-formulas:
-  apt: fonts-powerline

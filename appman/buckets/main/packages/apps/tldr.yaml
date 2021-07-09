@@ -1,8 +1,0 @@
-id: tldr
-name: tldr
-description: Collaborative cheatsheets for console commands
-homepage: https://github.com/tldr-pages/tldr
-labels:
-  - cli
-formulas:
-  npm: tldr

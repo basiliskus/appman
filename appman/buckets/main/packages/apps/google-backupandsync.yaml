@@ -1,8 +1,0 @@
-id: google-backupandsync
-name: Google BackupAndSync
-labels:
-  - gui
-  - cloud
-formulas:
-  choco: google-backup-and-sync
-  winget: Google.BackupAndSync

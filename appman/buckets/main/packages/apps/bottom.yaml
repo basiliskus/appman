@@ -1,9 +1,0 @@
-id: bottom
-name: bottom
-description: Yet another cross-platform graphical process/system monitor.
-homepage: https://github.com/ClementTsang/bottom
-labels:
-  - cli
-  - utils
-formulas:
-  cargo: bottom

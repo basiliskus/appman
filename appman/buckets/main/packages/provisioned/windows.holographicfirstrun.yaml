@@ -1,5 +1,0 @@
-id: windows.holographicfirstrun
-name: Windows.HolographicFirstRun
-labels: []
-formulas:
-  appx: Microsoft.Windows.HolographicFirstRun

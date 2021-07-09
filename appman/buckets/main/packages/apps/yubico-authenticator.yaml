@@ -1,8 +1,0 @@
-id: yubico-authenticator
-name: Yubico Authenticator
-labels:
-  - gui
-  - security
-formulas:
-  choco: yubico-authenticator
-  winget: Yubico.Authenticator

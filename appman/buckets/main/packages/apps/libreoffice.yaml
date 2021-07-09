@@ -1,5 +1,0 @@
-id: libreoffice
-name: LibreOffice
-labels: []
-formulas:
-  winget: LibreOffice.LibreOffice

@@ -1,7 +1,0 @@
-id: calibre
-name: Calibre
-labels:
-  - gui
-  - books
-formulas:
-  winget: calibre.calibre

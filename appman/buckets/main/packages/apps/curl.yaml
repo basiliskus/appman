@@ -1,8 +1,0 @@
-id: curl
-name: curl
-description: Command line tool and library for transferring data with URLs
-labels:
-  - cli
-  - utils
-formulas:
-  apt: curl

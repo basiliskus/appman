@@ -1,5 +1,0 @@
-id: ms-vscode-remote.remote-wsl
-name: ms-vscode-remote.remote-wsl
-labels: []
-formulas:
-  vscode-extension: ms-vscode-remote.remote-wsl

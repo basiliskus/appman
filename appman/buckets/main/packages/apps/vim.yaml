@@ -1,9 +1,0 @@
-id: vim
-name: vim
-description: A highly configurable text editor for efficiently creating and changing
-  any kind of text
-labels:
-  - cli
-  - editor
-formulas:
-  scoop: vim

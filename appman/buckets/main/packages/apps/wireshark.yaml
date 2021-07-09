@@ -1,9 +1,0 @@
-id: wireshark
-name: Wireshark
-labels:
-  - gui
-  - network
-  - utils
-formulas:
-  choco: wireshark
-  winget: WiresharkFoundation.Wireshark

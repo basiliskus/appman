@@ -1,9 +1,0 @@
-id: psutils
-name: psutils
-description: A collection of command line utilities written in PowerShell proudly
-  ignoring PowerShell Verb-Noun naming conventions. Includes sudo
-labels:
-  - cli
-  - utils
-formulas:
-  scoop: psutils

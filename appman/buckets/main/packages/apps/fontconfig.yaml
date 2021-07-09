@@ -1,5 +1,0 @@
-id: fontconfig
-name: fontconfig
-labels: []
-formulas:
-  apt: fontconfig

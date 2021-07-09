@@ -1,8 +1,0 @@
-id: is-up-cli
-name: is-up-cli
-description: Check whether a website is up or down
-homepage: https://github.com/sindresorhus/is-up-cli
-labels:
-  - cli
-formulas:
-  npm: is-up-cli

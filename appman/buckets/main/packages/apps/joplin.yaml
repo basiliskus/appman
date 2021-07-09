@@ -1,7 +1,0 @@
-id: joplin
-name: joplin
-description: Note taking app
-labels:
-  - cli
-formulas:
-  scoop: joplin

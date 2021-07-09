@@ -1,6 +1,0 @@
-id: taskwarrior
-name: taskwarrior
-description: Taskwarrior - Commandline Task Management
-homepage: https://github.com/GothenburgBitFactory/taskwarrior
-labels:
-  - cli

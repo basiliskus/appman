@@ -1,5 +1,0 @@
-id: pylint
-name: pylint
-labels: []
-formulas:
-  pip: pylint

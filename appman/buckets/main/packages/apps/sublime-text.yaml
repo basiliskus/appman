@@ -1,7 +1,0 @@
-id: sublime-text
-name: Sublime Text
-labels:
-  - gui
-  - editor
-formulas:
-  winget: SublimeHQ.SublimeText

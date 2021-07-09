@@ -1,5 +1,0 @@
-id: prettier
-name: prettier
-labels: []
-formulas:
-  npm: prettier

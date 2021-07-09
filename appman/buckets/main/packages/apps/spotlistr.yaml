@@ -1,6 +1,0 @@
-id: spotlistr
-name: Spotlistr
-description: Convert Anything to a Spotify Playlist!
-homepage: https://github.com/BobNisco/Spotlistr
-labels:
-  - cli

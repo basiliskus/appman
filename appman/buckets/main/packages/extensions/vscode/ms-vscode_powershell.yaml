@@ -1,5 +1,0 @@
-id: ms-vscode.powershell
-name: ms-vscode.powershell
-labels: []
-formulas:
-  vscode-extension: ms-vscode.powershell

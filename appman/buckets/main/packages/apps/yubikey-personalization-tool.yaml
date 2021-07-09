@@ -1,8 +1,0 @@
-id: yubikey-personalization-tool
-name: Yubikey Personalization Tool
-labels:
-  - gui
-  - security
-formulas:
-  choco: yubikey-personalization-tool
-  winget: Yubico.YubikeyManager

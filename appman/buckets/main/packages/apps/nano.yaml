@@ -1,8 +1,0 @@
-id: nano
-name: nano
-description: Nano's ANOther editor, inspired by Pico
-labels:
-  - cli
-  - editor
-formulas:
-  apt: nano

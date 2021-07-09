@@ -1,9 +1,0 @@
-id: fd
-name: fd
-description: A simple, fast and user-friendly alternative to 'find'
-homepage: https://github.com/sharkdp/fd
-labels:
-  - cli
-  - utils
-formulas:
-  cargo: fd-find

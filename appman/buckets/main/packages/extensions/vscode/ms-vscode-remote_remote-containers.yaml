@@ -1,5 +1,0 @@
-id: ms-vscode-remote.remote-containers
-name: ms-vscode-remote.remote-containers
-labels: []
-formulas:
-  vscode-extension: ms-vscode-remote.remote-containers

@@ -1,8 +1,0 @@
-id: neovim
-name: neovim
-description: Vim-fork focused on extensibility and usability
-labels:
-  - cli
-  - editor
-formulas:
-  scoop: neovim

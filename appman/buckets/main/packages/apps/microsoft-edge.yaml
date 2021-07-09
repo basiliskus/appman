@@ -1,7 +1,0 @@
-id: microsoft-edge
-name: Microsoft Edge
-labels:
-  - gui
-  - browser
-formulas:
-  winget: Microsoft.Edge
