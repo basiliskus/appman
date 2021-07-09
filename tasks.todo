@@ -10,12 +10,9 @@ New Features:
     [ ] handle package versions
 Improvements:
   CLI:
-    [x] add user feedback when installing/uninstalling to track progress @done(21-07-02 15:40)
   Framework:
     [ ] read and prioritize user config
-    [x] make compatible with python 3.8 @done(21-07-02 16:07)
   Validation & Error Handling:
-    [x] add logging (make sure to log packages not able to install, uninstall or update) @done(21-07-02 18:03)
     [ ] make sure package formulas run as expected
     [ ] fail gracefully when a package type file/folder doesn't exist
     [ ] make sure package formula exists in data/formulas
@@ -26,18 +23,19 @@ Improvements:
 Bugs:
 
 Archive:
-  Framework:
+  New Features:
+    [x] make compatible with python 3.8 @done(21-07-02 16:07)
+    [x] add user feedback when installing/uninstalling to track progress @done(21-07-02 15:40)
+    [x] create interactive mode to choose multiple user packages from global list @done(21-06-25 10:37)
     [x] create user package schema @done(21-06-24 16:00)
     [x] make data structure consistent for all package types @done(21-06-24 14:05)
     [x] simplify data folder structure: merge folders cli + gui; and formulas + package-managers @done(21-06-24 11:12)
-  New Features:
-    CLI:
-      [x] create interactive mode to choose multiple user packages from global list @done(21-06-25 10:37)
-      [x] CLI for yaml file to create, delete and edit app entries @done(21-06-23 14:42)
-        [x] delete: delete file or entry @done(21-06-23 14:41)
-        [x] create: one file per package type @done(21-06-23 10:39)
-        [x] list: display all packages, filter by flags @done(21-06-23 10:39)
+    [x] CLI for yaml file to create, delete and edit app entries @done(21-06-23 14:42)
+      [x] delete: delete file or entry @done(21-06-23 14:41)
+      [x] create: one file per package type @done(21-06-23 10:39)
+      [x] list: display all packages, filter by flags @done(21-06-23 10:39)
   Improvements:
+    [x] add logging (make sure to log packages not able to install, uninstall or update) @done(21-07-02 18:03)
     [x] add instructions to install and usage in readme file @done(21-06-29 18:31)
     [x] use multi-label cli option @done(21-06-23 14:41)
     [x] move packages files to appman data folder @done(21-06-23 06:51)

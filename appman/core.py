@@ -29,7 +29,6 @@ class AppMan:
 
     def init_bucket(self, bpath):
         logger.info(f"Initializing bucket. Pulling from: {config.BUCKET_REPO}")
-        # bpath.mkdir(exist_ok=True)
         subprocess.run(["git", "clone", config.BUCKET_REPO, bpath], check=True)
 
     def load_bucket_data(self, bpackage):
