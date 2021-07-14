@@ -31,7 +31,7 @@ The main goal for appman is to be flexible and extensible. In that context the g
 - Multi-profile: define different profiles with a unique list of applications for different environments (e.g., work and personal computers).
 - Supported Packages: aside from desktop and command line applications, support software like: device drivers, software plugins and extensions (e.g., vscode extensions), backend libraries (e.g., python libraries), fonts, etc.
 - Package Management: support any package manager (e.g., apt, brew, scoop) or custom formulas to define how to install, uninstall and upgrade packages.
-- Buckets: currently there is only [one source](https://github.com/basiliskus/appman/tree/main/appman/buckets/main) to choose packages from, but the idea is to have any user able to create their own buckets which can then be shared and used by other users.
+- Package definitions source: the source for package definitions is a [git repository](https://github.com/basiliskus/appman-main), which allows you to fork and use your own repository.
 
 ## How to use
 
@@ -129,14 +129,14 @@ The main goal for appman is to be flexible and extensible. In that context the g
   [?] Select the package type: (Use arrow keys)
   >app
 
-  7zip
-  ack
-  apache2
-  aria2
-  bottom
-  broot
-  cookiecutter
-  curl
+   • 7zip
+   • ack
+   • apache2
+   • aria2
+   • bottom
+   • broot
+   • cookiecutter
+   • curl
   ...
   ```
 
@@ -165,6 +165,18 @@ Directly passing parameters:
 
 ```console
 $ appman install -pt app -id 7zip
+```
+
+### Change the package definitions repository source
+
+```console
+$ appman repo https://github.com/basiliskus/appman-main
+```
+
+### Update the package definitions repository source
+
+```console
+$ appman update
 ```
 
 ### Using labels
