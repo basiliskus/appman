@@ -113,9 +113,9 @@ def search(ctx, package_type, package_id, labels, os, verbose, quiet):
         if package_id:
             pkg = appman.get_package(package_type, package_id)
             if pkg:
-                logger.console(f"Package definition for '{package_id}' found")
+                logger.console(f"Package definition for {package_id} found")
             else:
-                logger.console(f"Package definition for '{package_id}' not found")
+                logger.console(f"Package definition for {package_id} not found")
             return
 
         pkgs = appman.get_packages(package_type, os, labels=labels)
@@ -143,9 +143,9 @@ def list(ctx, package_type, package_id, labels, os, verbose, quiet):
 
         if package_id:
             if appman.has_user_package(package_type, package_id):
-                logger.console(f"Package '{package_id}' found")
+                logger.console(f"Package {package_id} found")
             else:
-                logger.console(f"Package '{package_id}' not found")
+                logger.console(f"Package {package_id} not found")
             return
 
         pkgs = appman.get_user_packages(package_type, os=os, labels=labels)
@@ -215,7 +215,7 @@ def add(ctx, package_type, package_id, labels, os, verbose, quiet, interactive):
             return
 
         appman.add_user_package(pkg, labels)
-        logger.success(f"Package '{package_id}' added")
+        logger.success(f"Added {package_id} package")
     except Exception as e:
         e.verbose = verbose
         raise
@@ -265,20 +265,20 @@ def remove(ctx, package_type, package_id, labels, os, verbose, quiet, interactiv
                 )
             return
         appman.remove_user_package(usr_pkg)
-        logger.success(f"Package '{package_id}' removed")
+        logger.success(f"Removed {package_id} package")
     except Exception as e:
         e.verbose = verbose
         raise
 
 
-@cli.command(short_help="Update package definitions source")
+@cli.command(short_help="Update package definitions repository source")
 @click.pass_context
 def update(ctx):
     appman = ctx.obj["appman"]
     appman.update()
 
 
-@cli.command(short_help="Set repo source")
+@cli.command(short_help="Set package definitions repository source")
 @click.argument("url")
 @click.pass_context
 def repo(ctx, url):
