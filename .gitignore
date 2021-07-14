@@ -1,5 +1,6 @@
 .vscode/
-appman/user
+appman/user/data
+appman/repo
 appman/buckets
 
 credentials.conf

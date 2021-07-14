@@ -2,6 +2,14 @@ import sys
 import os
 import io
 
+# for now using importlib_resources instead of importlib
+# for compatibility with python 3.8
+import importlib_resources as resources
+
+# from importlib import resources
+
+import yaml
+
 from . import config
 
 
@@ -53,3 +61,100 @@ def get_os_family_names(data=config.OS, os=None, found=False):
                 yield e
             if isinstance(data, dict):
                 yield from get_os_family_names(data[e], os, include)
+
+
+def load_yaml_resource(package, resource):
+    fpath = get_package_resource_file(package, resource)
+    if not fpath.exists():
+        return None
+    with resources.open_text(package, resource) as file:
+        data = yaml.load(file, Loader=yaml.FullLoader)
+    return data
+
+
+def write_yaml_resource(package, resource, data):
+    fpath = get_package_resource_file(package, resource)
+    with open(fpath, "w", encoding="utf-8") as file:
+        yaml.dump(data, file, sort_keys=False, default_flow_style=None)
+
+
+def get_package_path(package):
+    return resources.files(package)
+
+
+def get_package_resource_files(package):
+    path = get_package_path(package)
+    yield from path.glob(f"*{config.DEFS_EXT}")
+
+
+def get_package_resource_file(package, resource):
+    path = get_package_path(package)
+    fname = resource if config.DEFS_EXT in resource else f"{resource}{config.DEFS_EXT}"
+    return path.joinpath(fname)
+
+
+def add_data_resource(package, resource, data):
+    content = load_yaml_resource(package, resource)
+    if not content:
+        content = []
+    elif not isinstance(content, list):
+        raise TypeError
+
+    content.append(data)
+    content = sorted(content, key=lambda o: o["id"])
+    write_yaml_resource(package, resource, content)
+
+
+def remove_data_resource(package, resource, data):
+    content = load_yaml_resource(package, resource)
+    content.remove(data)
+    write_yaml_resource(package, resource, content)
+
+
+def get_resource_name(ptype):
+    names = ptype.split("-")
+    for pt in config.PACKAGES_TYPES:
+        if pt == names[0]:
+            pkg = config.PACKAGES_TYPES[pt]["pkg"]
+            return ".".join([pkg] + names[1:])
+    raise ValueError(f"{ptype} did not match resource names")
+
+
+def get_package_type(resource):
+    names = resource.split(".")
+    for pt in config.PACKAGES_TYPES:
+        if config.PACKAGES_TYPES[pt]["pkg"] == names[0]:
+            return "-".join([pt] + names[1:])
+    raise ValueError(f"{resource} did not match package types")
+
+
+def get_resource_names():
+    names = []
+    for pt in config.PACKAGES_TYPES.keys():
+        pkg = get_resource_name(pt)
+        path = get_package_path(f"{config.REPO_PACKAGES_PKG}.{pkg}")
+        dirs = [
+            f.name for f in path.iterdir() if f.is_dir() and not f.name.startswith("__")
+        ]
+        if not dirs:
+            names.append(pkg)
+            continue
+        for dir in dirs:
+            names.append(f"{pkg}.{dir}")
+
+    return names
+
+
+def get_package_types():
+    return [get_package_type(rn) for rn in get_resource_names()]
+
+
+def get_pt_choices():
+    choices = {}
+    for pt in get_package_types():
+        pname, *psub = pt.split("-")
+        if pname not in choices:
+            choices[pname] = []
+        if psub:
+            choices[pname].append(psub[0])
+    return choices

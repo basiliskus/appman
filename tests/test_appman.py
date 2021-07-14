@@ -5,16 +5,15 @@ from . import args
 
 
 @pytest.fixture
-def appm(bucket_package):
-    return appman.AppMan(bucket_package)
+def appm():
+    return appman.AppMan()
 
 
 @pytest.mark.parametrize(
     "action, os, pt, pmid",
     [("install", "linux", "app", "curl")],
 )
-def test_get_packages_by_id(appm, user_data_package, action, os, pt, pmid):
-    appm.load_user_data(user_data_package)
+def test_get_packages_by_id(appm, action, os, pt, pmid):
     package = appm.get_package(pt, pmid)
     formula = package.find_best_formula(os, appm.config)
     if not formula:
@@ -32,8 +31,7 @@ def test_get_packages_by_id(appm, user_data_package, action, os, pt, pmid):
         ("install", "windows", "app", "essentials"),
     ],
 )
-def test_get_packages_by_filters(appm, user_data_package, action, os, pt, labels):
-    appm.load_user_data(user_data_package)
+def test_get_packages_by_filters(appm, action, os, pt, labels):
     packages = appm.get_packages(pt, os, labels=labels)
     for package in packages:
         formula = appm.find_best_formula(os, package)
@@ -61,30 +59,31 @@ def test_get_packages_by_label_returns_something(appm):
 
 
 @pytest.mark.parametrize("package", args.packages)
-def test_get_packages_by_id_returns_something(appm, user_data_package, package):
-    appm.load_user_data(user_data_package)
+def test_get_packages_by_id_returns_something(appm, package):
     package = appm.get_package(package["pt"], package["id"])
     assert package
 
 
 @pytest.mark.parametrize("package", args.packages)
 def test_get_user_packages_returns_something(appm, package):
-    appm.user_packages.append(appman.UserPackage(package["id"], package["pt"]))
+    appm.userrepo.packages.append(appman.UserPackage(package["id"], package["pt"]))
     user_packages = appm.get_user_packages(package["pt"])
     assert user_packages
 
 
 def test_get_user_packages_by_label_returns_something(appm):
+    appm.userrepo.packages = []
+
     package_type = "app"
     cli_labels = ["cli"]
     cli_package = appman.UserPackage("git", package_type, cli_labels)
-    appm.user_packages.append(cli_package)
+    appm.userrepo.packages.append(cli_package)
 
     gui_labels = ["gui"]
     gui_package = appman.UserPackage(
         "microsoft-visual-studio-code", package_type, gui_labels
     )
-    appm.user_packages.append(gui_package)
+    appm.userrepo.packages.append(gui_package)
 
     cli_user_packages = appm.get_user_packages(package_type, labels=cli_labels)
     assert cli_user_packages
@@ -96,8 +95,10 @@ def test_get_user_packages_by_label_returns_something(appm):
 
 
 def test_get_user_packages_returns_only_os_compatible(appm, apps_multi_os):
+    appm.userrepo.packages = []
+
     for app in apps_multi_os["apps"]:
-        appm.user_packages.append(appman.UserPackage(app["id"], "app"))
+        appm.userrepo.packages.append(appman.UserPackage(app["id"], "app"))
 
     for os in apps_multi_os["os_compatible"]:
         found_apps = [pkg.id for pkg in appm.get_user_packages("app", os=os)]

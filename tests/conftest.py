@@ -8,22 +8,22 @@ from appman import config
 TESTS_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = Path(TESTS_DIR).parent
 APPMAN_DIR = os.path.join(ROOT_DIR, "appman")
-BUCKET_DIR = os.path.join(APPMAN_DIR, "buckets/main")
+REPO_DIR = os.path.join(APPMAN_DIR, "repo")
 
 
 @pytest.fixture
 def config_path():
-    return os.path.join(BUCKET_DIR, config.CONFIG_RES_YAML)
+    return os.path.join(REPO_DIR, config.CONFIG_RES_YAML)
 
 
 @pytest.fixture
-def bucket_root():
-    return BUCKET_DIR
+def repo_root():
+    return REPO_DIR
 
 
 @pytest.fixture
-def bucket_package():
-    return config.BUCKET_PKG
+def repo_package():
+    return config.REPO_PKG
 
 
 @pytest.fixture
@@ -33,7 +33,7 @@ def schemas_root():
 
 @pytest.fixture
 def packages_root():
-    return os.path.join(BUCKET_DIR, "packages")
+    return os.path.join(REPO_DIR, "packages")
 
 
 @pytest.fixture

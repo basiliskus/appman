@@ -1,20 +1,13 @@
-import pathlib
-
-BUCKET_REPO = "https://github.com/basiliskus/appman-main"
-
 OS = ["windows", {"unix-like": [{"linux": ["ubuntu"]}, "darwin"]}]
 OS_SUPPORTED = ["linux", "windows", "darwin"]
 DEFS_EXT = ".yaml"
 
-ROOT_PATH = pathlib.Path(__file__).parent
-BUCKETS_PATH = ROOT_PATH / "buckets"
-MAIN_BUCKET_PATH = BUCKETS_PATH / "main"
-
-USER_DATA_PKG = "appman.user.data"
-BUCKET_PKG = "appman.buckets.main"
+USER_PKG = "appman.user"
+USER_DATA_PKG = f"{USER_PKG}.data"
+REPO_PKG = "appman.repo"
+REPO_FORMULAS_PKG = f"{REPO_PKG}.formulas"
+REPO_PACKAGES_PKG = f"{REPO_PKG}.packages"
 LOGS_PKG = "appman.logs"
-BUCKET_FORMULAS_PKG = "formulas"
-BUCKET_PACKAGES_PKG = "packages"
 CONFIG_RES_YAML = "config.yaml"
 
 PACKAGES_TYPES = {
@@ -22,20 +15,6 @@ PACKAGES_TYPES = {
     "font": {"pkg": "fonts"},
     "driver": {"pkg": "drivers"},
     "provisioned": {"pkg": "provisioned"},
-    "backend-node": {"pkg": "backend.node"},
-    "backend-python": {"pkg": "backend.python"},
-    "extension-vscode": {"pkg": "extensions.vscode"},
+    "backend": {"pkg": "backend"},
+    "extension": {"pkg": "extensions"},
 }
-
-
-def ptchoices():
-    choices = {}
-    for pt in PACKAGES_TYPES.keys():
-        v = None
-        if "-" in pt:
-            pt, v = pt.split("-")
-        if not choices or pt not in choices:
-            choices[pt] = []
-        if v:
-            choices[pt].append(v)
-    return choices

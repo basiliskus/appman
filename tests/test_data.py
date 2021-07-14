@@ -4,8 +4,8 @@ import tempfile
 from . import util
 
 
-def test_load_data_files(bucket_root):
-    util.safe_load_yaml_files(bucket_root)
+def test_load_data_files(repo_root):
+    util.safe_load_yaml_files(repo_root)
 
 
 def test_validate_config_schema(schemas_root, config_path):
@@ -13,8 +13,8 @@ def test_validate_config_schema(schemas_root, config_path):
     util.validate_schema(schema_path, config_path)
 
 
-def test_validate_formulas_schemas(schemas_root, bucket_root):
-    [spath, dpath] = util.get_validation_files(schemas_root, bucket_root, "formulas")
+def test_validate_formulas_schemas(schemas_root, repo_root):
+    [spath, dpath] = util.get_validation_files(schemas_root, repo_root, "formulas")
     util.validate_data_schema(spath, dpath)
 
 

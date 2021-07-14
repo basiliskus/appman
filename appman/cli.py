@@ -19,7 +19,7 @@ class BaseCommand(click.Command):
         self.params = [
             click.Option(
                 ("--package-type", "-pt"),
-                type=click.Choice(config.PACKAGES_TYPES),
+                type=click.Choice(util.get_package_types()),
                 help="Package type",
             ),
             click.Option(("--package-id", "-id"), help="Package ID"),
@@ -59,8 +59,7 @@ def cli(ctx):
         if os == "linux":
             os = distro.id()
 
-        am = core.AppMan(config.BUCKET_PKG)
-        am.load_user_data(config.USER_DATA_PKG)
+        am = core.AppMan()
         ctx.obj = {"appman": am, "os": os}
     except Exception as e:
         e.verbose = True
@@ -101,10 +100,10 @@ def uninstall(ctx, package_id, package_type, labels, os, verbose, quiet, test):
         raise
 
 
-@cli.command(cls=BaseCommand, short_help="Search for packages available in bucket")
+@cli.command(cls=BaseCommand, short_help="Search for packages available in source repo")
 @click.pass_context
 def search(ctx, package_type, package_id, labels, os, verbose, quiet):
-    """Search for packages available in bucket"""
+    """Search for packages available in source repo"""
     os = os or ctx.obj["os"]
     appman = ctx.obj["appman"]
 
@@ -125,7 +124,7 @@ def search(ctx, package_type, package_id, labels, os, verbose, quiet):
             return
 
         for pkg in pkgs:
-            logger.console(pkg.id)
+            logger.console(f"  • {pkg.id}")
     except Exception as e:
         e.verbose = verbose
         raise
@@ -272,6 +271,21 @@ def remove(ctx, package_type, package_id, labels, os, verbose, quiet, interactiv
         raise
 
 
+@cli.command(short_help="Update package definitions source")
+@click.pass_context
+def update(ctx):
+    appman = ctx.obj["appman"]
+    appman.update()
+
+
+@cli.command(short_help="Set repo source")
+@click.argument("url")
+@click.pass_context
+def repo(ctx, url):
+    appman = ctx.obj["appman"]
+    appman.set_repo(url)
+
+
 def get_prompt_questions(type, message, name, choices):
     return [
         {
@@ -296,7 +310,7 @@ def get_user_packages_choices(packages, user_packages, action):
     return result
 
 
-def prompt_package_type(suffix="", choices=config.ptchoices()):
+def prompt_package_type(suffix="", choices=util.get_pt_choices()):
     choice_list = choices.keys() if isinstance(choices, dict) else choices
     questions = get_prompt_questions(
         "list", "Select the package type:", "ptype", choice_list

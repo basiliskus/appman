@@ -1,14 +1,7 @@
 import re
 import copy
+import shutil
 import subprocess
-from pathlib import Path
-
-# from importlib import resources
-# for now using importlib_resources instead of importlib
-# for compatibility with python 3.8
-import importlib_resources as resources
-
-import yaml
 
 from . import log
 from . import util
@@ -19,92 +12,72 @@ logger = log.AppmanLogger(__file__, "DEBUG", "DEBUG")
 
 
 class AppMan:
-    pts = config.PACKAGES_TYPES
+    def __init__(self):
+        self.config = Config(config.USER_PKG, config.CONFIG_RES_YAML)
+        self.repo = Repo(self.config.repo)
+        self.userrepo = UserPackageRepo()
 
-    def __init__(self, bpackage):
-        self.config = None
+    def update(self):
+        self.repo.update()
+
+    def get_packages(self, package_type, os="any", id=None, labels=None):
+        return self.repo.get_packages(package_type, os, id, labels)
+
+    def get_package(self, package_type, id):
+        return self.repo.get_package(package_type, id)
+
+    def get_user_packages(self, package_type, os="any", id=None, labels=None):
+        user_packages = self.userrepo.get_packages(package_type, id, labels)
+        return [p for p in user_packages if self.repo.get_package(p.type, p.id, os)]
+
+    def get_user_package(self, package_type, id):
+        return self.userrepo.get_package(package_type, id)
+
+    def has_user_package(self, package_type, id):
+        return self.userrepo.has_package(package_type, id)
+
+    def add_user_package(self, package, labels=None):
+        self.userrepo.add_package(package, labels)
+
+    def remove_user_package(self, user_package):
+        self.userrepo.remove_package(user_package)
+
+    def set_repo(self, url):
+        self.config.repo = url
+        self.config.save()
+        self.repo.switch(url)
+
+
+class Repo:
+    repo_path = util.get_package_path(config.REPO_PKG)
+
+    def __init__(self, url):
+        self.init(url)
+        self.load()
+
+    def init(self, url):
+        self.url = url
         self.packages = []
-        self.user_packages = []
-        self.load_bucket_data(bpackage)
+        if not self.repo_path.is_dir():
+            self.clone()
 
-    def init_bucket(self, bpath):
-        logger.info(f"Initializing bucket. Pulling from: {config.BUCKET_REPO}")
-        subprocess.run(["git", "clone", config.BUCKET_REPO, bpath], check=True)
-
-    def load_bucket_data(self, bpackage):
-
-        if not config.MAIN_BUCKET_PATH.is_dir():
-            self.init_bucket(config.MAIN_BUCKET_PATH)
-
-        # config
-        cfdata = self._load_data_resource(bpackage, config.CONFIG_RES_YAML)
-        self.config = Config(cfdata)
-
-        # formulas
+    def load(self):
         formulas = []
-        fpackage = f"{bpackage}.{config.BUCKET_FORMULAS_PKG}"
-        for ffile in self._get_data_resource_files(fpackage):
-            data = self._load_data_resource(fpackage, ffile.name)
+        fpackage = config.REPO_FORMULAS_PKG
+        for ffile in util.get_package_resource_files(fpackage):
+            data = util.load_yaml_resource(fpackage, ffile.name)
             formula = Formula(ffile.stem)
-            formula.load(self._load_data_resource(fpackage, ffile.name))
+            formula.load(util.load_yaml_resource(fpackage, ffile.name))
             formulas.append(formula)
 
-        # packages
-        fpackage = f"{bpackage}.{config.BUCKET_PACKAGES_PKG}"
-        for pt in self.pts:
-            pkg = f"{fpackage}.{self.pts[pt]['pkg']}"
-            for pfile in self._get_data_resource_files(pkg):
-                data = self._load_data_resource(pkg, pfile.name)
+        for rname in util.get_resource_names():
+            pkg = f"{config.REPO_PACKAGES_PKG}.{rname}"
+            pt = util.get_package_type(rname)
+            for pfile in util.get_package_resource_files(pkg):
+                data = util.load_yaml_resource(pkg, pfile.name)
                 package = Package(data["id"], pt)
                 package.load(data, formulas)
                 self.packages.append(package)
-
-    def load_user_data(self, upackage):
-        path = resources.files(upackage)
-        for path in path.glob(f"*{config.DEFS_EXT}"):
-            ptype = self._get_package_type(path.stem)
-            data = self._load_data_resource(upackage, path.name)
-            for pd in data:
-                package = UserPackage(pd["id"], ptype)
-                package.load(pd)
-                self.user_packages.append(package)
-
-    def add_user_package(self, package, labels=None):
-        # add default labels for package
-        plabels = package.labels
-        if labels:
-            plabels.extend(labels)
-
-        user_package = UserPackage(package.id, package.type, plabels)
-        resource = self._get_resource_name(package.type)
-        self._add_data_resource(config.USER_DATA_PKG, resource, user_package.data)
-
-    def remove_user_package(self, user_package):
-        resource = self._get_resource_name(user_package.type)
-        self._remove_data_resource(config.USER_DATA_PKG, resource, user_package.data)
-
-    def get_user_packages(self, package_type, os="any", id=None, labels=None):
-        packages = []
-        for user_package in self.user_packages:
-            package = self.get_package(package_type, user_package.id)
-            if (
-                user_package.type == package_type
-                and user_package.has_labels(labels)
-                and (package is None or package.is_compatible(os))
-                and (id is None or user_package.id == id)
-            ):
-                packages.append(user_package)
-        return sorted(packages, key=lambda p: p.id)
-
-    def get_user_package(self, package_type, id):
-        packages = self.get_user_packages(package_type, id=id)
-        return packages[0] if packages else None
-
-    def has_user_package(self, package_type, id):
-        return bool(self.get_user_package(package_type, id))
-
-    def has_any_user_package(self, package_type, labels):
-        return bool(self.get_user_packages(package_type, labels=labels))
 
     def get_packages(self, package_type, os="any", id=None, labels=None):
         packages = []
@@ -118,56 +91,76 @@ class AppMan:
                 packages.append(package)
         return sorted(packages, key=lambda p: p.id)
 
+    def get_package(self, package_type, id, os="any"):
+        packages = self.get_packages(package_type, id=id, os=os)
+        return packages[0] if packages else None
+
+    def switch(self, url):
+        shutil.rmtree(self.repo_path)
+        self.init(url)
+        self.load()
+
+    def clone(self):
+        logger.info(f"Initializing source repo: {self.url}")
+        subprocess.run(["git", "clone", self.url, self.repo_path], check=True)
+
+    def update(self):
+        logger.info(f"Updating source repo: {self.url}")
+        subprocess.run(["git", "-C", self.repo_path, "pull"], check=True)
+
+
+class UserPackageRepo:
+    def __init__(self):
+        self.packages = []
+        self.load(config.USER_DATA_PKG)
+
+    def load(self, upackage):
+        for path in util.get_package_resource_files(upackage):
+            ptype = util.get_package_type(path.stem)
+            data = util.load_yaml_resource(upackage, path.name)
+            for pd in data:
+                package = UserPackage(pd["id"], ptype)
+                package.load(pd)
+                self.packages.append(package)
+
+    def add_package(self, package, labels=None):
+        # add default labels for package
+        plabels = package.labels
+        if labels:
+            plabels.extend(labels)
+
+        user_package = UserPackage(package.id, package.type, plabels)
+        # self.packages.append(user_package)
+
+        resource = util.get_resource_name(package.type)
+        util.add_data_resource(
+            config.USER_DATA_PKG, f"{resource}{config.DEFS_EXT}", user_package.data
+        )
+
+    def remove_package(self, user_package):
+        # self.packages.remove(user_package)
+        resource = util.get_resource_name(user_package.type)
+        util.remove_data_resource(
+            config.USER_DATA_PKG, f"{resource}{config.DEFS_EXT}", user_package.data
+        )
+
+    def get_packages(self, package_type, id=None, labels=None):
+        packages = []
+        for user_package in self.packages:
+            if (
+                user_package.type == package_type
+                and user_package.has_labels(labels)
+                and (id is None or user_package.id == id)
+            ):
+                packages.append(user_package)
+        return sorted(packages, key=lambda p: p.id)
+
     def get_package(self, package_type, id):
         packages = self.get_packages(package_type, id=id)
         return packages[0] if packages else None
 
-    def _load_data_resource(self, package, resource):
-        with resources.open_text(package, resource) as file:
-            data = yaml.load(file, Loader=yaml.FullLoader)
-        return data
-
-    def _add_data_resource(self, package, resource, data):
-        content = self._read_data_resource(package, resource)
-        if not content:
-            content = []
-        elif not isinstance(content, list):
-            raise TypeError
-
-        content.append(data)
-        content = sorted(content, key=lambda o: o["id"])
-        self._write_data_resource(package, resource, content)
-
-    def _remove_data_resource(self, package, resource, data):
-        content = self._read_data_resource(package, resource)
-        content.remove(data)
-        self._write_data_resource(package, resource, content)
-
-    def _read_data_resource(self, package, resource):
-        fpath = self._get_resource_file(package, resource)
-        if not fpath.exists():
-            return None
-        with open(fpath, encoding="utf-8") as file:
-            return yaml.load(file, Loader=yaml.FullLoader)
-
-    def _write_data_resource(self, package, resource, data):
-        fpath = self._get_resource_file(package, resource)
-        with open(fpath, "w", encoding="utf-8") as file:
-            yaml.dump(data, file)
-
-    def _get_data_resource_files(self, package):
-        path = resources.files(package)
-        yield from path.glob(f"*{config.DEFS_EXT}")
-
-    def _get_resource_file(self, package, resource):
-        path = resources.files(package)
-        return path.joinpath(f"{resource}{config.DEFS_EXT}")
-
-    def _get_resource_name(self, ptype):
-        return next(self.pts[pt]["pkg"] for pt in self.pts if pt == ptype)
-
-    def _get_package_type(self, resource):
-        return next(pt for pt in self.pts if self.pts[pt]["pkg"] == resource)
+    def has_package(self, package_type, id):
+        return bool(self.get_package(package_type, id))
 
 
 class CommonPackage:
@@ -384,9 +377,32 @@ class Command:
 class Config:
     pt_sep = "-"
 
-    def __init__(self, data):
-        self.pms = data["package-managers"]
-        self.tags = data["tags"]
+    def __init__(self, package, resource):
+        self.pkg = package
+        self.resource = resource
+        self.repo = None
+        self.pms = []
+        self.tags = []
+        self.load()
+
+    def load(self):
+        data = util.load_yaml_resource(self.pkg, self.resource)
+        if "repository" in data:
+            self.repo = data["repository"]
+        if "package-managers" in data:
+            self.pms = data["package-managers"]
+        if "tags" in data:
+            self.tags = data["tags"]
+
+    def save(self):
+        data = {}
+        if self.repo:
+            data["repository"] = self.repo
+        if self.pms:
+            data["package-managers"] = self.pms
+        if self.tags:
+            data["tags"] = self.tags
+        util.write_yaml_resource(self.pkg, self.resource, data)
 
     def get_pm_defaults(self, ptype):
         pts = ptype.split(self.pt_sep)
