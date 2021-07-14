@@ -49,7 +49,7 @@ class AppMan:
 
 
 class Repo:
-    repo_path = util.get_package_path(config.REPO_PKG)
+    repo_path = util.get_repo_path()
 
     def __init__(self, url):
         self.init(url)

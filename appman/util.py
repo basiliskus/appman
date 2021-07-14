@@ -129,24 +129,18 @@ def get_package_type(resource):
 
 
 def get_resource_names():
-    names = []
-    for pt in config.PACKAGES_TYPES.keys():
-        pkg = get_resource_name(pt)
-        path = get_package_path(f"{config.REPO_PACKAGES_PKG}.{pkg}")
-        dirs = [
-            f.name for f in path.iterdir() if f.is_dir() and not f.name.startswith("__")
-        ]
-        if not dirs:
-            names.append(pkg)
-            continue
-        for dir in dirs:
-            names.append(f"{pkg}.{dir}")
-
-    return names
+    return [get_resource_name(pt) for pt in get_package_types()]
 
 
 def get_package_types():
-    return [get_package_type(rn) for rn in get_resource_names()]
+    package_types = []
+    for pt, v in config.PACKAGES_TYPES.items():
+        if "sub" in v:
+            for sub in v["sub"]:
+                package_types.append(f"{pt}-{sub}")
+        else:
+            package_types.append(pt)
+    return package_types
 
 
 def get_pt_choices():
@@ -158,3 +152,7 @@ def get_pt_choices():
         if psub:
             choices[pname].append(psub[0])
     return choices
+
+
+def get_repo_path():
+    return get_package_path(config.APPMAN_PKG) / config.REPO_DIR
