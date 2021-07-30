@@ -16,3 +16,4 @@ package-manager:
   windows: list(required=False)
   ubuntu: list(required=False)
   darwin: list(required=False)
+  arch: list(required=False)

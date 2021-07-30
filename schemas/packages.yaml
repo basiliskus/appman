@@ -7,10 +7,10 @@ custom-formulas: list(include('custom-formula'), required=False)
 comments: str(required=False)
 homepage: str(required=False)
 notes: str(required=False)
-requires: str(required=False)
+requires: list(str(), required=False)
 ---
 custom-formula:
-  os: enum('linux', 'windows', 'darwin', 'ubuntu', 'unix-like', 'any')
+  os: enum('linux', 'windows', 'darwin', 'ubuntu', 'arch', 'unix-like', 'any')
   shell:  enum('cmd', 'powershell', required=False)
   commands:
     install: str(required=False)
