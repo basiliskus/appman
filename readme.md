@@ -2,7 +2,7 @@
 
 appman is cross-platform application management aggregator
 
-[![Build Status](https://travis-ci.com/basiliskus/appman.svg?branch=main)](https://travis-ci.com/basiliskus/appman)
+[![Build Status](https://app.travis-ci.com/basiliskus/appman.svg?branch=main)](https://app.travis-ci.com/basiliskus/appman)
 
 <p align="center"><img src="https://raw.githubusercontent.com/basiliskus/appman/main/docs/demo.gif"/></p>
 
