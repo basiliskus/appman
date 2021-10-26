@@ -21,7 +21,11 @@ Improvements:
     [ ] add integration tests
   Documentation:
 Bugs:
-
+  [ ] misleading user message "was not installed" after installing succesfully: rust, nvm
+  [ ] Installing nodejs: "/bin/sh: 1: nvm: not found" - when nvm is installed
+  [ ] Installing yq: "no writable keyring found: Not found"
+  [ ] Installing syncthing: fix user output
+  [ ] Formula not found for golang
 Archive:
   New Features:
     [x] make compatible with python 3.8 @done(21-07-02 16:07)
