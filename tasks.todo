@@ -1,5 +1,6 @@
 New Features:
   CLI:
+    [ ] add new package to main repo and auto-pull info from github, given url (name, description, homepage)
     [ ] create 'buckets' to handle multiple sources of package definitions
     [ ] create command to add labels to existing user package
     [ ] create update-all command
