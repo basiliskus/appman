@@ -16,18 +16,18 @@ repository = "https://github.com/basiliskus/appman.git"
 appman = 'appman.cli:main'
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 pyyaml = "^5.3.1"
 click = "^8.0.1"
-PyInquirer = "^1.0.3"
 distro = "^1.5.0"
 importlib-resources = "^5.2.0"
+inquirerpy = "^0.3.4"
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2.4"
-yamale = "^3.0.6"
-flake8 = "^3.9.2"
-black = {version = "^21.6b0", allow-prereleases = true}
+pytest = "*"
+yamale = "*"
+flake8 = "*"
+black = "*"
 
 [tool.pytest.ini_options]
 addopts = "-ra -v"

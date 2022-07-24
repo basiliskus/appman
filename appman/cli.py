@@ -2,7 +2,7 @@ import platform
 
 import click
 import distro
-import PyInquirer
+from InquirerPy import prompt
 
 from . import log
 from . import core
@@ -192,7 +192,7 @@ def add(ctx, package_type, package_id, labels, os, verbose, quiet, interactive):
             questions = get_prompt_questions(
                 "checkbox", f"Select {package_type} packages to add:", qname, choices
             )
-            answers = PyInquirer.prompt(questions)
+            answers = prompt(questions)
             pids = answers[qname]
             for pid in pids:
                 pkg = appman.get_package(package_type, pid)
@@ -247,7 +247,7 @@ def remove(ctx, package_type, package_id, labels, os, verbose, quiet, interactiv
             questions = get_prompt_questions(
                 "checkbox", f"Select {package_type} packages to remove:", qname, choices
             )
-            answers = PyInquirer.prompt(questions)
+            answers = prompt(questions)
             pids = answers[qname]
             for pid in pids:
                 usr_pkg = appman.get_user_package(package_type, pid)
@@ -315,7 +315,7 @@ def prompt_package_type(suffix="", choices=util.get_pt_choices()):
     questions = get_prompt_questions(
         "list", "Select the package type:", "ptype", choice_list
     )
-    answers = PyInquirer.prompt(questions)
+    answers = prompt(questions)
     ptype = f"{suffix}-{answers['ptype']}" if suffix else answers["ptype"]
     if isinstance(choices, dict) and choices[ptype]:
         return prompt_package_type(ptype, choices[ptype])
