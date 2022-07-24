@@ -1,16 +1,17 @@
 repository: https://github.com/basiliskus/appman-main
 package-managers:
   app:
-    arch: [pacman, npm, pip, cargo, go, conda, nvm, snap]
-    darwin: [brew, npm, pip, cargo, go, conda, nvm]
-    ubuntu: [apt, npm, pip, cargo, go, conda, nvm, snap]
-    windows: [scoop, choco, npm, pip, cargo, go, conda]
+    arch: [ pacman, npm, pip, cargo, go, conda, nvm ]
+    darwin: [ brew, mas, npm, pip, cargo, go, conda, nvm ]
+    fedora: [ dnf, npm, pip, cargo, go, nvm ]
+    ubuntu: [ apt, npm, pip, cargo, go, conda, nvm ]
+    windows: [ winget, scoop, npm, pip, cargo, go, conda, choco ]
   font:
-    arch: [pacman]
-    darwin: [brew]
-    fedora: [dnf]
-    ubuntu: [font-local-share]
-    windows: [scoop]
+    arch: [ pacman ]
+    darwin: [ brew ]
+    fedora: [ dnf ]
+    ubuntu: [ font-local-share ]
+    windows: [ scoop ]
   driver:
     any: []
   provisioned:
