@@ -10,7 +10,7 @@ notes: str(required=False)
 requires: list(str(), required=False)
 ---
 custom-formula:
-  os: enum('linux', 'windows', 'darwin', 'ubuntu', 'arch', 'unix-like', 'any')
+  os: enum('linux', 'windows', 'darwin', 'ubuntu', 'arch', 'fedora', 'unix-like', 'any')
   shell:  enum('cmd', 'powershell', required=False)
   commands:
     install: str(required=False)

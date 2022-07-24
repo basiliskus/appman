@@ -17,3 +17,4 @@ package-manager:
   ubuntu: list(required=False)
   darwin: list(required=False)
   arch: list(required=False)
+  fedora: list(required=False)

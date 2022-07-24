@@ -1,4 +1,4 @@
-OS = ["windows", {"unix-like": [{"linux": ["ubuntu", "arch"]}, "darwin"]}]
+OS = ["windows", {"unix-like": [{"linux": ["ubuntu", "arch", "fedora"]}, "darwin"]}]
 OS_SUPPORTED = ["linux", "windows", "darwin"]
 DEFS_EXT = ".yaml"
 
