@@ -17,11 +17,11 @@ appman = 'appman.cli:main'
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pyyaml = "^5.3.1"
-click = "^8.0.1"
-distro = "^1.5.0"
-importlib-resources = "^5.2.0"
-inquirerpy = "^0.3.4"
+pyyaml = "*"
+click = "*"
+distro = "*"
+importlib-resources = "*"
+inquirerpy = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
